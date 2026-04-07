@@ -6,7 +6,9 @@
   "scripts": {
     "build": "npm run delete-dist && npm run ng build evo-lib",
     "build:watch": "ng build  -- --watch",
-    "patch:publish": "npm version patch --no-git-tag-version && cd projects/evo-lib && npm version patch --no-git-tag-version && cd .. && npm run build && npm run publish-dist",
+    "PUBLISH:PATCH": "npm version patch --no-git-tag-version && cd projects/evo-lib && npm version patch --no-git-tag-version && cd .. && npm run build && npm run publish-dist",
+    "PUBLISH:MINOR": "npm version minor --no-git-tag-version && cd projects/evo-lib && npm version minor --no-git-tag-version && cd .. && npm run build && npm run publish-dist",
+    "PUBLISH:MAJOR": "npm version major --no-git-tag-version && cd projects/evo-lib && npm version major --no-git-tag-version && cd .. && npm run build && npm run publish-dist",
     "publish-dist": "npm publish --tag ng11-15",
     "ng": "ng",
     "start": "ng serve",
