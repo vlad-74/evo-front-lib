@@ -33,6 +33,7 @@ speed-measure-plugin*.json
 
 # IDEs and editors
 /.idea
+.idea/git_toolbox_prj.xml
 .project
 .classpath
 .c9/
