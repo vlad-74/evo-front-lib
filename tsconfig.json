@@ -6,10 +6,7 @@
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "paths": {
-        "evo-lib": [
-            "dist/evo-lib/evo-lib",
-            "dist/evo-lib"
-        ]
+        "evo-lib": [ "dist/evo-lib" ]
     },
     "strict": true,
     "noImplicitReturns": true,
