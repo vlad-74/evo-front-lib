@@ -1,12 +1,12 @@
 {
   "name": "evo-lib",
-  "version": "11.0.00",
+  "version": "11.0.2",
   "description": "Angular library for automating frontend developer work.",
   "author": "Vladimir Kurguzov <kurguzov74@gmail.com>",
   "scripts": {
     "build": "npm run delete-dist && npm run ng build evo-lib",
     "build:watch": "ng build  -- --watch",
-    "patch:publish": "npm version patch --no-git-tag-version && npm run build && npm run publish-dist",
+    "patch:publish": "npm version patch --no-git-tag-version && cd projects/evo-lib && npm version patch --no-git-tag-version && cd .. && npm run build && npm run publish-dist",
     "publish-dist": "npm publish --tag ng11-15",
     "ng": "ng",
     "start": "ng serve",
