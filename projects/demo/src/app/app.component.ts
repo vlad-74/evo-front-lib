@@ -23,35 +23,36 @@ npm install
 export class AppComponent implements OnInit {
     title = 'demo';
 
-    public ngOnInit(): void {
+    public async ngOnInit(): Promise<void> {
+
+        // evo.debug.logAll.accessType = false;
 
         setTimeout(() => {
-            evo.theme.l.send({name: 'white'});
+                evo.theme.l.send({name: 'white'});
 
-            evo.exchange.l.send(
-                {
-                    from: 'AppComponent',
-                    to: ['ChildComponentComponent'],
-                    source: {
-                        name: exchangeNameEnum.RunAction,
-                        data: {
-                            name: 'exchChangeText',
-                            arguments: ['Текст из родительского компонента переданный через систему exchange!!!'],
+                evo.exchange.l.send(
+                    {
+                        from: 'AppComponent',
+                        to: ['ChildComponentComponent'],
+                        source: {
+                            name: exchangeNameEnum.RunAction,
+                            data: {
+                                name: 'exchChangeText',
+                                arguments: ['Текст из родительского компонента переданный через систему exchange!!!'],
+                            }
                         }
                     }
-                }
-            );
+                );
 
             },
             5000);
-        console.log('-----------------------evo!!!', evo);
+        // console.log('-----------------------evo!!!', evo);
 
-        // evo.debug.logAll.accessType = false;
         evo.log.color('red', 'logAll', 'common', 'Красное сообщение');
         evo.log.warn('logAll', 'common', '1. Тестовое сообщение');
-        // evo.debug.logAwaitTryCatch.accessType = false;
-        evo.log.warn('awaitTryCatch', 'common', '2. Тестовое сообщение');
 
+        // evo.debug.awaitTryCatch.accessType = false;
+        await evo.awaitTryCatch.getResult(fetch('https://jsonplaceholder.typicode.com/users/1'));
     }
 
 }

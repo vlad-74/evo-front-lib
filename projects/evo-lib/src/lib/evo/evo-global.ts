@@ -9,6 +9,7 @@ import {setupSubscriptions} from './evo-subscriptions';
 import {TEvo} from './evo.interface';
 import {EvoExchange} from './exchange/evo-exchange';
 import {CheckEvoWorker} from './workers/validations.worker';
+import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 
 
 // ------------------------------
@@ -53,7 +54,11 @@ export const evoBase: TEvo = {
     /** Система взаимодействия между компонентами */
     exchange: new EvoExchange(),
 
+    /** Проверка компонентов при extends */
     checkEvo: new CheckEvoWorker(),
+
+    /** Обработка Promise с использованием try-catch */
+    awaitTryCatch: new AwaitTryCatchService(),
 };
 
 (window as any).evo = evoBase;

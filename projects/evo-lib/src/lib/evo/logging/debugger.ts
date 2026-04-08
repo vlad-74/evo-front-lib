@@ -44,7 +44,7 @@ export type TLoggingAccessType = Record<TLoggingTypes, IDebugger>;
 export const evoLoggingAccessType: TLoggingAccessType = {
     // logAll - доступ ко ВСЕМУ логированию, может меняться только значение для accessType
     logAll: { accessType: true, accessProcess: ['common'], isLocalhost },
-    awaitTryCatch: { accessType: true, accessProcess: [], isLocalhost },
+    awaitTryCatch: { accessType: true, accessProcess: ['common'], isLocalhost },
     devices: { accessType: true, accessProcess: ['common'], isLocalhost },
     screen: { accessType: true, accessProcess: ['common'], isLocalhost },
     theme: { accessType: true, accessProcess: ['common'], isLocalhost },

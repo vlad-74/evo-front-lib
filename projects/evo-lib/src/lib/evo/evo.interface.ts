@@ -3,6 +3,7 @@ import {TEvoLog} from './logging/logger.interface';
 import {IDevicesScreen} from './devices-screen/devices-screen';
 import {IEvoTheme} from './theme/evo-theme';
 import {IEvoExchange} from './exchange/evo-exchange';
+import {IAwaitTryCatchWorker} from './await-try-catch/await-try-catch.service';
 
 export type TNullable<T> = T | null;
 
@@ -30,5 +31,8 @@ export type TEvo = {
     /** Система взаимодействия между компонентами */
     exchange: IEvoExchange;
 
+    /** Проверка компонентов при extends */
     checkEvo: any;
+
+    awaitTryCatch: IAwaitTryCatchWorker
 };

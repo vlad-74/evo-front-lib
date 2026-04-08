@@ -1,4 +1,3 @@
-/* tslint:disable:no-shadowed-variable */
 import { beforeLogging } from './logger-validator';
 import { TLoggingTypes, TAccessProcess } from './debugger';
 import { colorStyles, TColor } from './logger.interface';
@@ -49,7 +48,7 @@ function warn(
 
 /**
  * color - цветное логирование в консоли с валидацией
- * @param color - цвет текста
+ * @param colorLog - цвет текста
  * @param loggingType - тип логирования (logAll, awaitTryCatch)
  * @param processName - название процесса
  * @param messages - сообщения для логирования
@@ -59,13 +58,13 @@ function warn(
  * evo.log.color('green', 'awaitTryCatch', 'process2', 'Зеленое сообщение', { obj: true })
  */
 function color(
-    color: TColor,
+    colorLog: TColor,
     loggingType: TLoggingTypes,
     processName: TAccessProcess,
     ...messages: unknown[]
 ): void {
     // Проверяем наличие цвета
-    if (!colorStyles[color]) {
+    if (!colorStyles[colorLog]) {
         return;
     }
 
@@ -82,7 +81,7 @@ function color(
     const styledPrefix = `%c${prefix}`;
 
     // Первый аргумент - стилизованный префикс, затем стиль, затем остальные сообщения
-    console.log(styledPrefix, colorStyles[color], ...validationResult.restArgs);
+    console.log(styledPrefix, colorStyles[colorLog], ...validationResult.restArgs);
 }
 
 /**
