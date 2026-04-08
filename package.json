@@ -13,6 +13,7 @@
         "publish-dist": "npm publish dist/evo-lib --tag ng11-15",
         "ng": "ng",
         "start": "ng serve",
+        "start-demo": "ng serve demo",
         "mobile-host": "ng serve --host 0.0.0.0 -o",
         "delete-dist": "rimraf dist",
         "test": "ng test",

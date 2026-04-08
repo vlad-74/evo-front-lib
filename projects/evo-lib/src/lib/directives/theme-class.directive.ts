@@ -22,7 +22,7 @@ import '../evo/evo-global-declare';
  * ```
  *
  * ```html
- *  [themeClass]="['license-widget']
+ *  [evoThemeClass]="['license-widget']
  * ```
  */
 @Directive({
@@ -34,7 +34,7 @@ export class ThemeClassDirective implements OnInit, OnDestroy {
      * Массив базовых CSS-классов, к которым будет добавлен суффикс темы
      * Пример: ['button', 'btn'] и теме 'dark' добавятся классы 'button_dark' и 'btn_dark'
      */
-    @Input() themeClass: string[] = [];
+    @Input() evoThemeClass: string[] = [];
 
     /**
      * Массив предыдущих примененных темизированных классов.
@@ -106,8 +106,8 @@ export class ThemeClassDirective implements OnInit, OnDestroy {
      * @param theme - название текущей темы
      */
     private _addNewClassNames(theme: string): void {
-        if (this.themeClass && this.themeClass.length > 0 && theme) {
-            this.themeClass.forEach(themeClas => {
+        if (this.evoThemeClass && this.evoThemeClass.length > 0 && theme) {
+            this.evoThemeClass.forEach(themeClas => {
                 const themedClassName = `${themeClas}_${theme}`;
                 this.previousClassNames.push(themedClassName);
                 this.elementRef.nativeElement.classList.add(themedClassName);
