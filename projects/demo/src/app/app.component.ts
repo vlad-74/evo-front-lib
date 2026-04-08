@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {exchangeNameEnum} from 'evo-lib';
 
+/**
+ * AppComponent - компонент для дебага библиотеки 'evo-lib'
+ *
+ * !!! Если непонятки с использованием библиотеки 'evo-lib' - например evo или exchangeNameEnum
+ *
+ * Удалить node_modules и переустановить
+ * Remove-Item -Path node_modules -Recurse -Force npm install
+ */
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
