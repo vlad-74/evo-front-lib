@@ -1,6 +1,6 @@
 {
     "name": "evo-lib-workspace",
-    "version": "0.0.0",
+    "version": "11.0.0",
     "private": true,
     "description": "Workspace for evo-lib Angular library",
     "author": "Vladimir Kurguzov <kurguzov74@gmail.com>",
