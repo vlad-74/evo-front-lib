@@ -1,5 +1,5 @@
 /** Режим разработки, для логирования */
-const isLocalhost = window.location.hostname === 'localhost';
+export const isLocalhost = window.location.hostname === 'localhost';
 
 // -------------------------------------------------
 /** Процесс логирования */

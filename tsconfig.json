@@ -2,27 +2,22 @@
 {
     "compileOnSave": false,
     "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "paths": {
-        "evo-lib": [ "dist/evo-lib" ]
-    },
-    "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "module": "es2020",
-    "lib": [
-        "es2018",
-        "dom"
-    ]
+        "baseUrl": "./",
+        "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": true,
+        "paths": { "evo-lib": [ "projects/evo-lib/src/public-api.ts" ] },
+        "strict": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "target": "es2015",
+        "module": "es2020",
+        "lib": [ "es2018", "dom" ]
     },
     "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -30,10 +25,5 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
     },
-    "exclude": [
-        "dist",
-        "node_modules",
-        "**/*.spec.ts"
-    ]
-
+    "exclude": [ "dist", "node_modules", "**/*.spec.ts" ]
 }

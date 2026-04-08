@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 
-import {evoLoggingAccessType} from './logging/debugger';
+import {evoLoggingAccessType, isLocalhost} from './logging/debugger';
 import {logService} from './logging/logger';
 import {DevicesScreen} from './devices-screen/devices-screen';
 import {EvoTheme} from './theme/evo-theme';
@@ -8,6 +8,7 @@ import {devices} from './devices-screen/devices/devices';
 import {setupSubscriptions} from './evo-subscriptions';
 import {TEvo} from './evo.interface';
 import {EvoExchange} from './exchange/evo-exchange';
+import {CheckEvoWorker} from './workers/validations.worker';
 
 
 // ------------------------------
@@ -29,6 +30,8 @@ const evoStart = {
         console.log('EVO destroyed - subscriptions & window');
     },
 
+    isLocalhost,
+
     /**  Инструменты отладки (например, включение/выключение логов) */
     debug: evoLoggingAccessType,
 
@@ -49,6 +52,8 @@ export const evoBase: TEvo = {
 
     /** Система взаимодействия между компонентами */
     exchange: new EvoExchange(),
+
+    checkEvo: new CheckEvoWorker(),
 };
 
 (window as any).evo = evoBase;

@@ -1,5 +1,5 @@
 /** Маяк для оповещения о размерах экранов и страрицы */
-import {baseLighthouse} from '../_lighthouse/base-lighthouse';
+import {BaseLighthouse} from '../_lighthouse/base-lighthouse';
 
 
 export interface ITheme {
@@ -10,7 +10,7 @@ export interface ITheme {
     };
 }
 
-export class ThemeLighthouse extends baseLighthouse<ITheme>{
+export class ThemeLighthouse extends BaseLighthouse<ITheme>{
 
     public constructor() {
         super('theme'); // Передаём тип для логирования и отладки

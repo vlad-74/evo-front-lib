@@ -7,6 +7,8 @@ import {IEvoExchange} from './exchange/evo-exchange';
 export type TNullable<T> = T | null;
 
 export type TEvo = {
+    isLocalhost: boolean;
+
     /**  Полная очистка всех подписок и ресурсов */
     destroy: () => void;
 
@@ -27,4 +29,6 @@ export type TEvo = {
 
     /** Система взаимодействия между компонентами */
     exchange: IEvoExchange;
+
+    checkEvo: any;
 };

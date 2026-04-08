@@ -1,5 +1,5 @@
 /** Маяк для бмена функционалом (методы и свойства) между компонентами */
-import {baseLighthouse} from '../_lighthouse/base-lighthouse';
+import {BaseLighthouse} from '../_lighthouse/base-lighthouse';
 import {IExchangeSource} from './exchange.interface';
 
 
@@ -13,16 +13,16 @@ import {IExchangeSource} from './exchange.interface';
  *            to: ['EvoRootLighthousesComponent'],
  *            source: {
  *                 name: exchangeNameEnum.ChangeProperty,
- *                 data: {
- *                     name: 'exchIsShowLoader',
- *                     value: this.takeLoader.length > 0,
- *                 }
+ *                        data: {
+ *                             name: 'exchChangeText',
+ *                             arguments: ['Текст из родительского компонента переданный через систему exchange!!!'],
+ *                         }
  *            }
  *         });
  */
 
 
-export class ExchangeLighthouse extends baseLighthouse<IExchangeSource>{
+export class ExchangeLighthouse extends BaseLighthouse<IExchangeSource>{
 
     public constructor() {
         super('exchange'); // Передаём тип для логирования и отладки
