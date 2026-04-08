@@ -10,7 +10,7 @@ export class AppComponent  implements OnInit {
 
     public ngOnInit(): void {
         setTimeout(() => { evo.theme.l.send({name: 'white'}); }, 5000);
-        console.log('-----------------------evo', evo);
+        console.log('-----------------------evo!!!', evo);
         // evo.debug.logAll.accessType = false;
         evo.log.color('red', 'logAll', 'common', 'Красное сообщение');
         evo.log.warn('logAll', 'common', '1. Тестовое сообщение');

@@ -1,5 +1,3 @@
-// Расширение глобального интерфейса `Window`, чтобы TypeScript знал,
-// что у `window` есть свойство `evo` нужного типа
 import {TEvo} from './evo.interface';
 
 declare global {
