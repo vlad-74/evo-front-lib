@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import {ThemeClassDirective} from './directives/theme-class.directive';
+import {EvoThemeClassDirective} from './directives/evo-theme-class.directive';
 
 
 @NgModule({
   declarations: [
-    ThemeClassDirective
+    EvoThemeClassDirective
   ],
   imports: [
   ],
   exports: [
-    ThemeClassDirective
+    EvoThemeClassDirective
   ]
 })
 export class EvoLibModule { }

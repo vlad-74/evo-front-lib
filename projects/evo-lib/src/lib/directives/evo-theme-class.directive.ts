@@ -28,7 +28,7 @@ import '../evo/evo-global-declare';
 @Directive({
     selector: '[evoThemeClass]'
 })
-export class ThemeClassDirective implements OnInit, OnDestroy {
+export class EvoThemeClassDirective implements OnInit, OnDestroy {
     //region Properties
     /**
      * Массив базовых CSS-классов, к которым будет добавлен суффикс темы

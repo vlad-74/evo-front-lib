@@ -1,1 +1,1 @@
-export * from './theme-class.directive';
+export * from './evo-theme-class.directive';
