@@ -3,10 +3,11 @@ import { Subject } from 'rxjs';
 import {evoLoggingAccessType} from './logging/debugger';
 import {logService} from './logging/logger';
 import {DevicesScreen} from './devices-screen/devices-screen';
-import {Theme} from './theme/theme';
+import {EvoTheme} from './theme/evo-theme';
 import {devices} from './devices-screen/devices/devices';
 import {setupSubscriptions} from './evo-subscriptions';
 import {TEvo} from './evo.interface';
+import {EvoExchange} from './exchange/evo-exchange';
 
 
 // ------------------------------
@@ -15,7 +16,7 @@ const libraryDestroy$ = new Subject<void>();
 
 // Этап 1: базовая инициализация (debug и log)
 const evoStart = {
-    // Метод для отписки от всех подписок и для очистки window.evo
+    /**  Полная очистка всех подписок и ресурсов */
     destroy(): void {
         libraryDestroy$.next();
         libraryDestroy$.complete();
@@ -27,9 +28,11 @@ const evoStart = {
 
         console.log('EVO destroyed - subscriptions & window');
     },
-    // настройка логирования
+
+    /**  Инструменты отладки (например, включение/выключение логов) */
     debug: evoLoggingAccessType,
-    // логирование
+
+    /**  Система логирования */
     log: logService,
 };
 
@@ -37,9 +40,15 @@ const evoStart = {
 export const evoBase: TEvo = {
     ...evoStart,
     help: 'раздел в разработке',
-    // информация об экране на основе предоставленной информации о девайсах
+
+    /**  Управление экранами устройств */
     devicesScreen:  new DevicesScreen(),
-    theme: new Theme(),
+
+    /**  Тема интерфейса (цвета, стили и т.д.) */
+    theme: new EvoTheme(),
+
+    /** Система взаимодействия между компонентами */
+    exchange: new EvoExchange(),
 };
 
 (window as any).evo = evoBase;

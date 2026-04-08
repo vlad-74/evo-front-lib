@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {exchangeNameEnum} from 'evo-lib';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,19 @@ export class AppComponent  implements OnInit {
     title = 'demo';
 
     public ngOnInit(): void {
+        evo.exchange.l.send(
+            {
+                from: 'AppComponent',
+                to: ['EvoRootLighthousesComponent'],
+                source: {
+                    name: exchangeNameEnum.ChangeProperty,
+                    data: {
+                        name: 'exchIsShowLoader',
+                        value: null,
+                    }
+                }
+            }
+        );
         setTimeout(() => { evo.theme.l.send({name: 'white'}); }, 5000);
         console.log('-----------------------evo!!!', evo);
         // evo.debug.logAll.accessType = false;
