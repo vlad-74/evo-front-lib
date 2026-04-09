@@ -51,6 +51,10 @@ export class EvoThemeClassDirective implements OnInit, OnDestroy {
 
     //region Lifecycle hooks
     public ngOnInit(): void {
+        if (!evo.debug.theme.accessProcess.includes('directive')) {
+            // evo.debug.theme.accessProcess.push('directive');
+        }
+
         evo.theme.l.lighthouse$
             .pipe(
                 takeUntil(this.destroyed$),
@@ -61,7 +65,7 @@ export class EvoThemeClassDirective implements OnInit, OnDestroy {
                 evo.log.colorWarn(
                     'green',
                     'theme',
-                    'common',
+                    'directive',
                     `Подписка на тему в директиве - ${theme.name}`
                 );
                 this._updateClassNames(theme.name);

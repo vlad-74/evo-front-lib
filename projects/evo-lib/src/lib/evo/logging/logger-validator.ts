@@ -65,7 +65,6 @@ export function beforeLogging(args: unknown[]): { validation: IValidationResult;
             restArgs: []
         };
     }
-
     const loggingType = args[0] as TLoggingTypes;
     const processName = args[1] as TAccessProcess;
     const messages = args.slice(2);

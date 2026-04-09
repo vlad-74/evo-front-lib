@@ -3,11 +3,19 @@ export const isLocalhost = window.location.hostname === 'localhost';
 
 // -------------------------------------------------
 /** Процесс логирования */
-export type TAccessProcess = 'common' | 'process1' | 'process2' | 'process3' | 'process4' | 'process5'  | 'process6' | 'process7' | 'process8' | 'process9' | 'process10';
+export type TAccessProcess = 'common' | 'directive' | 'process1' | 'process2' | 'process3' | 'process4' | 'process5'  | 'process6' | 'process7' | 'process8' | 'process9' | 'process10';
 
-/** Используется при валидации логирования */
-export const accessProcessArray: TAccessProcess[] = [
+// !!! Вспомогательная функция для проверки наличия TAccessProcess в accessProcessArray
+function validateAccessProcessArray<T extends readonly TAccessProcess[]>(
+    arr: T & ([Exclude<TAccessProcess, T[number]>] extends [never] ? T : never)
+): T {
+    return arr;
+}
+
+/** Используется при валидации логирования - в beforeLogging - logger-validator.ts */
+export const accessProcessArray = validateAccessProcessArray([
     'common',
+    'directive',
     'process1',
     'process2',
     'process3',
@@ -18,7 +26,7 @@ export const accessProcessArray: TAccessProcess[] = [
     'process8',
     'process9',
     'process10',
-];
+]);
 
 // ---------------------------------------------------
 /** Интерфейс для каждого поля отладчика */

@@ -16,7 +16,7 @@ export class BaseLighthouse<T> implements ILighthouse<T> {
     public send(value: T): void {
         if (!value) { return; }
 
-        evo.log.colorWarn('magenta', this.type, 'common', 'Метод SEND в BaseLighthouse - ' + this.type, ' - ', value);
+        evo.log.colorWarn('magenta', this.type, 'common', 'Метод SEND - ' + this.type, ' - ', value);
 
         this.lighthouse$.next(value);
     }
