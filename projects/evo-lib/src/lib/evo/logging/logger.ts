@@ -209,7 +209,7 @@ export function colorWarn(
     // Для цветного warn применяем стиль только к префиксу
     const localTime = getLocalTimeWithMs();
     const counter = incrementCounter(loggingType);
-    const prefix = `- ${counter} - ${localTime} - ${loggingType} / ${processName} -`;
+    const prefix = `${counter} - ${localTime} - ${loggingType} / ${processName}`;
     const styledPrefix = `%c${prefix}`;
 
     // Используем console.warn вместо console.log
