@@ -62,7 +62,7 @@ export class EvoThemeClassDirective implements OnInit, OnDestroy {
                     'green',
                     'theme',
                     'common',
-                    `Тема - ${theme.name}`
+                    `Подписка на тему в директиве - ${theme.name}`
                 );
                 this._updateClassNames(theme.name);
 

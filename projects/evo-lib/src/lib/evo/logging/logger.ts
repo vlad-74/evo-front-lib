@@ -2,6 +2,35 @@ import { beforeLogging } from './logger-validator';
 import { TLoggingTypes, TAccessProcess, evoLoggingAccessType, loggingTypesArray } from './debugger';
 import { colorStyles, TColor } from './logger.interface';
 
+// Счетчики для каждого типа логирования - динамическая инициализация
+const messageCounters: Partial<Record<TLoggingTypes, number>> = {};
+
+/**
+ * Получает текущее местное время с миллисекундами
+ * @returns строка с временем в формате HH:MM:SS.mmm
+ */
+function getLocalTimeWithMs(): string {
+    const now = new Date();
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const seconds = now.getSeconds().toString().padStart(2, '0');
+    const milliseconds = now.getMilliseconds().toString().padStart(3, '0');
+
+    return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+}
+
+/**
+ * Увеличивает счетчик для указанного типа логирования
+ * @param loggingType - тип логирования
+ * @returns текущее значение счетчика
+ */
+function incrementCounter(loggingType: TLoggingTypes): number {
+    const currentValue = messageCounters[loggingType] || 0;
+    const newValue = currentValue + 1;
+    messageCounters[loggingType] = newValue;
+    return newValue;
+}
+
 /**
  * Форматирует сообщение для вывода (только для примитивных типов)
  * @param loggingType - тип логирования
@@ -11,8 +40,10 @@ import { colorStyles, TColor } from './logger.interface';
  * @returns объект с префиксом и остальными сообщениями
  */
 function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, messages: unknown[]): [string, ...unknown[]] {
-    const timestamp = new Date().toISOString();
-    const prefix = `[${timestamp}] [${loggingType}] [${processName}]`;
+    const localTime = getLocalTimeWithMs();
+    const counter = incrementCounter(loggingType);
+    // Формат: счетчик --- время --- тип --- [процесс] - сообщение
+    const prefix = `${counter} --- ${localTime} --- ${loggingType} --- [${processName}] -`;
 
     // Первый аргумент - префикс, остальные - исходные сообщения
     return [prefix, ...messages];
@@ -104,8 +135,9 @@ function color(
     }
 
     // Для цветного логирования нужно применить стиль только к префиксу
-    const timestamp = new Date().toISOString();
-    const prefix = `[${timestamp}] [${loggingType}] [${processName}]`;
+    const localTime = getLocalTimeWithMs();
+    const counter = incrementCounter(loggingType);
+    const prefix = `${counter} --- ${localTime} --- ${loggingType} --- [${processName}] -`;
     const styledPrefix = `%c${prefix}`;
 
     // Первый аргумент - стилизованный префикс, затем стиль, затем остальные сообщения
@@ -175,12 +207,31 @@ export function colorWarn(
     }
 
     // Для цветного warn применяем стиль только к префиксу
-    const timestamp = new Date().toISOString();
-    const prefix = `[${timestamp}] [${loggingType}] [${processName}]`;
+    const localTime = getLocalTimeWithMs();
+    const counter = incrementCounter(loggingType);
+    const prefix = `- ${counter} - ${localTime} - ${loggingType} - [${processName}] -`;
     const styledPrefix = `%c${prefix}`;
 
     // Используем console.warn вместо console.log
     console.warn(styledPrefix, colorStyles[colorLog], ...validationResult.restArgs);
+}
+
+/**
+ * Сброс счетчиков для всех типов логирования
+ */
+export function resetCounters(): void {
+    for (const key in messageCounters) {
+        if (Object.prototype.hasOwnProperty.call(messageCounters, key)) {
+            delete messageCounters[key as TLoggingTypes];
+        }
+    }
+}
+
+/**
+ * Получение текущих значений счетчиков
+ */
+export function getCounters(): Partial<Record<TLoggingTypes, number>> {
+    return { ...messageCounters };
 }
 
 export const logService = {
@@ -190,5 +241,7 @@ export const logService = {
     log,
     colorWarn,
     disableAllExceptLogAll,
-    enableAllExceptLogAll
+    enableAllExceptLogAll,
+    resetCounters,
+    getCounters
 };

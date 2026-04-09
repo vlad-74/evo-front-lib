@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
             3000);
         // console.log('-----------------------evo!!!', evo);
 
-        evo.log.color('red', 'logAll', 'common', 'Красное сообщение');
+        // evo.log.color('red', 'logAll', 'common', 'Красное сообщение');
 
         // evo.debug.awaitTryCatch.accessType = false;
         // evo.log.enableAllExceptLogAll(); // все логируется
