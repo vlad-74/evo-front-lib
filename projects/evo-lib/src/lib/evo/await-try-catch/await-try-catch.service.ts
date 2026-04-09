@@ -6,13 +6,13 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
 
     private _tryCatchErrorInfo(e: unknown): void {
         if (e instanceof TypeError) {
-            console.error('Ошибка типа: ' + e.message);
+            evo.log.colorWarn('red', 'awaitTryCatch', 'common', 'Ошибка типа: ', e.message);
         } else if (e instanceof ReferenceError) {
-            console.error('Ошибка ссылки: ' + e.message);
+            evo.log.colorWarn('red', 'awaitTryCatch', 'common', 'Ошибка ссылки: ', e.message);
         } else if (e instanceof Error) {
-            console.error('Ошибка: ' + e.message);
+            evo.log.colorWarn('red', 'awaitTryCatch', 'common', 'Ошибка: ', e.message);
         } else {
-            console.error('Неизвестная ошибка:', e);
+            evo.log.colorWarn('red', 'awaitTryCatch', 'common', 'Неизвестная ошибка:', e);
         }
     }
 
@@ -32,7 +32,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
 
             return result;
         } catch (error) {
-            console.error(errorMessage);
+            evo.log.colorWarn('red', 'awaitTryCatch', 'common', 'Результат выполнения getResult (AwaitTryCatchService)', errorMessage);
             this._tryCatchErrorInfo(error);
 
             return false;
@@ -59,7 +59,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
 
             return data;
         } catch (parseError) {
-            console.error('Ошибка парсинга ответа:', parseError);
+            evo.log.colorWarn('red', 'awaitTryCatch', 'common', 'Ошибка парсинга ответа: ', parseError);
 
             return false;
         }

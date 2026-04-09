@@ -2,11 +2,15 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.
 
-## Install WebStorm snippets
+---
 
-node ./node_modules/evo-lib/tools/install-snippets.js
+## <span style="color:yellow">Install WebStorm snippets (implemented on Windows)</span>
+
+<span style="color:green"> node ./node_modules/evo-lib/tools/install-snippets.js</span>
 
 Restart WebStorm after installation
+
+---
 
 ## Code scaffolding
 
