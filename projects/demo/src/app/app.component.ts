@@ -52,6 +52,26 @@ export class AppComponent implements OnInit {
 
             },
             3000);
+
+        setTimeout(() => {
+                evo.theme.l.send({name: 'white'});
+
+                evo.exchange.l.send(
+                    {
+                        from: 'AppComponent',
+                        to: ['ChildComponentComponent'],
+                        source: {
+                            name: exchangeNameEnum.ChangeProperty,
+                            data: {
+                                name: 'txt',
+                                value: '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+                            }
+                        }
+                    }
+                );
+
+            },
+            5000);
         // console.log('-----------------------evo!!!', evo);
 
         // evo.log.color('red', 'logAll', 'common', 'Красное сообщение');

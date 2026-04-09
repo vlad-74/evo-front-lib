@@ -99,15 +99,11 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
         if (Object.keys(this).includes(exchangeSource.source.data.name)) {
             const data: IChangeProperty = exchangeSource.source.data as IChangeProperty;
 
-
-            // @ts-ignore
-            const property = this[exchangeSource?.source?.data?.name];
-
             evo.log.colorWarn(
                 'green',
                 'exchange',
                 'common',
-                `Подписка exchange (NgExchangeSubscribeComponent) - у компонента ${this.extendsClassName} свойство - ${property} = ${data.value}`
+                `Подписка exchange (NgExchangeSubscribeComponent) - у компонента ${this.extendsClassName} свойство -  ${exchangeSource?.source?.data?.name} = ${data.value}`
             );
 
             // @ts-ignore
@@ -139,7 +135,7 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
                 'green',
                 'exchange',
                 'common',
-                `Подписка exchange (NgExchangeSubscribeComponent) - у компонента ${this.extendsClassName} метод, ${method.name} с аргументами `, data.arguments
+                `Подписка exchange (NgExchangeSubscribeComponent) - у компонента ${this.extendsClassName} метод - ${method.name} с аргументами `, data.arguments
             );
 
             // @ts-ignore
