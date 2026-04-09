@@ -1,0 +1,217 @@
+<templateSet group="#evo">
+  <template name="evoo#forEach" value="$ARR$.forEach((item, i, arr) =&gt; {&#10;  console.log( arr, i, item);&#10;});$END$" description="forEach - метод массива" toReformat="true" toShortenFQNames="true">
+    <variable name="ARR" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo_deb" value="debugger;" description="debugger" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo" value="console.warn('-----$TEXT$', $END$);" description="console.warn" toReformat="true" toShortenFQNames="true">
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo_comp_2_ngOnInit" value="import { OnInit } from '@angular/core';&#10;&#10;implements OnInit&#10;&#10;public ngOnInit() {&#10;    $TEXT$&#10;}$END$&#10;" description="хук, вызывается один раз после создания компонента, когда инициализировались все данные (например, @Input свойства) - при первой загрузке" toReformat="false" toShortenFQNames="true">
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo_comp_4_ngOnDestroy" value="import {OnDestroy} from '@angular/core';&#10;&#10;implements OnDestroy&#10;&#10;public ngOnDestroy() {&#10;    $TEXT$&#10;}$END$" description="хук, вызывается перед уничтожением компонента - при уничтожении" toReformat="false" toShortenFQNames="true">
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo_comp_1_ngOnChanges" value="import { OnChanges, SimpleChanges } from '@angular/core';&#10;&#10;implements OnChanges&#10;&#10;public ngOnChanges(changes: SimpleChanges): void {&#10;    console.log(changes);&#10;}$END$" description="хук, который срабатывает каждый раз, когда меняются входные данные (@Input) компонента - при первой загрузке (если есть @Input)" toReformat="true" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo_comp_3_ngAfterViewInit" value="import { AfterViewInit } from '@angular/core';&#10;&#10;implements AfterViewInit&#10;&#10;public ngAfterViewInit() {&#10;    $TEXT$&#10;}$END$" description="хук, вызывается после полной инициализации представления (view) компонента - при первой загрузке" toReformat="true" toShortenFQNames="true">
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo___subscribe" value="// --------------------------------------&#10;import { OnDestroy } from '@angular/core';&#10;import { Subject } from 'rxjs/Subject';&#10;import { takeUntil } from 'rxjs/operators';&#10;// --------------------------------------&#10;private _destroyedSubscribe$: Subject&lt;void&gt; = new Subject&lt;void&gt;();&#10;// --------------------------------------&#10;    $TEXT$&#10;    .pipe(takeUntil(this._destroyedSubscribe$))&#10;    .subscribe({&#10;        next: (result) =&gt; { console.log('result', result); },&#10;        error: (err) =&gt; { console.error('Ошибка:', err); // здесь можно показать уведомление или выполнить fallback-логику },&#10;        complete: () =&gt; { console.log('Поток завершён'); }&#10;    });&#10;// --------------------------------------&#10;public ngOnDestroy(): void {&#10;    this._destroyedSubscribe$.next();&#10;    this._destroyedSubscribe$.complete();&#10;}&#10;// --------------------------------------" description="подписка на Observable и автоматическая отписка при уничтожении компонента (ngOnDestroy)." toReformat="false" toShortenFQNames="true">
+    <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo__tryCatch.await" value="await evo.tryCatch.await.returnPromise($PROMISE$);" description="tryCatch для promise" toReformat="false" toShortenFQNames="true">
+    <variable name="PROMISE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo-as_const_1" value="const obj = { $PROP$: $VAL$} as const; // readonly" description="объект константа" toReformat="false" toShortenFQNames="true">
+    <variable name="PROP" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo-as_const_2_Record" value="// type UserId = 'id1' | 'id2' | 'id3';&#10;// const users: Record&lt;UserId, string&gt; = { id1: 'Alice', id2: 'Bob', id3: 'Charlie' // id4: 'David' // ❌ ошибка: ключ не из UserId }  as const;;&#10;&#10;const obj: Record&lt;$PROP$, $VAL$&gt; = {$END$} as const; // readonly" description="типизация объектов через Record" toReformat="false" toShortenFQNames="true">
+    <variable name="PROP" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="VAL" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo--typePickPartialOmit" value="// type UserUpdate = Pick&lt;User, 'id'&gt; &amp; Partial&lt;Omit&lt;User, 'id'&gt;&gt;;&#10;type $TYPE$ = Pick&lt;$INTERFACE$, '$PROP$'&gt; &amp; Partial&lt;Omit&lt;$INTERFACE$, '$PROP$'&gt;&gt;;" description="обязательное поле, остальные — опциональные" toReformat="false" toShortenFQNames="true">
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="INTERFACE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="PROP" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo--type_keyof" value="// interface Person { name: string; age: number }; type PersonKeys = keyof Person&#10;type $TYPE$Keys = keyof $TYPE$;" description="динамические ключи объектов" toReformat="false" toShortenFQNames="true">
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo--typeTNullable" value="// let currentUser: TNullable&lt;User&gt; = { id: 1, name: &quot;Иван&quot; };&#10;type TNullable&lt;T&gt; = T | null;" description="Дженерик-тип, который расширяет тип T, позволяя ему также принимать значение null." toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo--typePartial" value="// const car: Partial&lt;Car&gt; = {};&#10;const $CAR$: Partial&lt;$CARINTERFACE$&gt; = {};" description="объект временно пуст" toReformat="false" toShortenFQNames="true">
+    <variable name="CAR" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CARINTERFACE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo__tryCatch" value="try {&#10;    $END$&#10;} catch (error) {&#10;    console.error(error);&#10;} finally {&#10;    // код, который выполнится всегда&#10;}" description="обертка кода в блок try-catch-finally" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo___Injector" value="// в &quot;рабочем компоненте&quot; - public constructor(protected injector: Injector) { super(injector); }&#10;&#10;import { Injector, Type } from '@angular/core';&#10;&#10;protected $INSTANS$: $SERVICE$;&#10;&#10;protected constructor(&#10;    protected injector: Injector,&#10;) {&#10;    this.$INSTANS$ = injector.get&lt;$SERVICE$&gt;($SERVICE$ as Type&lt;$SERVICE$&gt;);&#10;}" description="" toReformat="false" toShortenFQNames="true">
+    <variable name="INSTANS" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="SERVICE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo____ViewChild_Child" value="import { ViewChild } from '@angular/core'&#10;&#10;@ViewChild($COMPONENT$) private _childComponent!: $COMPONENT$;" description="дочерний компонент" toReformat="false" toShortenFQNames="true">
+    <variable name="COMPONENT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo____ViewChild_Element" value="import { ViewChild, ElementRef } from '@angular/core'&#10;&#10;@ViewChild('element') private _element: ElementRef; // &lt;div #rootElement&gt;&lt;/div&gt;" description="html элемент" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo____get_set" value="private _$VAR$: $TYPE$;&#10;&#10;public get $VAR$(): $TYPE$ {&#10;  return this._$VAR$;&#10;}&#10;&#10;public set $VAR$(value: $TYPE$) {&#10;  if (this._$VAR$ !== value) {&#10;    this._$VAR$ = value;&#10;    // this.cdr.markForCheck(); // если используется ChangeDetectionStrategy.OnPush&#10;  }&#10;}$END$" description="getter/setter типизированный" toReformat="false" toShortenFQNames="true">
+    <variable name="VAR" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo____get_set@Input()" value="private _$VAR$: $TYPE$;&#10;&#10;@Input()&#10;public get $VAR$(): $TYPE$ {&#10;  return this._$VAR$;&#10;}&#10;&#10;public set $VAR$(value: $TYPE$) {&#10;  if (this._$VAR$ !== value) {&#10;    this._$VAR$ = value;&#10;    // this.cdr.markForCheck(); // если используется ChangeDetectionStrategy.OnPush&#10;  }&#10;}$END$" description="" toReformat="false" toShortenFQNames="true">
+    <variable name="VAR" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo---Proxy_Логирование" value="public createProxyLog(target, onChange) {&#10;    // Обработка null и примитивов&#10;    if (target === null || typeof target !== 'object') {&#10;        return target;&#10;    }&#10;  &#10;    return new Proxy(target, {&#10;        set(obj, prop, value) {&#10;            const oldValue = obj[prop];&#10;          &#10;            // Рекурсивно обрабатываем новые объекты&#10;            const newValue = this.createProxyLog(value, onChange);&#10;          &#10;            obj[prop] = newValue;&#10;          &#10;            // Проверяем реальное изменение (учитываем NaN)&#10;            if (oldValue !== value &amp;&amp; !(Number.isNaN(oldValue) &amp;&amp; Number.isNaN(value))) {&#10;                onChange(prop, newValue, oldValue);&#10;            }&#10;          &#10;            return true;&#10;        },&#10;    &#10;        get(obj, prop) {&#10;            const value = obj[prop];&#10;          &#10;            // Рекурсивно создаем прокси для вложенных объектов&#10;            if (value !== null &amp;&amp; typeof value === 'object') {&#10;                return this.createProxyLog(value, onChange);&#10;            }&#10;          &#10;            return value;&#10;        },&#10;    &#10;        deleteProperty(obj, prop) {&#10;            const oldValue = obj[prop];&#10;            const deleted = delete obj[prop];&#10;          &#10;            if (deleted) { onChange(prop, undefined, oldValue); }&#10;          &#10;            return deleted;&#10;        }&#10;    });&#10;}&#10;&#10;&#10;// Использование:&#10;//let state = this.createProxyLog(&#10;//{ user: { name: 'Alice', age: 30 } settings: { theme: 'dark', notifications: true } }, &#10;//(prop, value, oldValue) =&gt; { console.log(`Property &quot;${prop}&quot; changed: ${oldValue} → ${value}`); });&#10;//&#10;// delete state.user.email;        // Property &quot;email&quot; changed: alice@example.com → undefined" description="Функция создания Proxy Логирование" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo-as_const_3_satisfies_Record" value="// type UserId = 'id1' | 'id2' | 'id3';&#10;// const users = { id1: 'Alice', id2: 'Bob', id3: 'Charlie' // id4: 'David' // ❌ ошибка: ключ не из UserId } as const satisfies Record&lt;UserId, string&gt;;&#10;&#10;const obj = {$END$} as const satisfies Record&lt;$KEY_TYPE$, $VALUE_TYPE$&gt;;" description="константный объект с as const и satisfies Record" toReformat="false" toShortenFQNames="true">
+    <variable name="KEY_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="VALUE_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo#type_never" value="// Если union‑тип (Direction) изменится, TypeScript выдаст ошибку компиляции, если switch не обновлён.&#10;type Direction = 'up' | 'down';&#10;&#10;public move(direction: Direction): number {&#10;    switch (direction) {&#10;        case 'up': return 1;&#10;        case 'down': return -1;&#10;        default:&#10;          //!!! Если добавлен новый вариант в `Direction` и не обработан — ошибка компиляции&#10;          const _: never = direction;&#10;          throw new Error(`Неизвестный ключ: ${_}`);&#10;    }&#10;}" description="пример обеспечения типовой безопасности при работе с union‑тип и switch" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo--Interface with readonly" value="// interface UserId { readonly id: number; }; const user: UserId = { id: 12345 };&#10;// Ошибка компиляции - user.id = 67890; // Cannot assign to 'id' because it is a read-only property&#10;interface I$NAME$ {&#10;  readonly $PROPERTY$: $TYPE$;&#10;}" description="Interface with readonly properties" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="PROPERTY" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="TYPE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo#switch" value="switch ($EXPRESSION$) {&#10;  case $CASE1$: $BODY1$; break;&#10;  case $CASE2$: $BODY2$; break;&#10;  default:&#10;    $DEFAULT_BODY$;&#10;}&#10;" description="create SWITCH block" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CASE1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="BODY1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CASE2" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="BODY2" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="DEFAULT_BODY" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo#switch_NEVER" value="// Если union‑тип (type Direction = 'up' | 'down';) изменится, TypeScript выдаст ошибку компиляции, если switch не обновлён.&#10;&#10;switch ($EXPRESSION$) {&#10;  case $CASE1$:&#10;    $BODY1$;&#10;    break;&#10;  case $CASE2$:&#10;    $BODY2$;&#10;    break;&#10;  default:&#10;    const _exhaustiveCheck: never = $EXPRESSION$;&#10;    throw new Error(`Необработанное значение: ${$EXPRESSION$}`);&#10;}&#10;" description="create SWITCH block with NEVER" toReformat="false" toShortenFQNames="true">
+    <variable name="EXPRESSION" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CASE1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="BODY1" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="CASE2" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="BODY2" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo----windowГлобальный_объект" value="declare global {&#10;    interface Window { $NAME$: any; }&#10;     var $NAME$: any; // Добавляем глобальную переменную&#10;}&#10;&#10;window.$NAME$ = $END$;" description="Declare global window object and assign value" toReformat="false" toShortenFQNames="true">
+    <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+  <template name="evoo---globalErrorListeners" value="window.addEventListener('error', (event) =&gt; { console.warn('Global error:', event.error); }); // для обычных ошибок&#10;&#10;window.addEventListener('unhandledrejection', (event) =&gt; {&#10;  console.warn('Unhandled promise rejection:', event.reason); // для ошибок (например, async / Promise)&#10;});" description="Debug: global error &amp; promise rejection listeners" toReformat="false" toShortenFQNames="true">
+    <context>
+      <option name="JAVA_SCRIPT" value="true" />
+      <option name="TypeScript" value="true" />
+    </context>
+  </template>
+</templateSet>

@@ -2,6 +2,12 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.
 
+## Install WebStorm snippets
+
+node ./node_modules/evo-lib/tools/install-snippets.js
+
+Restart WebStorm after installation
+
 ## Code scaffolding
 
 Run `ng generate component component-name --project evo-lib` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project evo-lib`.
