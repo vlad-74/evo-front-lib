@@ -58,6 +58,12 @@ export class EvoThemeClassDirective implements OnInit, OnDestroy {
                 filter((theme): theme is ITheme => theme !== null && theme !== undefined)
             )
             .subscribe((theme: ITheme) => {
+                evo.log.colorWarn(
+                    'green',
+                    'theme',
+                    'common',
+                    `Тема - ${theme.name}`
+                );
                 this._updateClassNames(theme.name);
 
                 if (theme?.options?.callback) {

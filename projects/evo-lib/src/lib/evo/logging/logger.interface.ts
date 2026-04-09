@@ -1,7 +1,6 @@
 import {TAccessProcess, TLoggingTypes} from './debugger';
 
 
-
 /** 1. Цвета для консоли - передаются в функцию логирования */
 export type TColor = 'red' | 'green' | 'blue' | 'yellow' | 'magenta' | 'cyan' | 'white' | 'gray';
 
@@ -31,4 +30,12 @@ export type TEvoLog = {
         ...messages: unknown[]
     ) => void;
     info: (msg: any) => void;
+    colorWarn: (
+        color: TColor,
+        loggingType: TLoggingTypes,
+        processName: TAccessProcess,
+        ...messages: unknown[]
+    ) => void;
+    disableAllExceptLogAll: () => void;
+    enableAllExceptLogAll: () => void;
 };

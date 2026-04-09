@@ -61,7 +61,7 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
                         this.executeExchange(value.source.name, JSON.parse(JSON.stringify(value)));
                     }
                 } else if (value?.to) {
-                    evo.log.warn('exchange', 'common', '!!! Адресат отсутствует - ', value?.to);
+                    evo.log.colorWarn('red', 'exchange', 'common', '!!! Адресат отсутствует - ', value?.to);
                 }
             });
     }
@@ -93,11 +93,26 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
         if (Object.keys(this).includes(exchangeSource.source.data.name)) {
             const data: IChangeProperty = exchangeSource.source.data as IChangeProperty;
 
+
+            // @ts-ignore
+            const property = this[exchangeSource?.source?.data?.name];
+
+            evo.log.colorWarn(
+                'green',
+                'exchange',
+                'common',
+                `У компонента ${this.extendsClassName} свойство - ${property} = ${data.value}`
+            );
+
             // @ts-ignore
             this[exchangeSource.source.data.name] = data.value;
         } else if (evo.isLocalhost) {
-            // @ts-ignore
-            console.warn(`У компонента ${this.extendsClassName} нет свойства - ${exchangeSource.source.data.name}`);
+            evo.log.colorWarn(
+                'red',
+                'exchange',
+                'common',
+                `У компонента ${this.extendsClassName} нет свойства - ${exchangeSource?.source?.data?.name}`
+            );
         }
     }
     /**
@@ -112,10 +127,24 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
             const data: IAction = exchangeSource.source.data as IAction;
 
             // @ts-ignore
+            const method = this[exchangeSource?.source?.data?.name];
+
+            evo.log.colorWarn(
+                'green',
+                'exchange',
+                'common',
+                `У компонента ${this.extendsClassName} метод - ${method} - аргументы - (${data.arguments})`
+            );
+
+            // @ts-ignore
             this[exchangeSource.source.data.name](...data.arguments);
         } else if (evo.isLocalhost) {
-            // @ts-ignore
-            console.warn(`У компонента ${this.extendsClassName} нет метода - ${exchangeSource.source.data.name}`);
+            evo.log.colorWarn(
+                'red',
+                'exchange',
+                'common',
+                `У компонента ${this.extendsClassName} нет метода - ${exchangeSource?.source?.data?.name}`
+            );
         }
     }
 

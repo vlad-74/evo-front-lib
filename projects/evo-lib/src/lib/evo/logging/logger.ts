@@ -1,5 +1,5 @@
 import { beforeLogging } from './logger-validator';
-import { TLoggingTypes, TAccessProcess } from './debugger';
+import { TLoggingTypes, TAccessProcess, evoLoggingAccessType, loggingTypesArray } from './debugger';
 import { colorStyles, TColor } from './logger.interface';
 
 /**
@@ -16,6 +16,34 @@ function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, m
 
     // Первый аргумент - префикс, остальные - исходные сообщения
     return [prefix, ...messages];
+}
+
+/**
+ * Выключает логирование для всех типов, кроме logAll
+ *
+ * @example
+ * evo.log.disableAllExceptLogAll()
+ */
+function disableAllExceptLogAll(): void {
+    for (const loggingType of loggingTypesArray) {
+        if (loggingType !== 'logAll' && evoLoggingAccessType[loggingType]) {
+            evoLoggingAccessType[loggingType].accessType = false;
+        }
+    }
+}
+
+/**
+ * Включает логирование для всех типов, кроме logAll
+ *
+ * @example
+ * evo.log.enableAllExceptLogAll()
+ */
+function enableAllExceptLogAll(): void {
+    for (const loggingType of loggingTypesArray) {
+        if (loggingType !== 'logAll' && evoLoggingAccessType[loggingType]) {
+            evoLoggingAccessType[loggingType].accessType = true;
+        }
+    }
 }
 
 /**
@@ -117,4 +145,50 @@ export function log(
     console.log(...logArgs);
 }
 
-export const logService = { warn, color, info, log };
+/**
+ * colorWarn - цветное предупреждение в консоли с валидацией
+ * @param colorLog - цвет текста
+ * @param loggingType - тип логирования (logAll, awaitTryCatch)
+ * @param processName - название процесса
+ * @param messages - сообщения для логирования
+ *
+ * @example
+ * evo.log.colorWarn('red', 'logAll', 'common', 'Красное предупреждение')
+ * evo.log.colorWarn('orange', 'awaitTryCatch', 'process2', 'Оранжевое предупреждение', { obj: true })
+ */
+export function colorWarn(
+    colorLog: TColor,
+    loggingType: TLoggingTypes,
+    processName: TAccessProcess,
+    ...messages: unknown[]
+): void {
+    // Проверяем наличие цвета
+    if (!colorStyles[colorLog]) {
+        return;
+    }
+
+    const validationResult = beforeLogging([loggingType, processName, ...messages]);
+
+    // Если валидация не пройдена - ничего не выводим
+    if (!validationResult.validation.isValid) {
+        return;
+    }
+
+    // Для цветного warn применяем стиль только к префиксу
+    const timestamp = new Date().toISOString();
+    const prefix = `[${timestamp}] [${loggingType}] [${processName}]`;
+    const styledPrefix = `%c${prefix}`;
+
+    // Используем console.warn вместо console.log
+    console.warn(styledPrefix, colorStyles[colorLog], ...validationResult.restArgs);
+}
+
+export const logService = {
+    warn,
+    color,
+    info,
+    log,
+    colorWarn,
+    disableAllExceptLogAll,
+    enableAllExceptLogAll
+};
