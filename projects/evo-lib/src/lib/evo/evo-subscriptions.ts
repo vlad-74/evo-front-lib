@@ -16,7 +16,7 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
 
     // Подписка на изменения devices
     subscribe(devices.l.lighthouse$, (config) => {
-        log.colorWarn('green', 'devices', 'common', 'Подписка на devices - ', config);
+        log.colorWarn('green', 'devices', 'common', 'Подписка (setupSubscriptions) на devices - ', config);
 
         // На основе config через screen.s.getScreen(config) получаем (и тут же сендим) информацию об экране
         screen.l.send(screen.s.getScreen(config));
@@ -24,6 +24,6 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
 
     // Подписка на изменения screen
     subscribe(screen.l.lighthouse$, (config) => {
-        log.colorWarn('green', 'screen', 'common', 'Подписка на screen - ', config);
+        log.colorWarn('green', 'screen', 'common', 'Подписка (setupSubscriptions) на screen - ', config);
     });
 }

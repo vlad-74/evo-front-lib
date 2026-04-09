@@ -28,7 +28,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
                 return this.handleResponse(result) as Promise<T | false>;
             }
 
-            evo.log.colorWarn('cyan', 'awaitTryCatch', 'common', 'Результат getResult - ', result);
+            evo.log.colorWarn('cyan', 'awaitTryCatch', 'common', 'Результат выполнения getResult (AwaitTryCatchService) - ', result);
 
             return result;
         } catch (error) {
@@ -55,7 +55,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
             const formData = await response.formData(); // для form-data
             */
 
-            evo.log.warn('awaitTryCatch', 'common', 'Результат handleResponse - ', data);
+            evo.log.warn('awaitTryCatch', 'common', 'Результат handleResponse (AwaitTryCatchService) - ', data);
 
             return data;
         } catch (parseError) {
