@@ -139,7 +139,7 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
                 'green',
                 'exchange',
                 'common',
-                `Подписка exchange (NgExchangeSubscribeComponent) - у компонента ${this.extendsClassName} метод - ${method} - аргументы - (${data.arguments})`
+                `Подписка exchange (NgExchangeSubscribeComponent) - у компонента ${this.extendsClassName} метод, ${method.name} с аргументами `, data.arguments, ')'
             );
 
             // @ts-ignore

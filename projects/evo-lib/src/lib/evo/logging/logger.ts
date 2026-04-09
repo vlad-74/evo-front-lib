@@ -206,14 +206,27 @@ export function colorWarn(
         return;
     }
 
-    // Для цветного warn применяем стиль только к префиксу
     const localTime = getLocalTimeWithMs();
     const counter = incrementCounter(loggingType);
     const prefix = `${counter} - ${localTime} - ${loggingType} / ${processName}`;
     const styledPrefix = `%c${prefix}`;
 
-    // Используем console.warn вместо console.log
-    console.warn(styledPrefix, colorStyles[colorLog], ...validationResult.restArgs);
+    const [firstMessage, ...restMessages] = validationResult.restArgs;
+
+    // Если первый аргумент существует и это строка
+    if (firstMessage !== undefined && typeof firstMessage === 'string') {
+        const styledFirstMessage = `%c${firstMessage}`;
+        // Выводим: стилизованный префикс + стилизованная строка + остальные аргументы
+        console.warn(
+            styledPrefix + ' ' + styledFirstMessage,
+            colorStyles[colorLog], // стиль для префикса
+            colorStyles[colorLog], // стиль для первого строкового сообщения
+            ...restMessages         // остальные аргументы (могут быть объектами) без стиля
+        );
+    } else {
+        // Если нет первого аргумента или он не строка - выводим только префикс с цветом
+        console.warn(styledPrefix, colorStyles[colorLog], ...validationResult.restArgs);
+    }
 }
 
 /**

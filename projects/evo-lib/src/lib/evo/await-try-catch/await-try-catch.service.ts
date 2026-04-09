@@ -28,7 +28,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
                 return this.handleResponse(result) as Promise<T | false>;
             }
 
-            evo.log.colorWarn('cyan', 'awaitTryCatch', 'common', 'Результат выполнения getResult (AwaitTryCatchService) - ', result);
+            evo.log.colorWarn('cyan', 'awaitTryCatch', 'common', 'Результат выполнения getResult (AwaitTryCatchService)', result);
 
             return result;
         } catch (error) {
