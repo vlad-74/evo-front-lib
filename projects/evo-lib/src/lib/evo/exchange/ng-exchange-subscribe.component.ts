@@ -60,6 +60,8 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
                     ].includes(value.source.name)) {
                         this.executeExchange(value.source.name, JSON.parse(JSON.stringify(value)));
                     }
+                } else if (value?.to) {
+                    evo.log.warn('exchange', 'common', '!!! Адресат отсутствует - ', value?.to);
                 }
             });
     }

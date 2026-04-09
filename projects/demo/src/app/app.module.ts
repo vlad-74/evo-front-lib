@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 
 import { EvoLibModule } from 'evo-lib';
 import { ChildComponentComponent } from './child-component/child-component.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,8 +13,7 @@ import { ChildComponentComponent } from './child-component/child-component.compo
     ChildComponentComponent
   ],
   imports: [
-    BrowserModule,
-      EvoLibModule
+    BrowserModule, EvoLibModule, HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

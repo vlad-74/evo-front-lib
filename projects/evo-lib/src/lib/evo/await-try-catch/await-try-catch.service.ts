@@ -1,76 +1,67 @@
-export interface IAwaitTryCatchWorker {
-    /**
-     * Выполняет Promise и возвращает результат или обрабатывает ошибку.
-     * @param promise - Promise<any> - Promise для выполнения.
-     * @param errorMessage - string - Сообщение об ошибке (по умолчанию 'Ошибка при выполнении Promise').
-     *
-     * @returns  - Результат выполнения Promise или false в случае ошибки. - Promise<any>
-     */
-    getResult(promise: Promise<any>, errorMessage?: string): Promise<any>;
+export interface IAwaitTryCatchService {
+    getResult<T = any>(promise: Promise<T>, errorMessage?: string): Promise<T | false>;
 }
 
-/**
- * Сервис для обработки Promise с использованием try-catch.
- */
-export class AwaitTryCatchService implements IAwaitTryCatchWorker {
+export class AwaitTryCatchService implements IAwaitTryCatchService {
 
-/**
- * Обработка разных типов ошибок.
- * @param e - Ошибка из try-catch.
- */
-    private _tryCatchErrorInfo(e: Error): void {
+    private _tryCatchErrorInfo(e: unknown): void {
         if (e instanceof TypeError) {
             console.error('Ошибка типа: ' + e.message);
         } else if (e instanceof ReferenceError) {
             console.error('Ошибка ссылки: ' + e.message);
+        } else if (e instanceof Error) {
+            console.error('Ошибка: ' + e.message);
         } else {
-            console.error('Другая ошибка: ' + e.message);
+            console.error('Неизвестная ошибка:', e);
         }
     }
 
-    public async getResult(promise: Promise<any>, errorMessage: string = 'Ошибка при выполнении Promise'): Promise<any> {
-        const [data, error] = await this._tryCatchForAwait(promise);
+    public async getResult<T = any>(
+        promise: Promise<T>,
+        errorMessage: string = 'Ошибка при выполнении Promise'
+    ): Promise<T | false> {
+        try {
+            const result = await promise;
 
-        if (error) {
+            // Обработка Response отдельно - fetch() возвращает не готовые данные, а объект Response
+            if (result instanceof Response) {
+                return this.handleResponse(result) as Promise<T | false>;
+            }
+
+            evo.log.warn('awaitTryCatch', 'common', 'Результат getResult - ', result);
+
+            return result;
+        } catch (error) {
             console.error(errorMessage);
             this._tryCatchErrorInfo(error);
 
             return false;
         }
-
-        let result = data;
-        if (data instanceof Response) {
-            try {
-                if (data.ok) {
-                    result = await data.json(); // или data.text() для текстовых ответов
-                } else {
-                    console.error(`HTTP Error: ${data.status} ${data.statusText}`);
-                    return false;
-                }
-            } catch (parseError) {
-                console.error('Ошибка парсинга ответа:', parseError);
-                return false;
-            }
-        }
-
-        evo.log.warn('awaitTryCatch', 'common', 'Результат - ', result);
-
-        return data;
     }
 
-/**
- * Вспомогательная функция для обработки Promise с try-catch.
- * @param promise - Promise для выполнения. - Promise<any>
- *
- * @returns Массив, где первый элемент - результат, второй - ошибка. - Promise<any[]>
- */
-    private async _tryCatchForAwait(promise: Promise<any>): Promise<any[]> {
+    private async handleResponse(response: Response): Promise<any | false> {
         try {
-            const data = await promise;
+            if (!response.ok) {
+                console.error(`HTTP Error: ${response.status} ${response.statusText}`);
 
-            return [data, null];
-        } catch (error) {
-            return [null, error];
+                return false;
+            }
+            const data = await response.json();
+            // Чтобы получить данные, нужно вызвать один из методов:
+            /*
+            const data = await response.json();    // для JSON ответа
+            const text = await response.text();    // для текста
+            const blob = await response.blob();    // для файлов/изображений
+            const formData = await response.formData(); // для form-data
+            */
+
+            evo.log.warn('awaitTryCatch', 'common', 'Результат handleResponse - ', data);
+
+            return data;
+        } catch (parseError) {
+            console.error('Ошибка парсинга ответа:', parseError);
+
+            return false;
         }
     }
 }

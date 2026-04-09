@@ -57,7 +57,7 @@ export const evoBase: TEvo = {
     /** Проверка компонентов при extends */
     checkEvo: new CheckEvoWorker(),
 
-    /** Обработка Promise с использованием try-catch */
+    /** Сервис для безопасной обработки Promise с централизованной системой ошибок */
     awaitTryCatch: new AwaitTryCatchService(),
 };
 

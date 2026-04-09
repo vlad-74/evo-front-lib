@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {exchangeNameEnum} from 'evo-lib';
+import {RestService} from './service/rest.service';
 
 
 /**
@@ -23,6 +24,10 @@ npm install
 export class AppComponent implements OnInit {
     title = 'demo';
 
+    public constructor(
+        public rest: RestService,
+    ) {}
+
     public async ngOnInit(): Promise<void> {
 
         // evo.debug.logAll.accessType = false;
@@ -45,14 +50,14 @@ export class AppComponent implements OnInit {
                 );
 
             },
-            5000);
+            3000);
         // console.log('-----------------------evo!!!', evo);
 
         evo.log.color('red', 'logAll', 'common', 'Красное сообщение');
-        evo.log.warn('logAll', 'common', '1. Тестовое сообщение');
 
-        // evo.debug.awaitTryCatch.accessType = false;
-        await evo.awaitTryCatch.getResult(fetch('https://jsonplaceholder.typicode.com/users/1'));
+        evo.debug.awaitTryCatch.accessType = false;
+        const params = { search: { search: [] }, size: 200 };
+        const res = await evo.awaitTryCatch.getResult(this.rest.search('catalogueRegions', params));
     }
 
 }
