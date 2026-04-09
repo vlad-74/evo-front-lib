@@ -15,7 +15,6 @@ function validateAccessProcessArray<T extends readonly TAccessProcess[]>(
 /** Используется при валидации логирования - в beforeLogging - logger-validator.ts */
 export const accessProcessArray = validateAccessProcessArray([
     'common',
-    'directive',
     'process1',
     'process2',
     'process3',
@@ -26,6 +25,7 @@ export const accessProcessArray = validateAccessProcessArray([
     'process8',
     'process9',
     'process10',
+    'directive',
 ]);
 
 // ---------------------------------------------------
