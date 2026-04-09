@@ -1,5 +1,5 @@
 export interface IAwaitTryCatchService {
-    getResult<T = any>(promise: Promise<T>, errorMessage?: string): Promise<T | false>;
+    getResult<T = any>(promise: Promise<T>, from?: string,  errorMessage?: string): Promise<T | false>;
 }
 
 export class AwaitTryCatchService implements IAwaitTryCatchService {

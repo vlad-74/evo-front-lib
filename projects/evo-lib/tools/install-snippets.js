@@ -47,14 +47,14 @@ function findAllWebStormTemplatesDirs(baseDir) {
 }
 
 function copySnippets(targetDir) {
-    const source = path.join(__dirname, '../snippets/webstorm/_evo.xml');
+    const source = path.join(__dirname, '../snippets/webstorm/_evo-frontend.xml');
 
     if (!fs.existsSync(source)) {
         console.error('[evo-lib] Snippets not found. Is the library installed?');
         process.exit(1);
     }
 
-    const destination = path.join(targetDir, '_evo.xml');
+    const destination = path.join(targetDir, '_evo-frontend.xml');
 
     log(`Copy from: ${source}`);
     log(`Copy to: ${destination}`);

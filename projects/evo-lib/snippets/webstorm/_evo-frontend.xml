@@ -1,4 +1,4 @@
-<templateSet group="#evo">
+<templateSet group="#evo-frontend">
   <template name="evoo#forEach" value="$ARR$.forEach((item, i, arr) =&gt; {&#10;  console.log( arr, i, item);&#10;});$END$" description="forEach - метод массива" toReformat="true" toShortenFQNames="true">
     <variable name="ARR" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
@@ -12,7 +12,7 @@
       <option name="TypeScript" value="true" />
     </context>
   </template>
-  <template name="evoo" value="console.warn('-----$TEXT$', $END$);" description="console.warn" toReformat="true" toShortenFQNames="true">
+  <template name="evoo" value="evo.log.colorWarn('yellow', 'logAll', 'common', '$TEXT$',  $END$);" description="console.warn для дебага" toReformat="true" toShortenFQNames="true">
     <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
@@ -53,8 +53,9 @@
       <option name="TypeScript" value="true" />
     </context>
   </template>
-  <template name="evoo__tryCatch.await" value="await evo.tryCatch.await.returnPromise($PROMISE$);" description="tryCatch для promise" toReformat="false" toShortenFQNames="true">
+  <template name="evoo__tryCatch.await" value="await evo.awaitTryCatch.getResult($PROMISE$, $FROM$)" description="tryCatch для promise" toReformat="false" toShortenFQNames="true">
     <variable name="PROMISE" expression="" defaultValue="" alwaysStopAt="true" />
+    <variable name="FROM" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />
       <option name="TypeScript" value="true" />
@@ -112,7 +113,7 @@
       <option name="TypeScript" value="true" />
     </context>
   </template>
-  <template name="evoo___Injector" value="// в &quot;рабочем компоненте&quot; - public constructor(protected injector: Injector) { super(injector); }&#10;&#10;import { Injector, Type } from '@angular/core';&#10;&#10;protected $INSTANS$: $SERVICE$;&#10;&#10;protected constructor(&#10;    protected injector: Injector,&#10;) {&#10;    this.$INSTANS$ = injector.get&lt;$SERVICE$&gt;($SERVICE$ as Type&lt;$SERVICE$&gt;);&#10;}" description="" toReformat="false" toShortenFQNames="true">
+  <template name="evoo___Injector" value="// в &quot;рабочем компоненте&quot; - public constructor(protected injector: Injector) { super(injector); }&#10;&#10;import { Injector, Type } from '@angular/core';&#10;&#10;protected $INSTANS$: $SERVICE$;&#10;&#10;protected constructor(&#10;    protected injector: Injector,&#10;) {&#10;    this.$INSTANS$ = injector.get&lt;$SERVICE$&gt;($SERVICE$ as Type&lt;$SERVICE$&gt;);&#10;}" description="Подключение сервиса в базовом компоненте через injector" toReformat="false" toShortenFQNames="true">
     <variable name="INSTANS" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="SERVICE" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
@@ -163,7 +164,7 @@
       <option name="TypeScript" value="true" />
     </context>
   </template>
-  <template name="evoo#type_never" value="// Если union‑тип (Direction) изменится, TypeScript выдаст ошибку компиляции, если switch не обновлён.&#10;type Direction = 'up' | 'down';&#10;&#10;public move(direction: Direction): number {&#10;    switch (direction) {&#10;        case 'up': return 1;&#10;        case 'down': return -1;&#10;        default:&#10;          //!!! Если добавлен новый вариант в `Direction` и не обработан — ошибка компиляции&#10;          const _: never = direction;&#10;          throw new Error(`Неизвестный ключ: ${_}`);&#10;    }&#10;}" description="пример обеспечения типовой безопасности при работе с union‑тип и switch" toReformat="false" toShortenFQNames="true">
+  <template name="evoo#type_never" value="// Если union‑тип (Direction) изменится, TypeScript выдаст ошибку компиляции, если switch не обновлён.&#10;type Direction = 'up' | 'down';&#10;&#10;public move(direction: Direction): number {&#10;    switch (direction) {&#10;        case 'up': return 1;&#10;        case 'down': return -1;&#10;        default:&#10;          //!!! Если добавлен новый вариант в `Direction` и не обработан — ошибка компиляции&#10;          const _: never = direction;&#10;          throw new Error(`Неизвестный ключ: ${_}`);&#10;    }&#10;}" description="пример обеспечения типовой безопасности при работе с union‑тип и switch" toReformat="false" toShortenFQNames="true" deactivated="true">
     <context>
       <option name="JAVA_SCRIPT" value="true" />
       <option name="TypeScript" value="true" />
@@ -201,7 +202,7 @@
       <option name="TypeScript" value="true" />
     </context>
   </template>
-  <template name="evoo----windowГлобальный_объект" value="declare global {&#10;    interface Window { $NAME$: any; }&#10;     var $NAME$: any; // Добавляем глобальную переменную&#10;}&#10;&#10;window.$NAME$ = $END$;" description="Declare global window object and assign value" toReformat="false" toShortenFQNames="true">
+  <template name="evoo----windowГлобальный_объект" value="declare global {&#10;    interface Window { $NAME$: any; }&#10;    &#10;    const $NAME$: any; // Добавляем глобальную переменную&#10;}&#10;&#10;(window as any).$NAME$ = $END$;&#10;&#10;export {};" description="Declare global window object and assign value" toReformat="false" toShortenFQNames="true">
     <variable name="NAME" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="JAVA_SCRIPT" value="true" />

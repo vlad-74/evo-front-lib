@@ -76,8 +76,6 @@ export class AppComponent implements OnInit {
             5000);
         // console.log('-----------------------evo!!!', evo);
 
-        // evo.log.color('red', 'logAll', 'common', 'Красное сообщение');
-
         // evo.debug.awaitTryCatch.accessType = false;
         // evo.log.enableAllExceptLogAll(); // все логируется
         const params = { search: { search: [] }, size: 200 };
