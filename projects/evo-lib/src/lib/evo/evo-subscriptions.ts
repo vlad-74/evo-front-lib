@@ -19,7 +19,7 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
         log.colorWarn('green', 'devices', 'common', 'Подписка (setupSubscriptions) на devices', config);
 
         // На основе config через screen.s.getScreen(config) получаем (и тут же сендим) информацию об экране
-        screen.l.send(screen.s.getScreen(config));
+        screen.l.send(screen.s.getScreen(config), 'setupSubscriptions');
     });
 
     // Подписка на изменения screen

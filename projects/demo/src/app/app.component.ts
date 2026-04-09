@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
         // evo.log.disableAllExceptLogAll(); // только logAll + common
 
         setTimeout(() => {
-                evo.theme.l.send({name: 'white'});
+                evo.theme.l.send({name: 'white'}, 'AppComponent');
 
                 evo.exchange.l.send(
                     {
@@ -48,13 +48,14 @@ export class AppComponent implements OnInit {
                             }
                         }
                     }
+                    , 'AppComponent'
                 );
 
             },
             3000);
 
         setTimeout(() => {
-                evo.theme.l.send({name: 'white'});
+                evo.theme.l.send({name: 'white'}, 'AppComponent');
 
                 evo.exchange.l.send(
                     {
@@ -64,10 +65,11 @@ export class AppComponent implements OnInit {
                             name: exchangeNameEnum.ChangeProperty,
                             data: {
                                 name: 'txt',
-                                value: '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+                                value: '!!!',
                             }
                         }
-                    }
+                    },
+                    'AppComponent'
                 );
 
             },
@@ -79,7 +81,7 @@ export class AppComponent implements OnInit {
         // evo.debug.awaitTryCatch.accessType = false;
         // evo.log.enableAllExceptLogAll(); // все логируется
         const params = { search: { search: [] }, size: 200 };
-        await evo.awaitTryCatch.getResult(this.rest.search('catalogueRegions', params));
+        await evo.awaitTryCatch.getResult(this.rest.search('catalogueRegions', params), 'AppComponent');
     }
 
 }

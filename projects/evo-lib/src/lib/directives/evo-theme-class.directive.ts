@@ -18,7 +18,7 @@ import '../evo/evo-global-declare';
  * Пример использования:
  *
  * ```ts
- * evo.theme.l.send({name: 'white'});
+ * evo.theme.l.send({name: 'white'}, 'AppComponent');
  * ```
  *
  * ```html

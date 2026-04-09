@@ -69,7 +69,7 @@ export const evoBase: TEvo = {
 setupSubscriptions(evoBase, libraryDestroy$);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
-evoBase.devicesScreen.devices.l.send(devices);
+evoBase.devicesScreen.devices.l.send(devices, 'старт - evo-global');
 
 
 

@@ -6,5 +6,5 @@ export interface ILighthouse<T> {
 
     lighthouse$: BehaviorSubject<TNullable<T>>;
 
-    send(config: T): void;
+    send(config: T, from?: string): void;
 }
