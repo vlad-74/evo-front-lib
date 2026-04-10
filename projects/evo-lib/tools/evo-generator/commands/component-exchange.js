@@ -1,4 +1,4 @@
-// evo-front-lib\projects\evo-lib\tools\evo-generator\commands\component-exchange.js
+// commands\component-exchange.js
 
 const path = require('path');
 const fs = require('fs');

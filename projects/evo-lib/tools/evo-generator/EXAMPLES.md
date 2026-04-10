@@ -22,7 +22,7 @@
 | `--style` | Нет | `scss` | `--style less` |
 | `--path` | Нет | текущая папка | `--path features/admin` |
 
-## Примеры использования
+## Примеры использования разработчиком в режиме разработки
 
 ---
 
@@ -51,4 +51,8 @@ npm run evo page-data -- --name users-list
 #### Полный вариант - page-data
 npm run evo page-data -- --name users-list --style scss --path features/admin
 
+---
 
+## Примеры использования пользователем после становки библиотеки
+
+npx evo-generator page-data -- --name user-car --style scss --path src/app

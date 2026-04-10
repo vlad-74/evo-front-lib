@@ -11,5 +11,8 @@
     },
     "dependencies": {
         "tslib": "^2.0.0"
+    },
+    "bin": {
+        "evo-generator": "./tools/evo-generator/index.js"
     }
 }

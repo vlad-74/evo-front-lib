@@ -1,12 +1,8 @@
 // commands/templates/page-data/common-devices.js
 
+// language=TEXT
 const getCommonDevicesTemplate = (componentName, className) => `import { Component, Input, Inject } from '@angular/core';
-
-import { NgExchangeSubscribeComponent } from '@evo-page/evo/core/_workers/_exchange/root/ng-exchange-subscribe.component';
-
-import { OrientationScreenEnum, ScreenEnum } from '@evo-page/evo/core/_workers/support/screen/screen.enum';
-import { IScreenInfo } from "@evo-page/evo/core/_workers/support/screen/screen.interfaces";
-import { DataOperation } from '@evo-page/evo/core/_workers/_data/data.worker';
+import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScreenEnum } from 'evo-lib';
 
 @Component({
     selector: 'evo-${componentName}',
@@ -23,23 +19,21 @@ import { DataOperation } from '@evo-page/evo/core/_workers/_data/data.worker';
         }
     \`]
 })
-export class ${className} extends NgExchangeSubscribeComponent {
-    @Input() screenLighthouse: IScreenInfo;
-    @Input() viewDataPage: { [key in DataOperation]?: any } = {};
+export class ${className} extends NgExchangeSubscribeComponent implements OnDestroy  {
+    @Input() screenInfo!: IScreenInfo;
+    @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;
 
     ScreenEnum = ScreenEnum;
     OrientationScreenEnum = OrientationScreenEnum;
 
-    constructor(@Inject(String) extendsClassName: string) {
+    public constructor(@Inject(String) extendsClassName: string) {
         super(extendsClassName);
     }
 
-    ngOnInit(): void { }
-
-    ngOnDestroy(): void {
-        super.onDestroy();
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }`;
 

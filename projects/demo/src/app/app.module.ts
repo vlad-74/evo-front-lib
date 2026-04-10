@@ -7,10 +7,11 @@ import { EvoLibModule } from 'evo-lib';
 import { ChildComponentComponent } from './child-component/child-component.component';
 import {HttpClientModule} from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
-    AppComponent,
-    ChildComponentComponent
+      AppComponent,
+      ChildComponentComponent
   ],
   imports: [
     BrowserModule, EvoLibModule, HttpClientModule,

@@ -121,7 +121,7 @@ module.exports = async function(targetPath, scriptPath, options) {
 
         // 5. Device компоненты
         const commonClassName = `${toPascalCase(componentName)}CommonDevicesComponent`;
-        const commonImport = `./${commonName}.component`;
+        const commonImport = `../${commonName}.component`;
         const componentFiles = [mainFile, commonFile];
 
         for (const device of DEVICES) {

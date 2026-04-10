@@ -12,23 +12,22 @@ import { ${parentClassName} } from '${parentImportPath}';
 export class ${className} extends ${parentClassName} {
     private static readonly extendsClassName = '${className}';
 
-    constructor() {
+    public constructor() {
         super(${className}.extendsClassName);
     }
-
-    ngOnInit(): void { }
-}`;
+}
+`;
 
 const getDeviceHtmlTemplate = (deviceName) => `<div
     [ngClass]="{
-        'phone': screenLighthouse.type === ScreenEnum.Phone,
-        'tablet': screenLighthouse.type === ScreenEnum.Tablet,
-        'desktop': screenLighthouse.type === ScreenEnum.Desktop
+        'phone': screenInfo.screen.type === ScreenEnum.Phone,
+        'tablet': screenInfo.screen.type === ScreenEnum.Tablet,
+        'desktop': screenInfo.screen.type === ScreenEnum.Desktop
     }"
 >
     <p [ngClass]="{
-        'vertical': screenLighthouse.orientation === OrientationScreenEnum.Vertical,
-        'horizontal': screenLighthouse.orientation === OrientationScreenEnum.Horizontal
+        'vertical': screenInfo.screen.orientation === OrientationScreenEnum.Vertical,
+        'horizontal': screenInfo.screen.orientation === OrientationScreenEnum.Horizontal
     }">${deviceName} device works!</p>
 </div>`;
 

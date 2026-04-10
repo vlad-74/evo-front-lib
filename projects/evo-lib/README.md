@@ -4,13 +4,41 @@ This library was generated with [Angular CLI](https://github.com/angular/angular
 
 ---
 
-## <span style="color:yellow">Install WebStorm snippets (implemented on Windows)</span>
+## <span style="color:yellow">1. Install in WebStorm EVO snippets (implemented on Windows)</span>
 
 <span style="color:green"> node ./node_modules/evo-lib/tools/install-snippets.js</span>
 
 Restart WebStorm after installation
 
 ---
+
+## <span style="color:yellow">2. Create EVO Pages & Components (implemented on Windows)</span>
+
+До установки библиотеки (разработчик режим разработки):
+<span style="color:green">npm run evo page-data -- --name user-car --style scss --path projects/demo/src/app/</span>
+
+---
+
+После установки библиотеки (пользователь установивший библиотеку):
+<span style="color:green">npx evo-generator page-data -- --name user-car --style scss --path src/app</span>
+
+
+
+| Команда | Описание                                                         |
+|---------|------------------------------------------------------------------|
+| `component-exchange` | Компонент с NgExchangeSubscribeComponent                         |
+| `page-data` | Страница с устройствами + 5 сервисов для получения данных (List) |
+| `page-detail` | Страница с устройствами (Detailing - открывается из List)            |
+
+
+| Параметр | Обязательность | По умолчанию | Пример |
+|----------|----------------|--------------|--------|
+| `--name` | Да | - | `--name user-card` |
+| `--style` | Нет | `scss` | `--style less` |
+| `--path` | Нет | текущая папка | `--path src/app` |
+
+---
+
 
 ## Code scaffolding
 
