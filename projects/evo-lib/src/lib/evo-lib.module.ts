@@ -4,10 +4,7 @@ import {NgExchangeSubscribeComponent} from './evo/exchange/ng-exchange-subscribe
 
 
 @NgModule({
-  declarations: [
-      EvoThemeClassDirective,
-      NgExchangeSubscribeComponent,
-  ],
+  declarations: [EvoThemeClassDirective, NgExchangeSubscribeComponent],
   imports: [
   ],
   exports: [

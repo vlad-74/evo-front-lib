@@ -3,9 +3,6 @@
     "version": "11.0.9",
     "description": "Angular library for automating frontend developer work.",
     "author": "Vladimir Kurguzov <kurguzov74@gmail.com>",
-    "scripts": {
-        "EVO:SNIPPETS": "node ./node_modules/evo-lib/tools/install-snippets.js"
-    },
     "peerDependencies": {
         "@angular/common": ">=11.0.0 <16.0.0",
         "@angular/core": ">=11.0.0 <16.0.0",

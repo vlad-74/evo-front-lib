@@ -23,6 +23,7 @@
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
+        "evo": "node projects/evo-lib/tools/evo-generator/index.js",
         "node_modules-clean": "rimraf node_modules --force || exit 0",
         "node_modules": "npm i",
         "dist-server": "npx http-server dist/evo-lib -p 4344 -o -c-1 --cors"
