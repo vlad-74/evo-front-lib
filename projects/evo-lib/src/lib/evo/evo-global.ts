@@ -12,13 +12,14 @@ import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
 import {ICreatePage, PageService} from './page/page.service';
+import {ViewContainerRef} from '@angular/core';
 
 // Сохраняем экземпляр, созданный через DI
-// tslint:disable-next-line:variable-name
-let _pageService: PageService | null = null;
+
+let pageService: PageService;
 
 export function setPageService(instance: PageService): void {
-    _pageService = instance;
+    pageService = instance;
 }
 
 
@@ -73,12 +74,8 @@ export const evoBase: TEvo = {
 
     /** Сервис для создания страниц */
     createPage: {
-        send: (config: ICreatePage) => {
-            if (!_pageService) {
-                throw new Error('PageService ещё не установлен. Убедитесь, что EvoLibModule загружен.');
-            }
-            return _pageService.send(config);
-        }
+        send: (config: ICreatePage) => pageService.send(config),
+        clearContainer: (vcr: ViewContainerRef) => pageService.clearContainer(vcr),
     } as PageService
 };
 
