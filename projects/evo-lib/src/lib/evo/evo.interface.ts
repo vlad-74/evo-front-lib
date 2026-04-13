@@ -4,7 +4,9 @@ import {IDevicesScreen} from './devices-screen/devices-screen';
 import {IAwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ILighthouse} from './_lighthouse/_lighthouse.interface';
 import {ITheme} from './theme/theme.lighthouse';
-import {IExchangeSource} from 'evo-lib';
+import {IExchangeSource} from './exchange/exchange.interface';
+import {PageService} from './create-component/page.service';
+
 
 export type TNullable<T> = T | null;
 
@@ -36,5 +38,8 @@ export type TEvo = {
     checkEvo: any;
 
     /** Сервис для безопасной обработки Promise с централизованной системой ошибок */
-    awaitTryCatch: IAwaitTryCatchService
+    awaitTryCatch: IAwaitTryCatchService;
+
+    /** Сервис для создания страниц */
+    page: PageService,
 };

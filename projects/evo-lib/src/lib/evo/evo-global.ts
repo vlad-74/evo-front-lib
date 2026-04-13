@@ -10,6 +10,7 @@ import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
+import {PageService} from './create-component/page.service';
 
 
 // ------------------------------
@@ -59,6 +60,9 @@ export const evoBase: TEvo = {
 
     /** Сервис для безопасной обработки Promise с централизованной системой ошибок */
     awaitTryCatch: new AwaitTryCatchService(),
+
+    /** Сервис для создания страниц */
+    page: new PageService(),
 };
 
 (window as any).evo = evoBase;
