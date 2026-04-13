@@ -5,6 +5,9 @@ import { colorStyles, TColor } from './logger.interface';
 // Счетчики для каждого типа логирования - динамическая инициализация
 const messageCounters: Partial<Record<TLoggingTypes, number>> = {};
 
+// Общий счетчик для всех сообщений
+let allMessagesCounter = 0;
+
 /**
  * Получает текущее местное время с миллисекундами
  * @returns строка с временем в формате HH:MM:SS.mmm
@@ -20,15 +23,21 @@ function getLocalTimeWithMs(): string {
 }
 
 /**
- * Увеличивает счетчик для указанного типа логирования
+ * Увеличивает общий счетчик и счетчик для указанного типа логирования
  * @param loggingType - тип логирования
- * @returns текущее значение счетчика
+ * @returns объект с общим счетчиком и счетчиком типа
  */
-function incrementCounter(loggingType: TLoggingTypes): number {
+function incrementCounters(loggingType: TLoggingTypes): { allCounter: number; typeCounter: number } {
+    // Увеличиваем общий счетчик
+    allMessagesCounter++;
+    const allCounter = allMessagesCounter;
+
+    // Увеличиваем счетчик для типа
     const currentValue = messageCounters[loggingType] || 0;
     const newValue = currentValue + 1;
     messageCounters[loggingType] = newValue;
-    return newValue;
+
+    return { allCounter, typeCounter: newValue };
 }
 
 /**
@@ -41,9 +50,9 @@ function incrementCounter(loggingType: TLoggingTypes): number {
  */
 function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, messages: unknown[]): [string, ...unknown[]] {
     const localTime = getLocalTimeWithMs();
-    const counter = incrementCounter(loggingType);
-    // Формат: счетчик --- время --- тип --- [процесс] - сообщение
-    const prefix = `${counter} --- ${localTime} --- ${loggingType} --- [${processName}] -`;
+    const { allCounter, typeCounter } = incrementCounters(loggingType);
+    // Формат: общий счетчик --- счетчик типа --- время --- тип --- [процесс] - сообщение
+    const prefix = `${allCounter} - ${typeCounter} / ${localTime} / [${loggingType}/${processName}]`;
 
     // Первый аргумент - префикс, остальные - исходные сообщения
     return [prefix, ...messages];
@@ -136,8 +145,8 @@ function color(
 
     // Для цветного логирования нужно применить стиль только к префиксу
     const localTime = getLocalTimeWithMs();
-    const counter = incrementCounter(loggingType);
-    const prefix = `${counter} --- ${localTime} --- ${loggingType} --- [${processName}] -`;
+    const { allCounter, typeCounter } = incrementCounters(loggingType);
+    const prefix = `${allCounter} - ${typeCounter} / ${localTime} / [${loggingType}/${processName}]`;
     const styledPrefix = `%c${prefix}`;
 
     // Первый аргумент - стилизованный префикс, затем стиль, затем остальные сообщения
@@ -207,8 +216,8 @@ export function colorWarn(
     }
 
     const localTime = getLocalTimeWithMs();
-    const counter = incrementCounter(loggingType);
-    const prefix = `${counter} - ${localTime} - ${loggingType} / ${processName}`;
+    const { allCounter, typeCounter } = incrementCounters(loggingType);
+    const prefix = `${allCounter} - ${typeCounter} / ${localTime} / [${loggingType}/${processName}]`;
     const styledPrefix = `%c${prefix}`;
 
     const [firstMessage, ...restMessages] = validationResult.restArgs;
@@ -233,6 +242,10 @@ export function colorWarn(
  * Сброс счетчиков для всех типов логирования
  */
 export function resetCounters(): void {
+    // Сбрасываем общий счетчик
+    allMessagesCounter = 0;
+
+    // Сбрасываем счетчики по типам
     for (const key in messageCounters) {
         if (Object.prototype.hasOwnProperty.call(messageCounters, key)) {
             delete messageCounters[key as TLoggingTypes];
@@ -243,8 +256,11 @@ export function resetCounters(): void {
 /**
  * Получение текущих значений счетчиков
  */
-export function getCounters(): Partial<Record<TLoggingTypes, number>> {
-    return { ...messageCounters };
+export function getCounters(): { allCounter: number; typeCounters: Partial<Record<TLoggingTypes, number>> } {
+    return {
+        allCounter: allMessagesCounter,
+        typeCounters: { ...messageCounters }
+    };
 }
 
 export const logService = {

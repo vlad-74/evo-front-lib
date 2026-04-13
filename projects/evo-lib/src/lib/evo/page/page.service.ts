@@ -86,7 +86,7 @@ export class PageService {
         }
 
         evo.log.colorWarn(
-            'white',
+            'blue',
             'createPage',
             'common',
             'В PageService - создан компонент ',
