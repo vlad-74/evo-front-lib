@@ -52,7 +52,7 @@ function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, m
     const localTime = getLocalTimeWithMs();
     const { allCounter, typeCounter } = incrementCounters(loggingType);
     // Формат: общий счетчик --- счетчик типа --- время --- тип --- [процесс] - сообщение
-    const prefix = `${allCounter} - ${typeCounter} / ${localTime} / [${loggingType}/${processName}]`;
+    const prefix = `Всего ${allCounter} - по типу ${loggingType} - ${typeCounter} / ${localTime} / ${processName}`;
 
     // Первый аргумент - префикс, остальные - исходные сообщения
     return [prefix, ...messages];
@@ -146,7 +146,7 @@ function color(
     // Для цветного логирования нужно применить стиль только к префиксу
     const localTime = getLocalTimeWithMs();
     const { allCounter, typeCounter } = incrementCounters(loggingType);
-    const prefix = `${allCounter} - ${typeCounter} / ${localTime} / [${loggingType}/${processName}]`;
+    const prefix = `Всего ${allCounter} - по типу ${loggingType} - ${typeCounter} / ${localTime} / ${processName}`;
     const styledPrefix = `%c${prefix}`;
 
     // Первый аргумент - стилизованный префикс, затем стиль, затем остальные сообщения
@@ -217,7 +217,7 @@ export function colorWarn(
 
     const localTime = getLocalTimeWithMs();
     const { allCounter, typeCounter } = incrementCounters(loggingType);
-    const prefix = `${allCounter} - ${typeCounter} / ${localTime} / [${loggingType}/${processName}]`;
+    const prefix = `Всего ${allCounter} - по типу ${loggingType} - ${typeCounter} / ${localTime} / ${processName}`;
     const styledPrefix = `%c${prefix}`;
 
     const [firstMessage, ...restMessages] = validationResult.restArgs;
