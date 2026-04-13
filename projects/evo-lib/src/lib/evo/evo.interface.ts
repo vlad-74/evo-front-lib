@@ -5,7 +5,7 @@ import {IAwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ILighthouse} from './_lighthouse/_lighthouse.interface';
 import {ITheme} from './theme/theme.lighthouse';
 import {IExchangeSource} from './exchange/exchange.interface';
-import {PageService} from './create-component/page.service';
+import {PageService} from './page/page.service';
 
 
 export type TNullable<T> = T | null;

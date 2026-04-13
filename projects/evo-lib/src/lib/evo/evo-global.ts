@@ -10,7 +10,7 @@ import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
-import {PageService} from './create-component/page.service';
+import {PageService} from './page/page.service';
 
 
 // ------------------------------
@@ -41,6 +41,7 @@ const evoStart = {
     log: logService,
 };
 
+
 // Этап 2: полная инициализация с остальными полями
 export const evoBase: TEvo = {
     ...evoStart,
@@ -65,6 +66,7 @@ export const evoBase: TEvo = {
     page: new PageService(),
 };
 
+
 (window as any).evo = evoBase;
 
 // ------------------------------
@@ -74,6 +76,3 @@ setupSubscriptions(evoBase, libraryDestroy$);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
 evoBase.devicesScreen.devices.send$(devices, 'старт - evo-global!!!');
-
-
-

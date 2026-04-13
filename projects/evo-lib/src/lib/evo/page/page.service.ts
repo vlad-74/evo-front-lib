@@ -1,4 +1,5 @@
 import {ComponentFactoryResolver, ComponentRef, EventEmitter, ViewContainerRef} from '@angular/core';
+import {ResolverProviderService} from './resolver-provider.service';
 
 export enum ContainerName {
     List = 'containerList',
@@ -82,6 +83,10 @@ export class PageService implements IPageService {
     // Храним ссылки на созданные компоненты
     public componentRefs = new WeakMap<ViewContainerRef, ComponentRef<any>>();
 
+    constructor() {
+        this.componentFactoryResolver = ResolverProviderService.getResolver();
+    }
+
     //region Публичные методы
 
     public resolveViewContainerRef(
@@ -103,11 +108,7 @@ export class PageService implements IPageService {
             throw new Error('Не указан компонент для создания страницы');
         }
 
-        const viewContainerRef = this.resolveViewContainerRef(page.viewContainerRef);
-
-        if (!viewContainerRef) {
-            throw new Error('Не удалось разрешить ViewContainerRef');
-        }
+        const viewContainerRef = page.viewContainerRef as ViewContainerRef;
 
         if (!page.isMultiPage) {
             // Удаляем предыдущий компонент, если он существует
@@ -116,40 +117,47 @@ export class PageService implements IPageService {
 
         // Создать компонент динамически - Используем ComponentFactoryResolver
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(page.component);
-        const componentRef = viewContainerRef.createComponent(componentFactory);
+        const componentRef = (page.viewContainerRef as ViewContainerRef).createComponent(componentFactory);
+
+        // Присваеиваем класс для коспонента который будет создан
+        // const nativeElement = componentRef.location.nativeElement;
+        // nativeElement.style.zIndex = page.type === 'containerModal' ? 300000
+        //     : page.type === 'containerDetail' ? 200000 : 100000;
+
 
         // Сохраняем ссылку
         this.componentRefs.set(viewContainerRef, componentRef);
 
-        // Приводим instance к типу с возможными подписками
-        const instance = componentRef.instance as ComponentWithSubscriptions;
-
         // Передача @Input()
         const inputs = {
             ...page.inputs,
-            $componentRef: componentRef,
+            $componentRef: componentRef, // <-- добавляем реф для дальнейшего использовании при удалении компонента
         };
 
+        // Передача @Input()
         if (inputs) {
             Object.keys(inputs).forEach(input => {
                 // @ts-ignore
-                (instance as any)[input] = inputs[input];
+                componentRef.instance[input] = inputs[input];
             });
         }
 
         // Обработка @Output()
-        if (page.outputs) {
-            const outputs = page.outputs; // TypeScript теперь знает, что outputs существует
+        if (page?.outputs) {
+            Object.keys(page.outputs).forEach(output => {
+                // @ts-ignore
+                const eventEmitter: EventEmitter<any> = componentRef.instance[output];
+                // tslint:disable-next-line:no-non-null-assertion
+                const handler = page.outputs![output];
 
-            Object.keys(outputs).forEach(output => {
-                const eventEmitter: unknown = instance[output];
-                const handler = outputs[output]; // Безопасно, так как мы уже проверили
-
-                if (eventEmitter instanceof EventEmitter && handler) {
+                if (eventEmitter && eventEmitter instanceof EventEmitter && handler) {
                     const subscription = eventEmitter.subscribe((event: any) => handler(event));
-
                     // Сохраняем подписку для отписки при уничтожении
+
+                    const instance = componentRef.instance as ComponentWithSubscriptions;
+
                     if (!instance._subscriptions) {
+
                         instance._subscriptions = [];
                     }
                     instance._subscriptions.push(subscription);
@@ -158,8 +166,8 @@ export class PageService implements IPageService {
                     componentRef.onDestroy(() => {
                         subscription.unsubscribe();
                     });
-                } else if (eventEmitter !== undefined) {
-                    console.warn(`Output '${output}' not found or is not an EventEmitter on component`, instance);
+                } else {
+                    console.warn(`Output '${output}' not found or is not an EventEmitter on component`, componentRef.instance);
                 }
             });
         }
