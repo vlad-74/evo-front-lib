@@ -53,9 +53,9 @@ function buildLogArgs(loggingType: TLoggingTypes, processName: TAccessProcess, m
  * Выключает логирование для всех типов, кроме logAll
  *
  * @example
- * evo.log.disableAllExceptLogAll()
+ * evo.log.disableLogAll()
  */
-function disableAllExceptLogAll(): void {
+function disableLogAll(): void {
     for (const loggingType of loggingTypesArray) {
         if (loggingType !== 'logAll' && evoLoggingAccessType[loggingType]) {
             evoLoggingAccessType[loggingType].accessType = false;
@@ -67,9 +67,9 @@ function disableAllExceptLogAll(): void {
  * Включает логирование для всех типов, кроме logAll
  *
  * @example
- * evo.log.enableAllExceptLogAll()
+ * evo.log.enableLogAll()
  */
-function enableAllExceptLogAll(): void {
+function enableLogAll(): void {
     for (const loggingType of loggingTypesArray) {
         if (loggingType !== 'logAll' && evoLoggingAccessType[loggingType]) {
             evoLoggingAccessType[loggingType].accessType = true;
@@ -253,8 +253,8 @@ export const logService = {
     info,
     log,
     colorWarn,
-    disableAllExceptLogAll,
-    enableAllExceptLogAll,
+    disableLogAll,
+    enableLogAll,
     resetCounters,
     getCounters
 };

@@ -36,6 +36,6 @@ export type TEvoLog = {
         processName: TAccessProcess,
         ...messages: unknown[]
     ) => void;
-    disableAllExceptLogAll: () => void;
-    enableAllExceptLogAll: () => void;
+    disableLogAll: () => void;
+    enableLogAll: () => void;
 };

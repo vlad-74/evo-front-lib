@@ -31,7 +31,8 @@ export class AppComponent implements OnInit {
     public async ngOnInit(): Promise<void> {
 
         // evo.debug.logAll.accessType = false;
-        // evo.log.disableAllExceptLogAll(); // только logAll + common
+
+        // evo.log.disableLogAll(); // только logAll + common
 
         setTimeout(() => {
                 evo.theme.send$({name: 'white'}, 'AppComponent');
@@ -77,7 +78,7 @@ export class AppComponent implements OnInit {
         // console.log('-----------------------evo!!!', evo);
 
         // evo.debug.awaitTryCatch.accessType = false;
-        // evo.log.enableAllExceptLogAll(); // все логируется
+        // evo.log.enableLogAll(); // все логируется
         const params = { search: { search: [] }, size: 200 };
         await evo.awaitTryCatch.send(this.rest.search('catalogueRegions', params), 'AppComponent');
     }
