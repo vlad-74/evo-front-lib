@@ -1,7 +1,7 @@
 // commands/templates/page-data/common-devices.js
 
 // language=TEXT
-const getCommonDevicesTemplate = (componentName, className) => `import { Component, Input, Inject } from '@angular/core';
+const getCommonDevicesTemplate = (componentName, className) => `import { Component, Input, Inject, OnDestroy } from '@angular/core';
 import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScreenEnum } from 'evo-lib';
 
 @Component({
@@ -35,7 +35,8 @@ export class ${className} extends NgExchangeSubscribeComponent implements OnDest
     public ngOnDestroy(): void {
         super.ngOnDestroy();
     }
-}`;
+}
+`;
 
 module.exports = {
     getCommonDevicesTemplate

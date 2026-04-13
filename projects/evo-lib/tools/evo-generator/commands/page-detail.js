@@ -92,7 +92,7 @@ module.exports = async function(targetPath, scriptPath, options) {
                 writeFile(mainFile, getMainTemplate(componentName, styleType, className));
                 writeFile(path.join(componentFolder, `${componentName}.component.html`), getMainHtmlTemplate(componentName));
                 writeFile(path.join(componentFolder, `${componentName}.component.${styleType}`), getMainStylesTemplate());
-                logSuccess(`Основная страница создана`);
+                logSuccess(` Основная страница создана`);
             }
         } else {
             logWarning(`Основная страница уже существует`);
@@ -115,7 +115,7 @@ module.exports = async function(targetPath, scriptPath, options) {
                 if (fs.existsSync(commonHtmlFile)) deleteFile(commonHtmlFile);
                 if (fs.existsSync(commonStylesFile)) deleteFile(commonStylesFile);
 
-                logSuccess(`Common-devices компонент создан`);
+                logSuccess(` Common-devices компонент создан`);
             }
         }
 
@@ -137,7 +137,7 @@ module.exports = async function(targetPath, scriptPath, options) {
                 writeFile(path.join(deviceFolder, `${deviceName}.component.${styleType}`), getDeviceStylesTemplate());
 
                 componentFiles.push(deviceFile);
-                logSuccess(`Device компонент ${device} создан`);
+                logSuccess(` Device компонент ${device} создан`);
             }
         }
 

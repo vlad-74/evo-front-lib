@@ -30,6 +30,7 @@ export class ${className}Component implements OnInit{
         requestService: ${componentPascal}1RequestService,
         serverService: ${componentPascal}2ServerService,
         parsedService: ${componentPascal}3ParsedService,
+        factoryService: ${componentPascal}4FactoryService,
         dispatcherService: ${componentPascal}5DispatcherService
     ) {
     }
@@ -42,7 +43,7 @@ export class ${className}Component implements OnInit{
         const themeName = 'black';
 
         setTimeout(() => {
-            evo.theme.send({
+            evo.theme.send$({
                 name: themeName,
             });
         }, 3000);

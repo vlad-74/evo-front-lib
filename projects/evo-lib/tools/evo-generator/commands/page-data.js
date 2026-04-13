@@ -121,7 +121,7 @@ module.exports = async function(targetPath, scriptPath, options) {
         const devicesPath = path.join(componentFolder, 'devices');
         const servicesPath = path.join(componentFolder, 'services');
 
-        logInfo(`Создание страницы со списком данных: ${componentName}`);
+        logInfo(` Создание страницы со списком данных: ${componentName}`);
 
         // 1. Папка страницы
         ensureDirectory(componentFolder);
@@ -141,10 +141,10 @@ module.exports = async function(targetPath, scriptPath, options) {
                 writeFile(mainFile, getMainTemplate(componentName, styleType, className, componentPascal));
                 writeFile(path.join(componentFolder, `${componentName}.component.html`), getMainHtmlTemplate(componentName));
                 writeFile(path.join(componentFolder, `${componentName}.component.${styleType}`), getMainStylesTemplate());
-                logSuccess(`Основная страница создана`);
+                logSuccess(` Основная страница создана`);
             }
         } else {
-            logWarning(`Основная страница уже существует`);
+            logWarning(` Основная страница уже существует`);
         }
 
         // 4. Папка devices
@@ -164,7 +164,7 @@ module.exports = async function(targetPath, scriptPath, options) {
                 if (fs.existsSync(commonHtmlFile)) deleteFile(commonHtmlFile);
                 if (fs.existsSync(commonStylesFile)) deleteFile(commonStylesFile);
 
-                logSuccess(`Common-devices компонент создан`);
+                logSuccess(` Common-devices компонент создан`);
             }
         }
 
@@ -186,24 +186,24 @@ module.exports = async function(targetPath, scriptPath, options) {
                 writeFile(path.join(deviceFolder, `${deviceName}.component.${styleType}`), getDeviceStylesTemplate());
 
                 componentFiles.push(deviceFile);
-                logSuccess(`Device компонент ${device} создан`);
+                logSuccess(` Device компонент ${device} создан`);
             }
         }
 
         // 7. Регистрация в модуле
         const modulePath = findNgModule(componentFolder);
         if (modulePath) {
-            logInfo(`Регистрация компонентов в модуле: ${modulePath}`);
+            logInfo(` Регистрация компонентов в модуле: ${modulePath}`);
             for (const compFile of componentFiles) {
                 if (fs.existsSync(compFile) && compFile.endsWith('.ts') && !compFile.includes('.service')) {
                     updateNgModule(compFile, modulePath);
                 }
             }
         } else {
-            logWarning('Модуль не найден для регистрации компонентов');
+            logWarning(' Модуль не найден для регистрации компонентов');
         }
 
-        logSuccess(`Страница ${componentName} с сервисами успешно создана`);
+        logSuccess(` Страница ${componentName} с сервисами успешно создана`);
 
     } catch (error) {
         logError(error.message);
