@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {exchangeNameEnum} from 'evo-lib';
 import {RestService} from '../service/rest.service';
 
@@ -7,8 +7,14 @@ import {RestService} from '../service/rest.service';
   templateUrl: './parent.component.html',
   styleUrls: ['./parent.component.scss']
 })
-export class ParentComponent implements OnInit {
-    title = 'demo';
+export class ParentComponent implements OnInit, AfterViewInit {
+    @Input() test = '';
+    @Output() closed = new EventEmitter<void>(); // Используем EventEmitter
+
+    // public title: string | null = null;
+
+    public toolbar!: string[];
+    public txt!: string[];         // ← тоже
 
     public constructor(
         public rest: RestService,
@@ -63,6 +69,16 @@ export class ParentComponent implements OnInit {
         // evo.log.enableLogAll(); // все логируется
         const params = { search: { search: [] }, size: 200 };
         await evo.awaitTryCatch.send(this.rest.search('catalogueRegions', params), 'AppComponent');
+    }
+
+    public ngAfterViewInit(): void {
+        Promise.resolve().then(() => {
+            this.toolbar = ['toolbar'];
+            this.txt = ['txt'];
+            // this.title = 'txt';
+
+            this.closed.emit();
+        });
     }
 
 }

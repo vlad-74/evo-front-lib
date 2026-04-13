@@ -33,7 +33,7 @@ export class AppComponent implements OnInit, AfterViewInit {
      *
      * @example
      *
-     * _evo_page$.send({
+     * evo.createPage.send({
      *      component: DetailingExampleComponent,
      *      viewContainerRef: ContainerName.Detail,
      *      inputs: {
@@ -65,7 +65,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             component: ParentComponent,
             viewContainerRef: this.containerList,
             isMultiPage: false,
-            inputs: { title: 'Hello' },
+            inputs: { test: 'Hello!' },
             outputs: { closed: () => console.log('Закрыто') }
         });
     }

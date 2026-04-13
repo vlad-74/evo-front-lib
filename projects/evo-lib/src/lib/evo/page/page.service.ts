@@ -1,17 +1,5 @@
-import {ComponentFactoryResolver, ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
-import {ResolverProviderService} from './resolver-provider.service';
-
-// --- Хранилище ComponentFactoryResolver ---
-// tslint:disable-next-line:variable-name
-let _cfr: ComponentFactoryResolver | null = null;
-
-export function setComponentFactoryResolver(cfr: ComponentFactoryResolver): void {
-    if (!_cfr) { _cfr = cfr; }
-}
-
-export function getComponentFactoryResolver(): ComponentFactoryResolver | null {
-    return _cfr;
-}
+import { ComponentRef, Injectable, ViewContainerRef} from '@angular/core';
+import { ResolverProviderService } from './resolver-provider.service';
 
 // --- Интерфейсы ---
 
@@ -31,7 +19,6 @@ export interface ICreatePage {
  */
 @Injectable()
 export class PageService {
-    public componentFactoryResolver: ComponentFactoryResolver | null = null;
     public readonly componentRefs = new WeakMap<ViewContainerRef, ComponentRef<any>[]>();
 
     // Конструктор с необязательным инъектированием (для совместимости с `new PageService()`)
@@ -101,6 +88,7 @@ export class PageService {
                 }
             });
         }
+        evo.log.colorWarn('white', 'createPage', 'common', 'В PageService - создан компонент ', component.name);
     }
 
     /**
