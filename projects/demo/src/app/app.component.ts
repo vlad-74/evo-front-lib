@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
                 evo.exchange.send$(
                     {
                         from: 'AppComponent',
-                        to: ['ChildComponentComponent'],
+                        to: ['ChildComponent'],
                         source: {
                             name: exchangeNameEnum.RunAction,
                             data: {
@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
                 evo.exchange.send$(
                     {
                         from: 'AppComponent',
-                        to: ['ChildComponentComponent'],
+                        to: ['ChildComponent'],
                         source: {
                             name: exchangeNameEnum.ChangeProperty,
                             data: {

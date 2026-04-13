@@ -4,13 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { EvoLibModule } from 'evo-lib';
-import { ChildComponentComponent } from './child-component/child-component.component';
+import { ChildComponent } from './child/child.component';
 
 
 @NgModule({
   declarations: [
       AppComponent,
-      ChildComponentComponent
+      ChildComponent
   ],
   imports: [
     BrowserModule, EvoLibModule, HttpClientModule,
