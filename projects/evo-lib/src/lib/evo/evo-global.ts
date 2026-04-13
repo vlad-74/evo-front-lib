@@ -3,13 +3,13 @@ import { Subject } from 'rxjs';
 import {evoLoggingAccessType, isLocalhost} from './logging/debugger';
 import {logService} from './logging/logger';
 import {DevicesScreen} from './devices-screen/devices-screen';
-import {EvoTheme} from './theme/evo-theme';
 import {devices} from './devices-screen/devices/devices';
 import {setupSubscriptions} from './evo-subscriptions';
 import {TEvo} from './evo.interface';
-import {EvoExchange} from './exchange/evo-exchange';
 import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
+import {ThemeLighthouse} from './theme/theme.lighthouse';
+import {ExchangeLighthouse} from './exchange/exchange.lighthous';
 
 
 // ------------------------------
@@ -49,10 +49,10 @@ export const evoBase: TEvo = {
     devicesScreen:  new DevicesScreen(),
 
     /**  Тема интерфейса (цвета, стили и т.д.) */
-    theme: new EvoTheme(),
+    theme: new ThemeLighthouse(),
 
     /** Система взаимодействия между компонентами */
-    exchange: new EvoExchange(),
+    exchange: new ExchangeLighthouse(),
 
     /** Проверка компонентов при extends */
     checkEvo: new CheckEvoWorker(),
@@ -69,7 +69,7 @@ export const evoBase: TEvo = {
 setupSubscriptions(evoBase, libraryDestroy$);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
-evoBase.devicesScreen.devices.l.send(devices, 'старт - evo-global!!!');
+evoBase.devicesScreen.devices.send$(devices, 'старт - evo-global!!!');
 
 
 

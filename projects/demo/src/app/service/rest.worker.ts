@@ -49,7 +49,7 @@ export class RestWorker implements IRestWorker {
      */
 
     private async _getData(collection: string, params: IParams, method: TMethod ): Promise<any> {
-        return await evo.awaitTryCatch.getResult(this.restService[method](collection, params));
+        return await evo.awaitTryCatch.send(this.restService[method](collection, params));
     }
 
     //endregion

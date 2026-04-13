@@ -1,9 +1,10 @@
 import {TLoggingAccessType} from './logging/debugger';
 import {TEvoLog} from './logging/logger.interface';
 import {IDevicesScreen} from './devices-screen/devices-screen';
-import {IEvoTheme} from './theme/evo-theme';
-import {IEvoExchange} from './exchange/evo-exchange';
 import {IAwaitTryCatchService} from './await-try-catch/await-try-catch.service';
+import {ILighthouse} from './_lighthouse/_lighthouse.interface';
+import {ITheme} from './theme/theme.lighthouse';
+import {IExchangeSource} from 'evo-lib';
 
 export type TNullable<T> = T | null;
 
@@ -26,10 +27,10 @@ export type TEvo = {
     devicesScreen: IDevicesScreen;
 
     /**  Тема интерфейса (цвета, стили и т.д.) */
-    theme: IEvoTheme;
+    theme: ILighthouse<ITheme>;
 
     /** Система взаимодействия между компонентами */
-    exchange: IEvoExchange;
+    exchange: ILighthouse<IExchangeSource>;
 
     /** Проверка компонентов при extends */
     checkEvo: any;

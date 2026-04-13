@@ -1,5 +1,5 @@
 export interface IAwaitTryCatchService {
-    getResult<T = any>(promise: Promise<T>, from?: string,  errorMessage?: string): Promise<T | false>;
+    send<T = any>(promise: Promise<T>, from?: string,  errorMessage?: string): Promise<T | false>;
 }
 
 export class AwaitTryCatchService implements IAwaitTryCatchService {
@@ -16,7 +16,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
         }
     }
 
-    public async getResult<T = any>(
+    public async send<T = any>(
         promise: Promise<T>,
         from: string = 'Не указано',
         errorMessage: string = 'Ошибка при выполнении Promise'
@@ -32,7 +32,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
             evo.log.colorWarn('cyan',
                 'awaitTryCatch',
                 'common',
-                'Результат выполнения getResult (из ' + from + '/AwaitTryCatchService)',
+                'Результат выполнения send (из ' + from + '/AwaitTryCatchService)',
                 result
             );
 
@@ -41,7 +41,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
             evo.log.colorWarn('red',
                 'awaitTryCatch',
                 'common',
-                'Результат выполнения getResult (из ' + from + '/AwaitTryCatchService)',
+                'Результат выполнения send (из ' + from + '/AwaitTryCatchService)',
                 errorMessage
             );
             this._tryCatchErrorInfo(error);
@@ -69,7 +69,7 @@ export class AwaitTryCatchService implements IAwaitTryCatchService {
             evo.log.colorWarn('cyan',
                 'awaitTryCatch',
                 'common',
-                'Результат выполнения getResult (из ' + from + '/AwaitTryCatchService)',
+                'Результат выполнения send (из ' + from + '/AwaitTryCatchService)',
                 data
             );
 

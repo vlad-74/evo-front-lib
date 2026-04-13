@@ -18,7 +18,7 @@ import '../evo/evo-global-declare';
  * Пример использования:
  *
  * ```ts
- * evo.theme.l.send({name: 'white'}, 'AppComponent');
+ * evo.theme.send({name: 'white'}, 'AppComponent');
  * ```
  *
  * ```html
@@ -55,7 +55,7 @@ export class EvoThemeClassDirective implements OnInit, OnDestroy {
             // evo.debug.theme.accessProcess.push('directive');
         }
 
-        evo.theme.l.lighthouse$
+        evo.theme.lighthouse$
             .pipe(
                 takeUntil(this.destroyed$),
                 // Используем type guard для сужения типа и исключения null

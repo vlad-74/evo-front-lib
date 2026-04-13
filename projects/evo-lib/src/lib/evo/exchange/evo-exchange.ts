@@ -3,13 +3,13 @@ import {ILighthouse} from '../_lighthouse/_lighthouse.interface';
 import {ExchangeLighthouse} from './exchange.lighthous';
 
 export interface IEvoExchange {
-    l: ILighthouse<IExchangeSource>;
+    com: ILighthouse<IExchangeSource>;
 }
 
 export class EvoExchange implements IEvoExchange {
-    public l: ILighthouse<IExchangeSource>;
+    public com: ILighthouse<IExchangeSource>;
 
     public constructor() {
-        this.l = new ExchangeLighthouse();
+        this.com = new ExchangeLighthouse();
     }
 }

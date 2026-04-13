@@ -53,7 +53,7 @@
       <option name="TypeScript" value="true" />
     </context>
   </template>
-  <template name="evoo__tryCatch.await" value="await evo.awaitTryCatch.getResult($PROMISE$, $FROM$)" description="tryCatch для promise" toReformat="false" toShortenFQNames="true">
+  <template name="evoo__tryCatch.await" value="await evo.awaitTryCatch.send($PROMISE$, $FROM$)" description="tryCatch для promise" toReformat="false" toShortenFQNames="true">
     <variable name="PROMISE" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="FROM" expression="" defaultValue="" alwaysStopAt="true" />
     <context>

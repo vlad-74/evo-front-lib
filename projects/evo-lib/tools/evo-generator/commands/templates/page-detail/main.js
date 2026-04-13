@@ -17,7 +17,7 @@ export class ${className}Component {
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo.devicesScreen.screen.l.lighthouse$;
+    public screenInfo$ = evo.devicesScreen.screen.lighthouse$;
 
     public ScreenEnum = ScreenEnum;
 }

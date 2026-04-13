@@ -13,7 +13,7 @@ export class BaseLighthouse<T> implements ILighthouse<T> {
         private type: TLoggingTypes,
     ) {}
 
-    public send(value: T, from: string = 'Не указано'): void {
+    public send$(value: T, from: string = 'Не указано'): void {
         if (!value) { return; }
 
         evo.log.colorWarn('magenta', this.type, 'common', 'SEND (из ' + from + '/BaseLighthouse) для ' + this.type, value);

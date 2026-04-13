@@ -17,7 +17,7 @@ npm install
 */
 
 @Component({
-  selector: 'app-root',
+  selector: 'evo-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -34,9 +34,9 @@ export class AppComponent implements OnInit {
         // evo.log.disableAllExceptLogAll(); // только logAll + common
 
         setTimeout(() => {
-                evo.theme.l.send({name: 'white'}, 'AppComponent');
+                evo.theme.send$({name: 'white'}, 'AppComponent');
 
-                evo.exchange.l.send(
+                evo.exchange.send$(
                     {
                         from: 'AppComponent',
                         to: ['ChildComponentComponent'],
@@ -55,9 +55,9 @@ export class AppComponent implements OnInit {
             3000);
 
         setTimeout(() => {
-                evo.theme.l.send({name: 'white'}, 'AppComponent');
+                evo.theme.send$({name: 'white'}, 'AppComponent');
 
-                evo.exchange.l.send(
+                evo.exchange.send$(
                     {
                         from: 'AppComponent',
                         to: ['ChildComponentComponent'],
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit {
         // evo.debug.awaitTryCatch.accessType = false;
         // evo.log.enableAllExceptLogAll(); // все логируется
         const params = { search: { search: [] }, size: 200 };
-        await evo.awaitTryCatch.getResult(this.rest.search('catalogueRegions', params), 'AppComponent');
+        await evo.awaitTryCatch.send(this.rest.search('catalogueRegions', params), 'AppComponent');
     }
 
 }

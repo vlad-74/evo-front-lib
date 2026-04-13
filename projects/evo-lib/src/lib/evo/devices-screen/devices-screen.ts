@@ -6,32 +6,21 @@ import { DevicesLighthouse } from './devices/devices.lighthouse';
 import { ScreenLighthouse } from './screen/screen.lighthouse';
 
 export interface IDevicesScreen {
-    devices: {
-        l: ILighthouse<IDevices>;
-    };
-    screen: {
-        l: ILighthouse<IScreenInfo>;
-        s: ScreenService;
-    };
+    devices: ILighthouse<IDevices>;
+    screen: ILighthouse<IScreenInfo>;
+    screenService: ScreenService;
 }
 
 export class DevicesScreen implements IDevicesScreen {
-    public devices: {
-        l: ILighthouse<IDevices>;
-    };
+    public devices: ILighthouse<IDevices>;
 
-    public screen: {
-        l: ILighthouse<IScreenInfo>;
-        s: ScreenService;
-    };
+    public screen: ILighthouse<IScreenInfo>;
+    public screenService: ScreenService;
+
 
     public constructor() {
-        this.devices = {
-            l: new DevicesLighthouse(),
-        };
-        this.screen = {
-            l: new ScreenLighthouse(),
-            s: new ScreenService(),
-        };
+        this.devices = new DevicesLighthouse();
+        this.screen = new ScreenLighthouse();
+        this.screenService = new ScreenService();
     }
 }

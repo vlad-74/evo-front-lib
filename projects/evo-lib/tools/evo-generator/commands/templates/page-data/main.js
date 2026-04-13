@@ -21,7 +21,7 @@ export class ${className}Component implements OnInit{
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo.devicesScreen.screen.l.lighthouse$;
+    public screenInfo$ = evo.devicesScreen.screen.lighthouse$;
 
     public ScreenEnum = ScreenEnum;
     public OrientationScreenEnum = OrientationScreenEnum;
@@ -42,7 +42,7 @@ export class ${className}Component implements OnInit{
         const themeName = 'black';
 
         setTimeout(() => {
-            evo.theme.l.send({
+            evo.theme.send({
                 name: themeName,
             });
         }, 3000);

@@ -8,7 +8,7 @@ import {IExchangeSource} from './exchange.interface';
  *
  * @example
  * // Пример использования:
- * evo.exchange.l.send({name: 'white'}({
+ * evo.exchange.send$({name: 'white'}({
  *            from: 'UserSeEvoLoaderComponent',
  *            to: ['EvoRootLighthousesComponent'],
  *            source: {

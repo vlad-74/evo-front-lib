@@ -36,9 +36,9 @@ export class NgExchangeSubscribeComponent implements OnDestroy {
         this._subscribeActions();
     }
 
-    /** Подписываемся на изменения в evo.exchange.l.lighthouse$ (Обменный пункт) */
+    /** Подписываемся на изменения в evo.exchange.lighthouse$ (Обменный пункт) */
     private _subscribeActions(): void {
-        evo.exchange.l.lighthouse$
+        evo.exchange.lighthouse$
             .pipe(takeUntil(this.destroyedExchange$))
             .subscribe((value: TNullable<IExchangeSource>) => {
                 // if (!value?.source) {
