@@ -78,7 +78,7 @@ module.exports = async function(targetPath, scriptPath, options) {
         const componentFolder = path.join(createPath, componentName);
         const devicesPath = path.join(componentFolder, 'devices');
 
-        logInfo(`Создание страницы детализации: ${componentName}`);
+        logInfo(` Создание страницы детализации: ${componentName}`);
 
         // 1. Папка страницы
         ensureDirectory(componentFolder);
@@ -95,7 +95,7 @@ module.exports = async function(targetPath, scriptPath, options) {
                 logSuccess(` Основная страница создана`);
             }
         } else {
-            logWarning(`Основная страница уже существует`);
+            logWarning(` Основная страница уже существует`);
         }
 
         // 3. Папка devices
@@ -144,17 +144,17 @@ module.exports = async function(targetPath, scriptPath, options) {
         // 6. Регистрация в модуле
         const modulePath = findNgModule(componentFolder);
         if (modulePath) {
-            logInfo(`Регистрация компонентов в модуле: ${modulePath}`);
+            logInfo(` Регистрация компонентов в модуле: ${modulePath}`);
             for (const compFile of componentFiles) {
                 if (fs.existsSync(compFile)) {
                     updateNgModule(compFile, modulePath);
                 }
             }
         } else {
-            logWarning('Модуль не найден для регистрации компонентов');
+            logWarning(' Модуль не найден для регистрации компонентов');
         }
 
-        logSuccess(`Страница ${componentName} успешно создана`);
+        logSuccess(` Страница ${componentName} успешно создана`);
 
     } catch (error) {
         logError(error.message);

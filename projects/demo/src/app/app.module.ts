@@ -5,7 +5,8 @@ import { AppComponent } from './app.component';
 
 import { EvoLibModule } from 'evo-lib';
 import { ChildComponentComponent } from './child-component/child-component.component';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
