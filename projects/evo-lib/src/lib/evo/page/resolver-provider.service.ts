@@ -1,17 +1,22 @@
-// resolver-provider.service.ts
-import { Injectable, ComponentFactoryResolver } from '@angular/core';
+import { ComponentFactoryResolver, Injectable } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ResolverProviderService {
-    private static resolver: ComponentFactoryResolver;
+    // tslint:disable-next-line:variable-name
+    private _cfr: ComponentFactoryResolver | null = null;
 
-    constructor(private cfr: ComponentFactoryResolver) {
-        ResolverProviderService.resolver = cfr;
+    setComponentFactoryResolver(cfr: ComponentFactoryResolver): void {
+        if (!this._cfr) {
+            this._cfr = cfr;
+        }
     }
 
-    static getResolver(): ComponentFactoryResolver {
-        return this.resolver;
+    getComponentFactoryResolver(): ComponentFactoryResolver {
+        if (!this._cfr) {
+            throw new Error(
+                'ComponentFactoryResolver недоступен. Убедитесь, что EvoLibModule инициализирован с корректным провайдером.'
+            );
+        }
+        return this._cfr;
     }
 }

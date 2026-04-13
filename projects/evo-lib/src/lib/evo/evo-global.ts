@@ -1,3 +1,4 @@
+// evo-lib\src\lib\evo\evo-global.ts
 import { Subject } from 'rxjs';
 
 import {evoLoggingAccessType, isLocalhost} from './logging/debugger';
@@ -10,7 +11,15 @@ import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
-import {PageService} from './page/page.service';
+import {ICreatePage, PageService} from './page/page.service';
+
+// Сохраняем экземпляр, созданный через DI
+// tslint:disable-next-line:variable-name
+let _pageService: PageService | null = null;
+
+export function setPageService(instance: PageService): void {
+    _pageService = instance;
+}
 
 
 // ------------------------------
@@ -63,7 +72,14 @@ export const evoBase: TEvo = {
     awaitTryCatch: new AwaitTryCatchService(),
 
     /** Сервис для создания страниц */
-    page: new PageService(),
+    createPage: {
+        send: (config: ICreatePage) => {
+            if (!_pageService) {
+                throw new Error('PageService ещё не установлен. Убедитесь, что EvoLibModule загружен.');
+            }
+            return _pageService.send(config);
+        }
+    } as PageService
 };
 
 

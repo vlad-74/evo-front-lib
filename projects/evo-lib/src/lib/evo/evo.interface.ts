@@ -1,3 +1,4 @@
+// evo-lib\src\lib\evo\evo.interface.ts
 import {TLoggingAccessType} from './logging/debugger';
 import {TEvoLog} from './logging/logger.interface';
 import {IDevicesScreen} from './devices-screen/devices-screen';
@@ -41,5 +42,5 @@ export type TEvo = {
     awaitTryCatch: IAwaitTryCatchService;
 
     /** Сервис для создания страниц */
-    page: PageService,
+    createPage: PageService,
 };

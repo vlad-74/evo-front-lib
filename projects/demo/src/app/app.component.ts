@@ -1,4 +1,5 @@
-import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {ParentComponent} from './parent/parent.component';
 
 
 /**
@@ -19,7 +20,7 @@ npm install
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
     //region Свойства класса
 
@@ -49,48 +50,23 @@ export class AppComponent implements OnInit {
 
     //endregion
 
-    public constructor() {}
-
     public async ngOnInit(): Promise<void> {
         // evo.debug.logAll.accessType = false;
         // evo.log.disableLogAll(); // только logAll + common
     }
 
-    /**
-     * Устанавливает текущую страницу (page) в указанном контейнере page.viewContainerRef.
-     *
-     * - setCurrentPage - вызывается из SubscribersWorker - setContainerPage
-     * - подписка срабатывает после сигнала - _evo_page$.send({ component: component || ListExampleComponent });
-     *
-     * @param page - Объект конфигурации страницы, реализующий интерфейс `ICreatePage`.
-     *
-     * Должен содержать как минимум:
-     * - `component`: Angular-компонент, который нужно отобразить.
-     * - `viewContainerRef`: Контейнер, в котором будет создан компонент. Может быть строкой ('containerList', 'containerDetail' и т.д.)
-     * или прямой ссылкой на ViewContainerRef.
-     * - Другие необязательные параметры (например, данные, настройки инициализации и т.п.),
-     * которые могут использоваться сервисом CreatePageService.
-     *
-     *
-     * @example
-     * - для того чтобы вызвалось setCurrentPage нужно инициировать _evo_page$.send({ component: component || ListExampleComponent });
-     */
-/*    public setCurrentPage(page: ICreatePage): void {
-
-        if (!page?.viewContainerRef) {
-            page.viewContainerRef = ContainerName.List;
+    public ngAfterViewInit(): void {
+        if (!this.containerList) {
+            console.error('containerList не найден!');
+            return;
         }
 
-        if (typeof page.viewContainerRef === 'string') {
-            page.type = page.viewContainerRef as ContainerName;
-        }
-
-        page.viewContainerRef = evo.page$.resolveViewContainerRef(page.viewContainerRef);
-
-        if (!page.viewContainerRef) {
-            throw new Error('Не определен контейнер для страницы');
-        }
-
-        evo.page$.createPage(page);
-    }*/
+        evo.createPage.send({
+            component: ParentComponent,
+            viewContainerRef: this.containerList,
+            isMultiPage: false,
+            inputs: { title: 'Hello' },
+            outputs: { closed: () => console.log('Закрыто') }
+        });
+    }
 }
