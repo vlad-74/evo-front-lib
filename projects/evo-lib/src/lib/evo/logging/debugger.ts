@@ -38,7 +38,15 @@ interface IDebugger {
 
 // ---------------------------------------------------
 /** Типы логирования */
-export type TLoggingTypes = 'logAll' | 'awaitTryCatch' | 'devices' | 'screen' | 'theme' | 'exchange' | 'createPage' | 'facade' | 'storageData';
+export type TLoggingTypes = 'logAll'
+    | 'awaitTryCatch'
+    | 'devices'
+    | 'screen'
+    | 'theme'
+    | 'exchange'
+    | 'createPage'
+    | 'facade'
+    | 'storageData';
 
 /** Тип для объекта логирования */
 export type TLoggingAccessType = Record<TLoggingTypes, IDebugger>;
