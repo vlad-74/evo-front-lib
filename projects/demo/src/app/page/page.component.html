@@ -1,0 +1,29 @@
+
+<ng-container *ngIf="screenInfo$ | async as screenInfo">
+    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Phone">
+        <evo-page-phone
+            [screenInfo]="screenInfo"
+            [viewDataPage]="viewDataPage"
+            [filters]="filters"
+            [options]="options"
+        ></evo-page-phone>
+    </ng-container>
+
+    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Tablet">
+        <evo-page-tablet
+            [screenInfo]="screenInfo"
+            [viewDataPage]="viewDataPage"
+            [filters]="filters"
+            [options]="options"
+        ></evo-page-tablet>
+    </ng-container>
+
+    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Desktop">
+        <evo-page-desktop
+            [screenInfo]="screenInfo"
+            [viewDataPage]="viewDataPage"
+            [filters]="filters"
+            [options]="options"
+        ></evo-page-desktop>
+    </ng-container>
+</ng-container>

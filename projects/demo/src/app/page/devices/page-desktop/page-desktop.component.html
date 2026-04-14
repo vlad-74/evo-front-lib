@@ -1,0 +1,12 @@
+<div
+    [ngClass]="{
+        'phone': screenInfo.screen.type === ScreenEnum.Phone,
+        'tablet': screenInfo.screen.type === ScreenEnum.Tablet,
+        'desktop': screenInfo.screen.type === ScreenEnum.Desktop
+    }"
+>
+    <p [ngClass]="{
+        'vertical': screenInfo.screen.orientation === OrientationScreenEnum.Vertical,
+        'horizontal': screenInfo.screen.orientation === OrientationScreenEnum.Horizontal
+    }">page-desktop device works!</p>
+</div>
