@@ -16,7 +16,10 @@ export function initResolverProviderFactory(): () => void {
 }
 
 @NgModule({
-    declarations: [EvoThemeClassDirective, NgExchangeSubscribeComponent],
+    declarations: [
+        EvoThemeClassDirective,
+        NgExchangeSubscribeComponent,
+    ],
     exports: [
         EvoThemeClassDirective,
         NgExchangeSubscribeComponent,

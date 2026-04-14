@@ -1,7 +1,7 @@
 // commands/templates/page-data/main.js
 // language=TEXT
-const getMainTemplate = (componentName, styleType, className, componentPascal) => `import { Component, Input, OnInit } from '@angular/core';
-import { ScreenEnum, OrientationScreenEnum } from 'evo-lib';
+const getMainTemplate = (componentName, styleType, className, componentPascal) => `import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { ScreenEnum, OrientationScreenEnum, NgFacadeSubscribeComponent } from 'evo-lib';
 
 import { ${componentPascal}1RequestService } from './services/${componentName}-1-request.service';
 import { ${componentPascal}2ServerService } from './services/${componentName}-2-server.service';
@@ -14,7 +14,7 @@ import { ${componentPascal}5DispatcherService } from './services/${componentName
     templateUrl: './${componentName}.component.html',
     styleUrls: ['./${componentName}.component.${styleType}']
 })
-export class ${className}Component implements OnInit{
+export class ${className}Component extends NgFacadeSubscribeComponent implements OnInit, OnDestroy{
     static readonly extendsClassName = '${className}Component';
 
     @Input() viewDataPage: any = {};
@@ -33,10 +33,21 @@ export class ${className}Component implements OnInit{
         factoryService: ${componentPascal}4FactoryService,
         dispatcherService: ${componentPascal}5DispatcherService
     ) {
+        super();
+        this.initialize(PageComponent.extendsClassName, {
+            request: requestService,
+            server: serverService,
+            parsed: parsedService,
+            factory: factoryService
+        });
     }
 
     public ngOnInit(): void {
         this._startTheme();
+    }
+
+    public ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 
     private _startTheme(): void {
