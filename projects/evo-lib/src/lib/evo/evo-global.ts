@@ -13,6 +13,7 @@ import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
 import {ICreatePage, PageService} from './page/page.service';
 import {ViewContainerRef} from '@angular/core';
+import {Data} from './data/data';
 
 // Сохраняем экземпляр, созданный через DI
 
@@ -76,7 +77,10 @@ export const evoBase: TEvo = {
     createPage: {
         send: (config: ICreatePage) => pageService.send(config),
         clearContainer: (vcr: ViewContainerRef) => pageService.clearContainer(vcr),
-    } as PageService
+    } as PageService,
+
+    /** Работа с данными */
+    data: new Data(),
 };
 
 

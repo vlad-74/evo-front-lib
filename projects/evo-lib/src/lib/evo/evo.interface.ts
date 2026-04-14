@@ -7,6 +7,7 @@ import {ILighthouse} from './_lighthouse/_lighthouse.interface';
 import {ITheme} from './theme/theme.lighthouse';
 import {IExchangeSource} from './exchange/exchange.interface';
 import {PageService} from './page/page.service';
+import {IData} from './data/data';
 
 
 export type TNullable<T> = T | null;
@@ -43,4 +44,7 @@ export type TEvo = {
 
     /** Сервис для создания страниц */
     createPage: PageService,
+
+    /** Работа с данными */
+    data: IData,
 };

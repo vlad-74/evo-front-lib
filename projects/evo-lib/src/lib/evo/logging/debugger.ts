@@ -38,7 +38,7 @@ interface IDebugger {
 
 // ---------------------------------------------------
 /** Типы логирования */
-export type TLoggingTypes = 'logAll' | 'awaitTryCatch' | 'devices' | 'screen' | 'theme' | 'exchange' | 'createPage';
+export type TLoggingTypes = 'logAll' | 'awaitTryCatch' | 'devices' | 'screen' | 'theme' | 'exchange' | 'createPage' | 'facade' | 'storageData';
 
 /** Тип для объекта логирования */
 export type TLoggingAccessType = Record<TLoggingTypes, IDebugger>;
@@ -58,6 +58,8 @@ export const evoLoggingAccessType: TLoggingAccessType = {
     theme: { accessType: true, accessProcess: ['common'], isLocalhost },
     exchange: { accessType: true, accessProcess: ['common'], isLocalhost },
     createPage: { accessType: true, accessProcess: ['common'], isLocalhost },
+    facade: { accessType: true, accessProcess: ['common'], isLocalhost },
+    storageData: { accessType: true, accessProcess: ['common'], isLocalhost },
 };
 
 /** Используется при валидации логирования */
