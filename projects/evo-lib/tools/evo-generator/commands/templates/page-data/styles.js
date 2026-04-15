@@ -2,7 +2,7 @@
 
 const getMainStylesTemplate = () => `:host {
     width: 100%;
-    height: 99%;
+    height: 100%;
 
     display: flex;
     justify-content: center;
