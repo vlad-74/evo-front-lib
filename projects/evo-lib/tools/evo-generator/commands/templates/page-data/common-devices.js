@@ -20,7 +20,7 @@ import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScree
     \`]
 })
 export class ${className} extends NgExchangeSubscribeComponent implements OnDestroy  {
-    @Input() screenInfo!: IScreenInfo;
+    @Input() screenInfo$!: Observable<IScreenInfo>;
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;

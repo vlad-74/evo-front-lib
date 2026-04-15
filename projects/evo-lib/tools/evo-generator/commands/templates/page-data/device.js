@@ -19,7 +19,7 @@ export class ${className} extends ${parentClassName} {
 }
 `;
 
-const getDeviceHtmlTemplate = (deviceName) => `<div
+const getDeviceHtmlTemplate = (deviceName) => `<div *ngIf="screenInfo$ | async as screenInfo"
     [ngClass]="{
         'phone': screenInfo.screen.type === ScreenEnum.Phone,
         'tablet': screenInfo.screen.type === ScreenEnum.Tablet,
@@ -29,7 +29,7 @@ const getDeviceHtmlTemplate = (deviceName) => `<div
     <p [ngClass]="{
         'vertical': screenInfo.screen.orientation === OrientationScreenEnum.Vertical,
         'horizontal': screenInfo.screen.orientation === OrientationScreenEnum.Horizontal
-    }">${deviceName} device works!</p>
+    }">page-phone device works!</p>
 </div>`;
 
 module.exports = {

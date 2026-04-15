@@ -21,7 +21,9 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo.devicesScreen.screen.lighthouse$;
+    public screenInfo$ = evo?.devicesScreen?.screen?.lighthouse$?.asObservable() as Observable<IScreenInfo>;
+
+    private destroy$ = new Subject<void>();
 
     public ScreenEnum = ScreenEnum;
     public OrientationScreenEnum = OrientationScreenEnum;
@@ -31,7 +33,8 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
         serverService: ${componentPascal}2ServerService,
         parsedService: ${componentPascal}3ParsedService,
         factoryService: ${componentPascal}4FactoryService,
-        dispatcherService: ${componentPascal}5DispatcherService
+        dispatcherService: ${componentPascal}5DispatcherService,
+        private cdr: ChangeDetectorRef,
     ) {
         super();
         this.initialize(PageComponent.extendsClassName, {
@@ -43,11 +46,20 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
     }
 
     public ngOnInit(): void {
+        evo.devicesScreen.screen.lighthouse$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((value) => {
+                this.cdr.detectChanges();
+            });
+
         this._startTheme();
     }
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
+
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     private _startTheme(): void {
