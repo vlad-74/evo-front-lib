@@ -41,7 +41,8 @@ export class ScreenService {
                     maxSize: null,
                     pixelRatio: window.devicePixelRatio,
                 },
-            }
+            },
+            timestamp: Date.now(),
         };
 
         // --- Определение ориентации экрана ---

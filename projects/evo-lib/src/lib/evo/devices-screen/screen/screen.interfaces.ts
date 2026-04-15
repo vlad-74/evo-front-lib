@@ -27,4 +27,5 @@ export interface IScreenInfo {
             maxSize: TNullable<number>; // Максимальная ширина экрана
         }
     };
+    timestamp: number;
 }
