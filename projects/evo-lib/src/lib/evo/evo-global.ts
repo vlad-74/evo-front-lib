@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 import {evoLoggingAccessType, isLocalhost} from './logging/debugger';
 import {logService} from './logging/logger';
 import {DevicesScreen} from './devices-screen/devices-screen';
-import {devices} from './devices-screen/devices/devices';
-import {setupSubscriptions} from './evo-subscriptions';
+import {startDevices} from './devices-screen/devices/devices';
+import {initDevicesSizes, setupSubscriptions} from './evo-subscriptions';
 import {TEvo} from './evo.interface';
 import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
@@ -41,6 +41,8 @@ const evoStart = {
         }
 
         console.log('EVO destroyed - subscriptions & window');
+
+        window.removeEventListener('resize', resizeHandler);
     },
 
     isLocalhost,
@@ -92,4 +94,23 @@ export const evoBase: TEvo = {
 setupSubscriptions(evoBase, libraryDestroy$);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
-evoBase.devicesScreen.devices.send$(devices, 'старт - evo-global!!!');
+// evoBase.devicesScreen.devices.send$(devices, 'старт - evo-global!!!');
+
+// ------------------------------
+/**
+ * Обработчик события изменения размера окна.
+ *
+ * Асинхронно пересчитывает параметры экрана при каждом resize.
+ *
+ */
+
+// функция для "изменения (resize) экрана"
+const resizeHandler = async () => { await initDevicesSizes(); };
+
+// Подписываемся на событие resize
+window.addEventListener('resize', resizeHandler);
+
+// Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
+evoBase.devicesScreen.devices.send$(startDevices, 'СТАРТ DEVICES !!!');
+
+// ------------------------------

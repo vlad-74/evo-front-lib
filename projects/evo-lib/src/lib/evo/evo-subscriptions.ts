@@ -3,6 +3,7 @@ import { takeUntil, filter } from 'rxjs/operators';
 
 import {TEvo} from './evo.interface';
 import {IFacade} from './data/facade.lighthouse';
+import {IDevices} from './devices-screen/devices/devices';
 
 
 export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): void {
@@ -55,4 +56,10 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
         // Получаем данные при помощи evo.data.services
         dataWorker.run(config);
     });
+}
+
+export function initDevicesSizes(): void {
+    const devices =  evo.devicesScreen.devices.lighthouse$.getValue();
+
+    evo.devicesScreen.devices.send$(devices as IDevices, 'initDevicesSizes');
 }

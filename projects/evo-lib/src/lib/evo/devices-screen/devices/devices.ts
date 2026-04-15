@@ -8,7 +8,7 @@ export interface IDevices {
     desktopMaxSize: number; // !!! МАКСИМАЛЬНАЯ ширина для страницы ноутбука - 1500 - Huawei 14 дюймов
 }
 
-export const devices: IDevices = {
+export const startDevices: IDevices = {
     phoneMaxSize: 932,
     tabletMaxSize: 1366,
     desktopMaxSize: 1500,

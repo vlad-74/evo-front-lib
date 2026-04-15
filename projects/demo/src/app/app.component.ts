@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {ParentComponent} from './parent/parent.component';
 
 
@@ -20,7 +20,7 @@ npm install
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //region Свойства класса
 
@@ -53,6 +53,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     public async ngOnInit(): Promise<void> {
         // evo.debug.logAll.accessType = false;
         // evo.log.disableLogAll(); // только logAll + common
+    }
+
+    public ngOnDestroy(): void {
+        evo.destroy(); // !!! Обязательно при выходе из использования evo
     }
 
     public ngAfterViewInit(): void {
