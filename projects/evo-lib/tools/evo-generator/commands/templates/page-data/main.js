@@ -4,7 +4,7 @@ const getMainTemplate = (componentName, styleType, className, componentPascal) =
 import {Observable, Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
-import {ScreenEnum, OrientationScreenEnum, NgFacadeSubscribeComponent, IScreenInfo} from 'evo-lib';
+import {ScreenEnum, NgFacadeSubscribeComponent, IScreenInfo} from 'evo-lib';
 
 import { ${componentPascal}1RequestService } from './services/${componentName}-1-request.service';
 import { ${componentPascal}2ServerService } from './services/${componentName}-2-server.service';
@@ -29,7 +29,6 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
     private destroy$ = new Subject<void>();
 
     public ScreenEnum = ScreenEnum;
-    public OrientationScreenEnum = OrientationScreenEnum;
 
     public constructor(
         requestService: ${componentPascal}1RequestService,

@@ -1,8 +1,11 @@
 // commands\templates\page-detail/main.js
 
-// Шаблон TypeScript
-const getMainTemplate = (componentName, styleType, className) => `import { Component, Input } from '@angular/core';
-import { ScreenEnum } from 'evo-lib';
+// language=TEXT
+const getMainTemplate = (componentName, styleType, className) => `import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {ScreenEnum, IScreenInfo} from 'evo-lib';
 
 @Component({
     selector: 'evo-${componentName}',
@@ -10,35 +13,58 @@ import { ScreenEnum } from 'evo-lib';
     styleUrls: ['./${componentName}.component.${styleType}']
 })
 
-export class ${className}Component {
+export class ${className}Component implements OnInit, OnDestroy{
     private static readonly extendsClassName = '${className}Component';
 
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo.devicesScreen.screen.lighthouse$;
+    public screenInfo$ = evo?.devicesScreen?.screen?.lighthouse$?.asObservable() as Observable<IScreenInfo>;
+
+    private destroy$ = new Subject<void>();
 
     public ScreenEnum = ScreenEnum;
+
+    public constructor(
+        private cdr: ChangeDetectorRef,
+    ) {}
+
+    public ngOnInit(): void {
+        evo.devicesScreen.screen.lighthouse$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((value) => {
+                this.cdr.detectChanges();
+            });
+    }
+
+        public ngOnDestroy(): void {
+
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
 }
 `;
 
 const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="screenInfo$ | async as screenInfo">
     <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Phone">
         <evo-${componentName}-phone
-            [screenInfo]="screenInfo"
+            [screenInfo$]="screenInfo$"
+            [viewDataPage]="viewDataPage"
         ></evo-${componentName}-phone>
     </ng-container>
 
     <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Tablet">
         <evo-${componentName}-tablet
-            [screenInfo]="screenInfo"
+            [screenInfo$]="screenInfo$"
+            [viewDataPage]="viewDataPage"
         ></evo-${componentName}-tablet>
     </ng-container>
 
     <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Desktop">
         <evo-${componentName}-desktop
-            [screenInfo]="screenInfo"
+            [screenInfo$]="screenInfo$"
+            [viewDataPage]="viewDataPage"
         ></evo-${componentName}-desktop>
     </ng-container>
 </ng-container>`;

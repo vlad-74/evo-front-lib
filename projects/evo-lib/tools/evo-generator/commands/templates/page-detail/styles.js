@@ -1,8 +1,8 @@
 // commands/templates/page-detail/styles.js
 
 const getMainStylesTemplate = () => `:host {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 
     display: flex;
     justify-content: center;
@@ -10,6 +10,8 @@ const getMainStylesTemplate = () => `:host {
 
     box-sizing: border-box;
     overflow: hidden;
+
+    font-size: 30px;
 }`;
 
 const getDeviceStylesTemplate = () => `:host {
