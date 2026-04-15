@@ -2,6 +2,7 @@
 
 // language=TEXT
 const getCommonDevicesTemplate = (componentName, className) => `import { Component, Input, Inject, OnDestroy } from '@angular/core';
+import {Observable} from 'rxjs';
 import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScreenEnum } from 'evo-lib';
 
 @Component({

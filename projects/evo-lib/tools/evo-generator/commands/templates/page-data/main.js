@@ -1,7 +1,10 @@
 // commands/templates/page-data/main.js
 // language=TEXT
-const getMainTemplate = (componentName, styleType, className, componentPascal) => `import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { ScreenEnum, OrientationScreenEnum, NgFacadeSubscribeComponent } from 'evo-lib';
+const getMainTemplate = (componentName, styleType, className, componentPascal) => `import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import {Observable, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+
+import {ScreenEnum, OrientationScreenEnum, NgFacadeSubscribeComponent, IScreenInfo} from 'evo-lib';
 
 import { ${componentPascal}1RequestService } from './services/${componentName}-1-request.service';
 import { ${componentPascal}2ServerService } from './services/${componentName}-2-server.service';
@@ -78,7 +81,7 @@ const getMainHtmlTemplate = (componentName) => `
 <ng-container *ngIf="screenInfo$ | async as screenInfo">
     <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Phone">
         <evo-${componentName}-phone
-            [screenInfo]="screenInfo"
+            [screenInfo$]="screenInfo$"
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
@@ -87,7 +90,7 @@ const getMainHtmlTemplate = (componentName) => `
 
     <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Tablet">
         <evo-${componentName}-tablet
-            [screenInfo]="screenInfo"
+            [screenInfo$]="screenInfo$"
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
@@ -96,7 +99,7 @@ const getMainHtmlTemplate = (componentName) => `
 
     <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Desktop">
         <evo-${componentName}-desktop
-            [screenInfo]="screenInfo"
+            [screenInfo$]="screenInfo$"
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
