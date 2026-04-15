@@ -1,8 +1,8 @@
 // commands/templates/page-data/styles.js
 
 const getMainStylesTemplate = () => `:host {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 99%;
 
     display: flex;
     justify-content: center;
@@ -24,6 +24,15 @@ const getDeviceStylesTemplate = () => `:host {
 
     box-sizing: border-box;
     overflow: hidden;
+
+    .device {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     .desktop { background: green; }
     .tablet { background: blue; }

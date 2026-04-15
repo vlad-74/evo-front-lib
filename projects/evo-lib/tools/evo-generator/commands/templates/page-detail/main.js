@@ -34,7 +34,7 @@ export class ${className}Component implements OnInit, OnDestroy{
         evo.devicesScreen.screen.lighthouse$
             .pipe(takeUntil(this.destroy$))
             .subscribe((value) => {
-                this.cdr.detectChanges();
+                setTimeout(() => {this.cdr.detectChanges(); }, 0);
             });
     }
 

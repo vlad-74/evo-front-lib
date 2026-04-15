@@ -51,7 +51,7 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
         evo.devicesScreen.screen.lighthouse$
             .pipe(takeUntil(this.destroy$))
             .subscribe((value) => {
-                this.cdr.detectChanges();
+                setTimeout(() => {this.cdr.detectChanges(); }, 0);
             });
 
         this._startTheme();
