@@ -29,7 +29,7 @@ const getDeviceHtmlTemplate = (deviceName) => `<div *ngIf="screenInfo$ | async a
     <p [ngClass]="{
         'vertical': screenInfo.screen.orientation === OrientationScreenEnum.Vertical,
         'horizontal': screenInfo.screen.orientation === OrientationScreenEnum.Horizontal
-    }">page-phone device works!</p>
+    }">${deviceName} device works!</p>
 </div>`;
 
 module.exports = {
