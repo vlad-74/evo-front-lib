@@ -51,7 +51,10 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
         evo.devicesScreen.screen.lighthouse$
             .pipe(takeUntil(this.destroy$))
             .subscribe((value) => {
-                setTimeout(() => {this.cdr.detectChanges(); }, 0);
+                setTimeout(() => {
+                    // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
+                    this.cdr.detectChanges();
+                }, 0);
             });
 
         this._startTheme();

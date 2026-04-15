@@ -56,7 +56,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        evo.destroy(); // !!! Обязательно при выходе из использования evo
+        evo.destroy(); // !!! Обязательно при выходе "из использования evo"
     }
 
     public ngAfterViewInit(): void {
