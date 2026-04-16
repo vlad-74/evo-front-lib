@@ -2,6 +2,8 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.
 
+### <span style="color:yellow">В ngOnDestroy стартового компонента реализуйте evo.destroy(). Это необходимо для реализации "отписок в библиотеке evo"</span>
+
 ---
 
 ## <span style="color:yellow">1. Install in WebStorm EVO snippets (implemented on Windows)</span>
