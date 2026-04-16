@@ -30,7 +30,11 @@ const libraryDestroy$ = new Subject<void>();
 
 // Этап 1: базовая инициализация (debug и log)
 const evoStart = {
-    /**  Полная очистка всех подписок и ресурсов */
+    /**
+     * Полная очистка всех подписок и ресурсов
+     *
+     * Если приложение не вызовет destroy(), подписки останутся активными на ВСЁ ВРЕМЯ ЖИЗНИ СТРАНИЦЫ.
+     */
     destroy(): void {
         libraryDestroy$.next();
         libraryDestroy$.complete();
