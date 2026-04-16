@@ -1,8 +1,8 @@
 import {APP_INITIALIZER, ComponentFactoryResolver, NgModule} from '@angular/core';
 import { EvoThemeClassDirective } from './directives/evo-theme-class.directive';
 import { NgExchangeSubscribeComponent } from './evo/exchange/ng-exchange-subscribe.component';
-import { ResolverProviderService } from './evo/page/resolver-provider.service';
-import { PageService } from './evo/page/page.service';
+import { ResolverProviderService } from './evo/create-page/resolver-provider.service';
+import { PageService } from './evo/create-page/page.service';
 import { setPageService } from './evo/evo-global';
 
 // Именованная функция, которую мы будем ВОЗВРАЩАТЬ из фабрики

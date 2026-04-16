@@ -11,7 +11,7 @@ import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
-import {ICreatePage, PageService} from './page/page.service';
+import {ICreatePage, PageService} from './create-page/page.service';
 import {ViewContainerRef} from '@angular/core';
 import {Data} from './data/data';
 
@@ -115,6 +115,6 @@ const resizeHandler = async () => { await initDevicesSizes(); };
 window.addEventListener('resize', resizeHandler);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
-evoBase.devicesScreen.devices.send$(startDevices, 'СТАРТ DEVICES !!!');
+evoBase.devicesScreen.devices.send$(startDevices, 'СТАРТ DEVICES');
 
 // ------------------------------

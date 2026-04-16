@@ -65,12 +65,12 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
             return;
         }
 
-        // evo.createPage.send({
-        //     component: ParentComponent,
-        //     viewContainerRef: this.containerList,
-        //     isMultiPage: false,
-        //     inputs: { test: 'Hello!' },
-        //     outputs: { closed: () => console.log('Закрыто') }
-        // });
+        evo.createPage.send({
+            component: ParentComponent,
+            viewContainerRef: this.containerList,
+            isMultiPage: false,
+            inputs: { test: 'Hello!' },
+            outputs: { closed: () => console.log('Закрыто') }
+        });
     }
 }

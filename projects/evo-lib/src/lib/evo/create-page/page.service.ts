@@ -23,7 +23,9 @@ export class PageService {
     public readonly componentRefs = new WeakMap<ViewContainerRef, ComponentRef<any>[]>();
 
     // Конструктор с необязательным инъектированием (для совместимости с `new PageService()`)
-    constructor(private resolverProvider?: ResolverProviderService) {
+    constructor(
+        private resolverProvider?: ResolverProviderService
+    ) {
         if (!resolverProvider) {
             console.error('ResolverProviderService должен быть внедрён. Убедитесь, что используется DI.');
         }
