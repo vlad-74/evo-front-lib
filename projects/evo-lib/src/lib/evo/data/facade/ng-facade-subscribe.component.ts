@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 
 import { Subject,  } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {DataOperation, GetDataTypeEnum, IDataResult} from './data.interface';
+import {DataOperation, GetDataTypeEnum, IDataResult} from '../data.interface';
 
 
 @Component({

@@ -2,7 +2,7 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil, filter } from 'rxjs/operators';
 
 import {TEvo} from './evo.interface';
-import {IFacade} from './data/facade.lighthouse';
+import {IFacade} from './data/facade/facade.lighthouse';
 import {IDevices} from './devices-screen/devices/devices';
 
 

@@ -2,7 +2,7 @@
 import {ApplicationRef, Injectable, Type} from '@angular/core';
 
 @Injectable()
-export class StartComponentService {
+export class StartComponentWorker {
     private startupComponent: Type<any> | null = null;
 
     constructor(private appRef: ApplicationRef) {}

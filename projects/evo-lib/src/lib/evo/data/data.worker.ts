@@ -1,4 +1,4 @@
-import {IFacade} from './facade.lighthouse';
+import {IFacade} from './facade/facade.lighthouse';
 
 export class DataWorker {
     public run(config: IFacade): void {

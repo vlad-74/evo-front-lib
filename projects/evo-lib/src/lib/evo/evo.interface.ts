@@ -6,7 +6,7 @@ import {IAwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ILighthouse} from './_lighthouse/_lighthouse.interface';
 import {ITheme} from './theme/theme.lighthouse';
 import {IExchangeSource} from './exchange/exchange.interface';
-import {PageService} from './create-page/page.service';
+import {CreatePageService} from './create-page/create-page.service';
 import {IData} from './data/data';
 
 
@@ -43,7 +43,7 @@ export type TEvo = {
     awaitTryCatch: IAwaitTryCatchService;
 
     /** Сервис для создания страниц */
-    createPage: PageService,
+    createPage: CreatePageService,
 
     /** Работа с данными */
     data: IData,

@@ -1,6 +1,6 @@
 import {ILighthouse} from '../_lighthouse/_lighthouse.interface';
 import {DataWorker} from './data.worker';
-import {FacadeLighthouse} from './facade.lighthouse';
+import {FacadeLighthouse} from './facade/facade.lighthouse';
 import {StorageDataLighthouse} from './storage-data.lighthouse';
 import {TNullable} from '../evo.interface';
 

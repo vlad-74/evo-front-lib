@@ -3,11 +3,11 @@ import { APP_BOOTSTRAP_LISTENER, ComponentFactoryResolver, NgModule } from '@ang
 import { EvoThemeClassDirective } from './directives/evo-theme-class.directive';
 import { NgExchangeSubscribeComponent } from './evo/exchange/ng-exchange-subscribe.component';
 import { ResolverProviderService } from './evo/create-page/resolver-provider.service';
-import { PageService } from './evo/create-page/page.service';
+import { CreatePageService } from './evo/create-page/create-page.service';
 import { setPageService } from './evo/evo-global';
-import { StartComponentService } from './evo/start-component.service';
+import { StartComponentWorker } from './evo/workers/start-component.worker';
 
-export function bootstrapListenerFactory(detector: StartComponentService): () => void {
+export function bootstrapListenerFactory(detector: StartComponentWorker): () => void {
     return () => {
         // Даем Angular время добавить компоненты в ApplicationRef
         setTimeout(() => {
@@ -27,13 +27,13 @@ export function bootstrapListenerFactory(detector: StartComponentService): () =>
     ],
     providers: [
         ResolverProviderService,
-        PageService,
-        StartComponentService,
+        CreatePageService,
+        StartComponentWorker,
         {
             provide: APP_BOOTSTRAP_LISTENER,
             multi: true,
             useFactory: bootstrapListenerFactory,
-            deps: [StartComponentService]
+            deps: [StartComponentWorker]
         }
     ]
 })
@@ -41,7 +41,7 @@ export class EvoLibModule {
     constructor(
         private cfr: ComponentFactoryResolver,
         private resolverProvider: ResolverProviderService,
-        private pageService: PageService
+        private pageService: CreatePageService
     ) {
         this.resolverProvider.setComponentFactoryResolver(cfr);
         setPageService(pageService);

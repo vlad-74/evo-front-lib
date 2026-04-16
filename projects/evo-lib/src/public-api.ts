@@ -7,7 +7,7 @@
 export * from './lib/directives/public-api';
 
 
-export {NgFacadeSubscribeComponent} from './lib/evo/data/ng-facade-subscribe.component';
+export {NgFacadeSubscribeComponent} from './lib/evo/data/facade/ng-facade-subscribe.component';
 export {NgExchangeSubscribeComponent} from './lib/evo/exchange/ng-exchange-subscribe.component';
 
 

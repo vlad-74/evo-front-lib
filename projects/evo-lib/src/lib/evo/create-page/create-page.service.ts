@@ -19,7 +19,7 @@ export interface ICreatePage {
  * Сервис для динамического создания компонентов
  */
 @Injectable()
-export class PageService {
+export class CreatePageService {
     public readonly componentRefs = new WeakMap<ViewContainerRef, ComponentRef<any>[]>();
 
     // Конструктор с необязательным инъектированием (для совместимости с `new PageService()`)

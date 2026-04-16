@@ -11,15 +11,15 @@ import {CheckEvoWorker} from './workers/validations.worker';
 import {AwaitTryCatchService} from './await-try-catch/await-try-catch.service';
 import {ThemeLighthouse} from './theme/theme.lighthouse';
 import {ExchangeLighthouse} from './exchange/exchange.lighthous';
-import {ICreatePage, PageService} from './create-page/page.service';
+import {ICreatePage, CreatePageService} from './create-page/create-page.service';
 import {ViewContainerRef} from '@angular/core';
 import {Data} from './data/data';
 
 // Сохраняем экземпляр, созданный через DI
 
-let pageService: PageService;
+let pageService: CreatePageService;
 
-export function setPageService(instance: PageService): void {
+export function setPageService(instance: CreatePageService): void {
     pageService = instance;
 }
 
@@ -83,7 +83,7 @@ export const evoBase: TEvo = {
     createPage: {
         send: (config: ICreatePage) => pageService.send(config),
         clearContainer: (vcr: ViewContainerRef) => pageService.clearContainer(vcr),
-    } as PageService,
+    } as CreatePageService,
 
     /** Работа с данными */
     data: new Data(),
