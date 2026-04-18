@@ -70,7 +70,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         // evo.debug.logAll.accessType = false;
         // evo.log.disableLogAll(); // только logAll + common
 
-        // evo.pageWidth.send$({maxPageWidth: 1500});
+        evo.pageWidth.send$({maxPageWidth: 1500});
 
         evo.devicesScreen.screen.lighthouse$
             .pipe(takeUntil(this.destroy$))
