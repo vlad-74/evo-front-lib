@@ -8,7 +8,6 @@ const getMainStylesTemplate = () => `:host {
     justify-content: center;
     align-items: center;
 
-    box-sizing: border-box;
     overflow: hidden;
 
     font-size: 30px;
@@ -22,7 +21,6 @@ const getDeviceStylesTemplate = () => `:host {
     justify-content: center;
     align-items: center;
 
-    box-sizing: border-box;
     overflow: hidden;
 
     .device {
