@@ -1,5 +1,8 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {ParentComponent} from './parent/parent.component';
+import {Subject} from 'rxjs';
+import {IScreenInfo, ScreenEnum} from 'evo-lib';
+import {takeUntil} from 'rxjs/operators';
 
 
 /**
@@ -24,8 +27,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     //region Свойства класса
 
-    @ViewChild('pageList', { read: ViewContainerRef }) containerList!: ViewContainerRef;
-    @ViewChild('pageDetail', { read: ViewContainerRef }) containerDetail!: ViewContainerRef;
+    @ViewChild('wrapperRef') wrapperRef!: ElementRef<HTMLElement>;
+
+    @ViewChild('pageList', {read: ViewContainerRef}) containerList!: ViewContainerRef;
+    @ViewChild('pageDetail', {read: ViewContainerRef}) containerDetail!: ViewContainerRef;
 
     /**
      * Создание для pageModal с флагом isMultiPage
@@ -46,20 +51,49 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
      * });
      *
      */
-    @ViewChild('pageModal', { read: ViewContainerRef }) containerModal!: ViewContainerRef;
+    @ViewChild('pageModal', {read: ViewContainerRef}) containerModal!: ViewContainerRef;
+
+    public ScreenEnum = ScreenEnum;
+    public screenInfo: IScreenInfo | null = null;
+
+
+    private destroy$ = new Subject<void>();
 
     //endregion
+
+    public constructor(
+        private cdr: ChangeDetectorRef,
+    ) {
+    }
 
     public async ngOnInit(): Promise<void> {
         // evo.debug.logAll.accessType = false;
         // evo.log.disableLogAll(); // только logAll + common
+
+        evo.devicesScreen.screen.lighthouse$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((value) => {
+                this.screenInfo = value  as IScreenInfo;
+
+                this.setWidth();
+
+                setTimeout(() => {
+                    // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
+                    this.cdr.detectChanges();
+                }, 0);
+            });
     }
 
     public ngOnDestroy(): void {
         evo.destroy(); // !!! Обязательно при выходе "из использования evo"
+
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 
     public ngAfterViewInit(): void {
+        this.setWidth();
+
         if (!this.containerList) {
             console.error('containerList не найден!');
             return;
@@ -72,5 +106,20 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         //     inputs: { test: 'Hello!' },
         //     outputs: { closed: () => console.log('Закрыто') }
         // });
+    }
+
+    private setWidth(): void {
+        const screenType = this.screenInfo?.screen?.type;
+
+        console.log('screenType === ScreenEnum.Desktop', screenType === ScreenEnum.Desktop);
+
+        const widthWrapper = screenType === ScreenEnum.Desktop ? '1500px' : '100%';
+
+        if (screenType) {
+
+            if (this.wrapperRef?.nativeElement) {
+                this.wrapperRef.nativeElement.style.setProperty('--evo-page-width', widthWrapper);
+            }
+        }
     }
 }
