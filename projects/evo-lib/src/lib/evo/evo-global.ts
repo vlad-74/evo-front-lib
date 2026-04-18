@@ -14,6 +14,7 @@ import {ExchangeLighthouse} from './exchange/exchange.lighthous';
 import {ICreatePage, CreatePageService} from './create-page/create-page.service';
 import {ViewContainerRef} from '@angular/core';
 import {Data} from './data/data';
+import {PageWidthLighthouse} from './page-width/page-width.lighthouse';
 
 // Сохраняем экземпляр, созданный через DI
 
@@ -87,6 +88,9 @@ export const evoBase: TEvo = {
 
     /** Работа с данными */
     data: new Data(),
+
+    /** Максимальная ширина страницы */
+    pageWidth: new PageWidthLighthouse()
 };
 
 
@@ -116,5 +120,7 @@ window.addEventListener('resize', resizeHandler);
 
 // Эмитим (отправляем) начальную конфигурацию устройств в итоге получаем информацию об Экране
 evoBase.devicesScreen.devices.send$(startDevices, 'СТАРТ DEVICES');
+
+evo.pageWidth.send$({maxPageWidth: 3000});
 
 // ------------------------------

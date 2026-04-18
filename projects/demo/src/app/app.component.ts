@@ -1,5 +1,4 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
-import {ParentComponent} from './parent/parent.component';
 import {Subject} from 'rxjs';
 import {IScreenInfo, ScreenEnum} from 'evo-lib';
 import {takeUntil} from 'rxjs/operators';
@@ -56,6 +55,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     public ScreenEnum = ScreenEnum;
     public screenInfo: IScreenInfo | null = null;
 
+    public pageWidth = '100%';
 
     private destroy$ = new Subject<void>();
 
@@ -70,12 +70,30 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         // evo.debug.logAll.accessType = false;
         // evo.log.disableLogAll(); // только logAll + common
 
+        // evo.pageWidth.send$({maxPageWidth: 1500});
+
         evo.devicesScreen.screen.lighthouse$
             .pipe(takeUntil(this.destroy$))
             .subscribe((value) => {
                 this.screenInfo = value  as IScreenInfo;
 
                 this.setWidth();
+
+                setTimeout(() => {
+                    // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
+                    this.cdr.detectChanges();
+                }, 0);
+            });
+
+
+        evo.pageWidth.lighthouse$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((value) => {
+                const maxSize = this.screenInfo?.screen?.options?.maxSize;
+
+                this.pageWidth = (value?.maxPageWidth as number) <= (maxSize as number)
+                    ? `${value?.maxPageWidth}px`
+                    : '100%';
 
                 setTimeout(() => {
                     // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
@@ -108,12 +126,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         // });
     }
 
+    /** Задаем максимальную ширину страицы для экрана */
     private setWidth(): void {
         const screenType = this.screenInfo?.screen?.type;
 
-        console.log('screenType === ScreenEnum.Desktop', screenType === ScreenEnum.Desktop);
-
-        const widthWrapper = screenType === ScreenEnum.Desktop ? '1500px' : '100%';
+        const widthWrapper = screenType === ScreenEnum.Desktop ? this.pageWidth  : '100%';
 
         if (screenType) {
 

@@ -46,7 +46,8 @@ export type TLoggingTypes = 'logAll'
     | 'exchange'
     | 'createPage'
     | 'facade'
-    | 'storageData';
+    | 'storageData'
+    | 'pageWidth';
 
 /** Тип для объекта логирования */
 export type TLoggingAccessType = Record<TLoggingTypes, IDebugger>;
@@ -68,6 +69,7 @@ export const evoLoggingAccessType: TLoggingAccessType = {
     createPage: { accessType: true, accessProcess: ['common'], isLocalhost },
     facade: { accessType: true, accessProcess: ['common'], isLocalhost },
     storageData: { accessType: true, accessProcess: ['common'], isLocalhost },
+    pageWidth: { accessType: true, accessProcess: ['common'], isLocalhost },
 };
 
 /** Используется при валидации логирования */

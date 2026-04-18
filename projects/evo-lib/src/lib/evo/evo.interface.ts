@@ -8,6 +8,7 @@ import {ITheme} from './theme/theme.lighthouse';
 import {IExchangeSource} from './exchange/exchange.interface';
 import {CreatePageService} from './create-page/create-page.service';
 import {IData} from './data/data';
+import {IPageWidth} from './page-width/page-width.lighthouse';
 
 
 export type TNullable<T> = T | null;
@@ -47,4 +48,7 @@ export type TEvo = {
 
     /** Работа с данными */
     data: IData,
+
+    /** Максимальная ширина страницы */
+    pageWidth: ILighthouse<IPageWidth>;
 };
