@@ -15,6 +15,10 @@ import {ICreatePage, CreatePageService} from './create-page/create-page.service'
 import {ViewContainerRef} from '@angular/core';
 import {Data} from './data/data';
 import {DynamicWidth} from './dynamic-width/dynamic-width';
+import {DomClassWorker} from './dom/dom-class.worker';
+import {DomElementWorker} from './dom/dom-element.worker';
+import {DomStyleWorker} from './dom/dom-style.worker';
+import {DomVariablesWorker} from './dom/dom-variables.worker';
 
 // Сохраняем экземпляр, созданный через DI
 
@@ -90,7 +94,15 @@ export const evoBase: TEvo = {
     data: new Data(),
 
     /** Максимальная ширина страницы */
-    dynamicWidth: new DynamicWidth()
+    dynamicWidth: new DynamicWidth(),
+
+    dom: {
+        var: new DomVariablesWorker(document),
+        element: new DomElementWorker(document),
+        class: new DomClassWorker(document),
+        style: new DomStyleWorker(document),
+    }
+
 };
 
 

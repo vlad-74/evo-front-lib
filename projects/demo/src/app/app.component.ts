@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
      */
     @ViewChild('pageModal', {read: ViewContainerRef}) containerModal!: ViewContainerRef;
 
-    public maxPageWidth = 1500;
+    public maxPageWidth = 1600;
 
     private destroy$ = new Subject<void>();
 
@@ -81,15 +81,24 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngOnDestroy(): void {
-        evo.destroy(); // !!! Обязательно при выходе "из использования evo"
-
         this.destroy$.next();
         this.destroy$.complete();
+
+        evo.dom.var.deleteRootVariables(this.wrapperRef);
+        evo.dom.class.deleteClassMarginPadding();
+
+        evo.destroy(); // !!! Обязательно при выходе "из использования evo"
     }
 
     public ngAfterViewInit(): void {
         /** Задаем максимальную ширину страицы для экрана */
         evo.dynamicWidth.maxPageWidth.send$({maxPageWidth: this.maxPageWidth, wrapperRef: this.wrapperRef});
+
+        /** Задаем динамические переменнные */
+        evo.dom.var.varsMaxWidthActivePage(this.wrapperRef, this.maxPageWidth, evo.dom.var.addItemToCssRootBaseWidths());
+
+        /** Задаем динамические классы */
+        evo.dom.class.addClassMarginPadding(this.wrapperRef, evo.dom.var.addItemToCssRootBaseWidths());
 
         if (!this.containerList) {
             console.error('containerList не найден!');

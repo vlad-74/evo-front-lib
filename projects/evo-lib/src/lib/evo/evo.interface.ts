@@ -9,6 +9,10 @@ import {IExchangeSource} from './exchange/exchange.interface';
 import {CreatePageService} from './create-page/create-page.service';
 import {IData} from './data/data';
 import {IDynamicWidth} from './dynamic-width/dynamic-width';
+import {IDomClassWorker} from './dom/dom-class.worker';
+import {IDomStyleWorker} from './dom/dom-style.worker';
+import {IDomVariablesWorker} from './dom/dom-variables.worker';
+import {IDomElementWorker} from './dom/element.interface';
 
 
 export type TNullable<T> = T | null;
@@ -51,4 +55,11 @@ export type TEvo = {
 
     /** Максимальная ширина страницы */
     dynamicWidth: IDynamicWidth;
+
+    dom: {
+        class: IDomClassWorker;
+        element: IDomElementWorker;
+        style: IDomStyleWorker;
+        var: IDomVariablesWorker;
+    };
 };

@@ -10,7 +10,7 @@ const getMainStylesTemplate = () => `:host {
 
     overflow: hidden;
 
-    font-size: 30px;
+    font-size: var(--evo40) ;
 }`;
 
 const getDeviceStylesTemplate = () => `:host {

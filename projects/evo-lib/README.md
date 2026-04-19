@@ -2,8 +2,42 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.14.
 
-### <span style="color:yellow">В ngOnDestroy стартового компонента реализуйте evo.destroy(). Это необходимо для реализации "отписок в библиотеке evo"</span>
+---
 
+### <span style="color:red">При использовании импортов внутри библиотеки не указывать from 'evo-lib'. Например - import {IExchangeSource} from 'evo-lib';</span>
+
+---
+
+### <span style="color:yellow">В ngAfterViewInit стартового компонента при необходимости реализуйте задание максимальной ширины страницы плюс создание динамических классов и переменных</span>
+
+```angular2html
+public ngAfterViewInit(): void {
+    /** Задаем максимальную ширину страицы для экрана */
+    evo.dynamicWidth.maxPageWidth.send$({maxPageWidth: this.maxPageWidth, wrapperRef: this.wrapperRef});
+    
+    /** Задаем динамические переменнные */
+    evo.dom.var.varsMaxWidthActivePage(this.wrapperRef, this.maxPageWidth, evo.dom.var.addItemToCssRootBaseWidths());
+    
+    /** Задаем динамические классы */
+    evo.dom.class.addClassMarginPadding(this.wrapperRef, evo.dom.var.addItemToCssRootBaseWidths());
+        
+}
+```
+---
+
+### <span style="color:yellow">В ngOnDestroy стартового компонента реализуйте evo.destroy(). Это необходимо для реализации "отписок в библиотеке evo". Плюс удаление всех динамических классов и переменных</span>
+
+```angular2html
+    public ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+
+        evo.dom.var.deleteRootVariables(this.wrapperRef);
+        evo.dom.class.deleteClassMarginPadding();
+
+        evo.destroy(); // !!! Обязательно при выходе "из использования evo"
+    }
+```
 ---
 
 ## <span style="color:yellow">1. Install in WebStorm EVO snippets (implemented on Windows)</span>
