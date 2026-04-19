@@ -68,7 +68,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
         evo.devicesScreen.screen.lighthouse$
             .pipe(takeUntil(this.destroy$))
-            .subscribe((value) => {
+            .subscribe(() => {
+
                 /** Задаем максимальную ширину страицы для экрана */
                 evo.dynamicWidth.maxPageWidth.send$({maxPageWidth: this.maxPageWidth, wrapperRef: this.wrapperRef});
 
