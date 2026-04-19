@@ -4,13 +4,16 @@ import { takeUntil, filter } from 'rxjs/operators';
 import {TEvo} from './evo.interface';
 import {IFacade} from './data/facade/facade.lighthouse';
 import {IDevices} from './devices-screen/devices/devices';
+import {IMaxPageWidth} from './dynamic-width/max-page-width.lighthouse';
 
 
 export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): void {
-    const { devicesScreen, log, data } = evo;
+    const { devicesScreen, log, data, dynamicWidth } = evo;
 
     const { devices, screen, screenService } = devicesScreen;
     const { facade, dataWorker } = data;
+
+    const { dynamicWorker } = dynamicWidth;
 
     const subscribe = <T>(source$: Observable<T | null>, handler: (value: T) => void) =>
         source$.pipe(
@@ -55,6 +58,20 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
 
         // Получаем данные при помощи evo.data.services
         dataWorker.run(config);
+    });
+
+    // Подписка на максимсальную ширину страницы
+    subscribe(dynamicWidth.maxPageWidth.lighthouse$, (config: IMaxPageWidth) => {
+        log.colorWarn(
+            'green',
+            'pageWidth',
+            'common',
+            'Подписка (setupSubscriptions) на pageWidth',
+            config
+        );
+
+        // Получаем данные при помощи evo.data.services
+        dynamicWorker.setWidth(config.wrapperRef);
     });
 }
 

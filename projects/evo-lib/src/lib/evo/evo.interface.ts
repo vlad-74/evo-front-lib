@@ -8,7 +8,7 @@ import {ITheme} from './theme/theme.lighthouse';
 import {IExchangeSource} from './exchange/exchange.interface';
 import {CreatePageService} from './create-page/create-page.service';
 import {IData} from './data/data';
-import {IPageWidth} from './page-width/page-width.lighthouse';
+import {IDynamicWidth} from './dynamic-width/dynamic-width';
 
 
 export type TNullable<T> = T | null;
@@ -50,5 +50,5 @@ export type TEvo = {
     data: IData,
 
     /** Максимальная ширина страницы */
-    pageWidth: ILighthouse<IPageWidth>;
+    dynamicWidth: IDynamicWidth;
 };
