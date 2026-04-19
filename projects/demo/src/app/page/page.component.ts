@@ -9,6 +9,8 @@ import { Page2ServerService } from './services/page-2-server.service';
 import { Page3ParsedService } from './services/page-3-parsed.service';
 import { Page4FactoryService } from './services/page-4-factory.service';
 import { Page5DispatcherService } from './services/page-5-dispatcher.service';
+import {ParentComponent} from '../parent/parent.component';
+import {ContainerRefService} from '../service/container-ref.service';
 
 @Component({
     selector: 'evo-page',
@@ -35,6 +37,7 @@ export class PageComponent extends NgFacadeSubscribeComponent implements OnInit,
         factoryService: Page4FactoryService,
         dispatcherService: Page5DispatcherService,
         private cdr: ChangeDetectorRef,
+        private containerRefService: ContainerRefService,
     ) {
         super();
         this.initialize(PageComponent.extendsClassName, {
@@ -54,8 +57,6 @@ export class PageComponent extends NgFacadeSubscribeComponent implements OnInit,
                     this.cdr.detectChanges();
                 }, 0);
             });
-
-        this._startTheme();
     }
 
     public ngOnDestroy(): void {
@@ -65,13 +66,21 @@ export class PageComponent extends NgFacadeSubscribeComponent implements OnInit,
         this.destroy$.complete();
     }
 
-    private _startTheme(): void {
-        const themeName = 'black';
+    public newPage(): void {
+        const containerList = this.containerRefService.getContainerList();
 
-        setTimeout(() => {
-            evo.theme.send$({
-                name: themeName,
+        if (containerList) {
+            evo.createPage.send({
+                component: ParentComponent,
+                viewContainerRef: containerList,
+                isMultiPage: false,
+                inputs: { test: 'Hello!' },
+                outputs: { closed: () => console.log('Закрыто') }
             });
-        }, 3000);
+        } else {
+            console.error('containerList не найден! Невозможно создать страницу.');
+            // Можно добавить fallback логику или уведомление пользователя
+        }
+
     }
 }

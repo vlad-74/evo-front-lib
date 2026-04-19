@@ -1,6 +1,8 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import {PageComponent} from './page/page.component';
+import {ContainerRefService} from './service/container-ref.service';
 
 
 /**
@@ -27,29 +29,45 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('wrapperRef') wrapperRef!: ElementRef<HTMLElement>;
 
-    @ViewChild('pageList', {read: ViewContainerRef}) containerList!: ViewContainerRef;
-    @ViewChild('pageDetail', {read: ViewContainerRef}) containerDetail!: ViewContainerRef;
+    private containerListValue!: ViewContainerRef;
+    private containerDetailValue!: ViewContainerRef;
+    private containerModalValue!: ViewContainerRef;
 
-    /**
-     * Создание для pageModal с флагом isMultiPage
-     * тогда предыдущие компоненты не будут удаляться перед созданием нового
-     *
-     * @example
-     *
-     * evo.createPage.send({
-     *      component: DetailingExampleComponent,
-     *      viewContainerRef: ContainerName.Detail,
-     *      inputs: {
-     *        data: {
-     *          source: this.viewDataFields,
-     *          isFromList: true,
-     *        }
-     *      },
-     *      isMultiPage: true,
-     * });
-     *
-     */
-    @ViewChild('pageModal', {read: ViewContainerRef}) containerModal!: ViewContainerRef;
+    public get containerList(): ViewContainerRef {
+        return this.containerListValue;
+    }
+    public set containerList(value: ViewContainerRef) {
+        this.containerListValue = value;
+    }
+
+    public get containerDetail(): ViewContainerRef {
+        return this.containerDetailValue;
+    }
+    public set containerDetail(value: ViewContainerRef) {
+        this.containerDetailValue = value;
+    }
+
+    public get containerModal(): ViewContainerRef {
+        return this.containerModalValue;
+    }
+    public set containerModal(value: ViewContainerRef) {
+        this.containerModalValue = value;
+    }
+
+    @ViewChild('pageList', {read: ViewContainerRef}) set containerListRef(ref: ViewContainerRef) {
+        this.containerList = ref;
+        this.containerRefService.setContainerList(ref);
+    }
+
+    @ViewChild('pageDetail', {read: ViewContainerRef}) set containerDetailRef(ref: ViewContainerRef) {
+        this.containerDetail = ref;
+        this.containerRefService.setContainerDetail(ref);
+    }
+
+    @ViewChild('pageModal', {read: ViewContainerRef}) set containerModalRef(ref: ViewContainerRef) {
+        this.containerModal = ref;
+        this.containerRefService.setContainerModal(ref);
+    }
 
     public maxPageWidth = 1600;
 
@@ -59,6 +77,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public constructor(
         private cdr: ChangeDetectorRef,
+        private containerRefService: ContainerRefService
     ) {
     }
 
@@ -91,26 +110,26 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
+        evo.createPage.send({
+            component: PageComponent,
+            viewContainerRef: this.containerList,
+            isMultiPage: false,
+            inputs: { test: 'Hello!' },
+            outputs: { closed: () => console.log('Закрыто') }
+        });
+
         /** Задаем максимальную ширину страицы для экрана */
-        evo.dynamicWidth.maxPageWidth.send$({maxPageWidth: this.maxPageWidth, wrapperRef: this.wrapperRef});
+        evo.dynamicWidth.maxPageWidth.send$({ wrapperRef: this.wrapperRef, maxPageWidth: this.maxPageWidth });
 
         /** Задаем динамические переменнные */
         evo.dom.var.varsMaxWidthActivePage(this.wrapperRef, this.maxPageWidth, evo.dom.var.addItemToCssRootBaseWidths());
 
-        /** Задаем динамические классы */
+        /** Задаем динамические классы в которых используются динамические переменные */
         evo.dom.class.addClassMarginPadding(this.wrapperRef, evo.dom.var.addItemToCssRootBaseWidths());
 
         if (!this.containerList) {
             console.error('containerList не найден!');
             return;
         }
-
-        // evo.createPage.send({
-        //     component: ParentComponent,
-        //     viewContainerRef: this.containerList,
-        //     isMultiPage: false,
-        //     inputs: { test: 'Hello!' },
-        //     outputs: { closed: () => console.log('Закрыто') }
-        // });
     }
 }

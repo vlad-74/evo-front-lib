@@ -23,11 +23,11 @@ export class ParentComponent implements OnInit, AfterViewInit {
     public async ngOnInit(): Promise<void> {
 
         setTimeout(() => {
-                evo.theme.send$({name: 'white'}, 'AppComponent');
+                evo.theme.send$({name: 'white'}, 'ParentComponent');
 
                 evo.exchange.send$(
                     {
-                        from: 'AppComponent',
+                        from: 'ParentComponent',
                         to: ['ChildComponent'],
                         source: {
                             name: exchangeNameEnum.RunAction,
@@ -37,18 +37,18 @@ export class ParentComponent implements OnInit, AfterViewInit {
                             }
                         }
                     }
-                    , 'AppComponent'
+                    , 'ParentComponent'
                 );
 
             },
             3000);
 
         setTimeout(() => {
-                evo.theme.send$({name: 'white'}, 'AppComponent');
+                evo.theme.send$({name: 'white'}, 'ParentComponent');
 
                 evo.exchange.send$(
                     {
-                        from: 'AppComponent',
+                        from: 'ParentComponent',
                         to: ['ChildComponent'],
                         source: {
                             name: exchangeNameEnum.ChangeProperty,
@@ -58,7 +58,7 @@ export class ParentComponent implements OnInit, AfterViewInit {
                             }
                         }
                     },
-                    'AppComponent'
+                    'ParentComponent'
                 );
 
             },
