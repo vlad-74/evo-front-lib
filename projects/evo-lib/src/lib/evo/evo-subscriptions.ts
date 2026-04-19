@@ -46,20 +46,6 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
         );
     });
 
-    // Подписка на изменения facade
-    subscribe(facade.lighthouse$, (config: IFacade) => {
-        log.colorWarn(
-            'green',
-            'facade',
-            'common',
-            'Подписка (setupSubscriptions) на facade',
-            config
-        );
-
-        // Получаем данные при помощи evo.data.services
-        dataWorker.run(config);
-    });
-
     // Подписка на максимсальную ширину страницы
     subscribe(dynamicWidth.maxPageWidth.lighthouse$, (config: IMaxPageWidth) => {
         log.colorWarn(
@@ -72,6 +58,21 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
 
         // Получаем данные при помощи evo.data.services
         dynamicWorker.setWidth(config.wrapperRef);
+    });
+
+
+    // Подписка на изменения facade
+    subscribe(facade.lighthouse$, (config: IFacade) => {
+        log.colorWarn(
+            'green',
+            'facade',
+            'common',
+            'Подписка (setupSubscriptions) на facade',
+            config
+        );
+
+        // Получаем данные при помощи evo.data.services
+        dataWorker.run(config);
     });
 }
 
