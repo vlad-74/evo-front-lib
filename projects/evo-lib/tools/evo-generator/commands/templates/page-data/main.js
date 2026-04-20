@@ -37,7 +37,7 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
         public containerRefService: ContainerRefService,
     ) {
         super();
-        this.initialize(PageComponent.extendsClassName, {
+        this.initialize(${className}Component.extendsClassName, {
             request: requestService,
             server: serverService,
             parsed: parsedService,

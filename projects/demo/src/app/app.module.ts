@@ -21,7 +21,7 @@ import { PageDesktopComponent } from './page/devices/page-desktop/page-desktop.c
         PageCommonDevicesComponent,
         PagePhoneComponent,
         PageTabletComponent,
-        PageDesktopComponent
+        PageDesktopComponent,
     ],
     imports: [
     BrowserModule, EvoLibModule, HttpClientModule,
