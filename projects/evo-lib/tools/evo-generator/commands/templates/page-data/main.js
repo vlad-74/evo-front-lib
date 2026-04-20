@@ -1,5 +1,5 @@
 // commands/templates/page-data/main.js
-// language=TEXT
+
 const getMainTemplate = (componentName, styleType, className, componentPascal) => `import {Component, Input, OnDestroy} from '@angular/core';
 
 import {ScreenEnum, NgFacadeSubscribeComponent} from 'evo-lib';
@@ -62,9 +62,7 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
             });
         } else {
             console.error('containerList не найден! Невозможно создать страницу.');
-            // Можно добавить fallback логику или уведомление пользователя
         }
-
     }
 }
 `;

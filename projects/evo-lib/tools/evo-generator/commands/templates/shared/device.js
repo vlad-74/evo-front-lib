@@ -1,4 +1,4 @@
-// commands/templates/page-detail/device.js
+// commands/templates/shared/device.js
 
 const getDeviceTemplate = (deviceName, styleType, parentClassName, parentImportPath, className) => `import { Component } from '@angular/core';
 

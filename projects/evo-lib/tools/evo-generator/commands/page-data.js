@@ -18,10 +18,11 @@ const {
 const { validateComponentName, validateStyleType } = require('../utils/validators');
 
 // Подключаем шаблоны
+// В начале файла заменить импорты на:
 const { getMainTemplate, getMainHtmlTemplate } = require('./templates/page-data/main');
-const { getCommonDevicesTemplate } = require('./templates/page-data/common-devices');
-const { getDeviceTemplate, getDeviceHtmlTemplate } = require('./templates/page-data/device');
-const { getMainStylesTemplate, getDeviceStylesTemplate } = require('./templates/page-data/styles');
+const { getCommonDevicesTemplate } = require('./templates/shared/common-devices');
+const { getDeviceTemplate, getDeviceHtmlTemplate } = require('./templates/shared/device');
+const { getMainStylesTemplate, getDeviceStylesTemplate } = require('./templates/shared/styles');
 const {
     getRequestServiceTemplate,
     getServerServiceTemplate,

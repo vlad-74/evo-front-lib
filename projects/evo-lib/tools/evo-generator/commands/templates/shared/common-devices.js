@@ -1,8 +1,17 @@
-// commands/templates/page-data/common-devices.js
+// commands/templates/shared/common-devices.js
 
 // language=TEXT
-const getCommonDevicesTemplate = (componentName, className) => `import { Component, Input, Inject, OnDestroy } from '@angular/core';
-import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScreenEnum } from 'evo-lib';
+const getCommonDevicesTemplate = (componentName, className, useObservableScreen = false) => {
+    const screenInput = useObservableScreen
+        ? '@Input() screenInfo$!: Observable<IScreenInfo>;'
+        : '@Input() screenInfo!: IScreenInfo;';
+
+    const imports = useObservableScreen
+        ? 'import {Observable} from \'rxjs\';\n'
+        : '';
+
+    return `import { Component, Input, Inject, OnDestroy } from '@angular/core';
+${imports}import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScreenEnum } from 'evo-lib';
 
 @Component({
     selector: 'evo-${componentName}',
@@ -19,8 +28,8 @@ import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScree
         }
     \`]
 })
-export class ${className} extends NgExchangeSubscribeComponent implements OnDestroy  {
-    @Input() screenInfo!: IScreenInfo;
+export class ${className} extends NgExchangeSubscribeComponent implements OnDestroy {
+    ${screenInput}
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;
@@ -37,6 +46,7 @@ export class ${className} extends NgExchangeSubscribeComponent implements OnDest
     }
 }
 `;
+};
 
 module.exports = {
     getCommonDevicesTemplate

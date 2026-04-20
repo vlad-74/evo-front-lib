@@ -19,9 +19,9 @@ const { validateComponentName, validateStyleType } = require('../utils/validator
 
 // Подключаем шаблоны
 const { getMainTemplate, getMainHtmlTemplate } = require('./templates/page-detail/main');
-const { getCommonDevicesTemplate } = require('./templates/page-detail/common-devices');
-const { getDeviceTemplate, getDeviceHtmlTemplate } = require('./templates/page-detail/device');
-const { getMainStylesTemplate, getDeviceStylesTemplate } = require('./templates/page-detail/styles');
+const { getCommonDevicesTemplate } = require('./templates/shared/common-devices');
+const { getDeviceTemplate, getDeviceHtmlTemplate } = require('./templates/shared/device');
+const { getMainStylesTemplate, getDeviceStylesTemplate } = require('./templates/shared/styles');
 
 const DEVICES = ['phone', 'tablet', 'desktop'];
 

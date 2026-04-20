@@ -1,8 +1,6 @@
-// commands\templates\page-detail/main.js
+// commands/templates/page-detail/main.js
 
-// language=TEXT
 const getMainTemplate = (componentName, styleType, className) => `import { Component, Input, OnDestroy } from '@angular/core';
-
 
 import {ScreenEnum, IScreenInfo} from 'evo-lib';
 

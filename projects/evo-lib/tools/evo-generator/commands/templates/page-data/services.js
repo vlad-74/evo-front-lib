@@ -42,7 +42,6 @@ export class ${className} {
 
 const getDispatcherServiceTemplate = (className, componentName) => `import { Injectable } from '@angular/core';
 
-
 @Injectable({
     providedIn: 'root'
 })
