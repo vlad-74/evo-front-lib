@@ -32,7 +32,6 @@ const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="evo.devices
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
-            (click)="newPage()"
         ></evo-page-phone>
     </ng-container>
 
@@ -42,7 +41,6 @@ const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="evo.devices
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
-            (click)="newPage()"
         ></evo-page-tablet>
     </ng-container>
 
@@ -52,7 +50,6 @@ const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="evo.devices
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
-            (click)="newPage()"
         ></evo-page-desktop>
     </ng-container>
 </ng-container>`;
