@@ -20,4 +20,8 @@ export class BaseLighthouse<T> implements ILighthouse<T> {
 
         this.lighthouse$.next(value);
     }
+
+    public getCurrentValue(): TNullable<T> {
+        return this.lighthouse$.getValue();
+    }
 }
