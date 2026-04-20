@@ -6,10 +6,10 @@
     "author": "Vladimir Kurguzov <kurguzov74@gmail.com>",
     "scripts": {
         "NODE_MODULES-delete-install": "npm run node_modules-clean && npm run node_modules",
-        "DIST-delete-install-watch": "rimraf dist && npm run dist-build:watch",
-        "DEMO-SERVE": "ng serve demo --host 0.0.0.0 -o",
-        "UPDATE": "npm run DEMO-SERVE && npm run DIST-delete-install-watch",
+        "UPDATE": "npm run demo-serve && npm run dist-delete-install-watch",
         "INSTALL:EVO-LIB": "npm install ./dist/evo-lib",
+        "dist-delete-install-watch": "rimraf dist && npm run dist-build:watch",
+        "demo-serve": "ng serve demo --host 0.0.0.0 -o",
         "EVO:SNIPPETS:modules": "node ./node_modules/evo-lib/tools/install-snippets.js",
         "EVO:SNIPPETS:dist": "node ./dist/evo-lib/tools/install-snippets.js",
         "dist-build": "ng build evo-lib",
