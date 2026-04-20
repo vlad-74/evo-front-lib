@@ -8,5 +8,5 @@ export interface ILighthouse<T> {
 
     send$(config: T, from?: string): void;
 
-    getCurrentValue(): TNullable<T>;
+    getValue(): TNullable<T>;
 }
