@@ -1,4 +1,4 @@
-<div class="device" *ngIf="screenInfo$ | async as screenInfo"
+<div class="device"
     [ngClass]="{
         'phone': screenInfo.screen.type === ScreenEnum.Phone,
         'tablet': screenInfo.screen.type === ScreenEnum.Tablet,

@@ -18,7 +18,7 @@ export class ${className} extends ${parentClassName} {
 }
 `;
 
-const getDeviceHtmlTemplate = (deviceName) => `<div *ngIf="screenInfo$ | async as screenInfo"
+const getDeviceHtmlTemplate = (deviceName) => `<div class="device"
     [ngClass]="{
         'phone': screenInfo.screen.type === ScreenEnum.Phone,
         'tablet': screenInfo.screen.type === ScreenEnum.Tablet,

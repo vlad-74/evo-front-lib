@@ -8,3 +8,10 @@ export class ScreenLighthouse extends BaseLighthouse<IScreenInfo> {
         super('screen'); // Передаём тип для логирования и отладки
     }
 }
+
+/*
+<!-- В HTML получаем весь объект и обращаемся к вложенному полю -->
+<div *ngIf="evo.screen.lighthouse$ | async as info">
+    Тип экрана: {{ info.screen?.options?.type }}
+</div>
+*/

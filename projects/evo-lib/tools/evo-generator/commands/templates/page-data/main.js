@@ -1,10 +1,8 @@
 // commands/templates/page-data/main.js
 // language=TEXT
-const getMainTemplate = (componentName, styleType, className, componentPascal) => `import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+const getMainTemplate = (componentName, styleType, className, componentPascal) => `import {Component, Input, OnDestroy} from '@angular/core';
 
-import {ScreenEnum, NgFacadeSubscribeComponent, IScreenInfo} from 'evo-lib';
+import {ScreenEnum, NgFacadeSubscribeComponent} from 'evo-lib';
 
 import { ${componentPascal}1RequestService } from './services/${componentName}-1-request.service';
 import { ${componentPascal}2ServerService } from './services/${componentName}-2-server.service';
@@ -12,31 +10,31 @@ import { ${componentPascal}3ParsedService } from './services/${componentName}-3-
 import { ${componentPascal}4FactoryService } from './services/${componentName}-4-factory.service';
 import { ${componentPascal}5DispatcherService } from './services/${componentName}-5-dispatcher.service';
 
+import {ParentComponent} from '../parent/parent.component';
+import {ContainerRefService} from '../service/container-ref.service';
+
 @Component({
     selector: 'evo-${componentName}',
     templateUrl: './${componentName}.component.html',
     styleUrls: ['./${componentName}.component.${styleType}']
 })
-export class ${className}Component extends NgFacadeSubscribeComponent implements OnInit, OnDestroy{
+export class ${className}Component extends NgFacadeSubscribeComponent implements OnDestroy{
     static readonly extendsClassName = '${className}Component';
 
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo?.devicesScreen?.screen?.lighthouse$?.asObservable() as Observable<IScreenInfo>;
-
-    private destroy$ = new Subject<void>();
-
     public ScreenEnum = ScreenEnum;
+    public evo = evo;
 
     public constructor(
-        requestService: ${componentPascal}1RequestService,
-        serverService: ${componentPascal}2ServerService,
-        parsedService: ${componentPascal}3ParsedService,
-        factoryService: ${componentPascal}4FactoryService,
-        dispatcherService: ${componentPascal}5DispatcherService,
-        private cdr: ChangeDetectorRef,
+        public requestService: ${componentPascal}1RequestService,
+        public serverService: ${componentPascal}2ServerService,
+        public parsedService: ${componentPascal}3ParsedService,
+        public factoryService: ${componentPascal}4FactoryService,
+        public dispatcherService: ${componentPascal}5DispatcherService,
+        public containerRefService: ContainerRefService,
     ) {
         super();
         this.initialize(PageComponent.extendsClassName, {
@@ -47,65 +45,59 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
         });
     }
 
-    public ngOnInit(): void {
-        evo.devicesScreen.screen.lighthouse$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((value) => {
-                setTimeout(() => {
-                    // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
-                    this.cdr.detectChanges();
-                }, 0);
-            });
-
-        this._startTheme();
-    }
-
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 
-    private _startTheme(): void {
-        const themeName = 'black';
+    public newPage(): void {
+        const containerList = this.containerRefService.getContainerList();
 
-        setTimeout(() => {
-            evo.theme.send$({
-                name: themeName,
+        if (containerList) {
+            evo.createPage.send({
+                component: ParentComponent,
+                viewContainerRef: containerList,
+                isMultiPage: false,
+                inputs: { test: 'Hello!' },
+                outputs: { closed: () => console.log('Закрыто') }
             });
-        }, 3000);
+        } else {
+            console.error('containerList не найден! Невозможно создать страницу.');
+            // Можно добавить fallback логику или уведомление пользователя
+        }
+
     }
 }
 `;
 
-const getMainHtmlTemplate = (componentName) => `
-<ng-container *ngIf="screenInfo$ | async as screenInfo">
-    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Phone">
-        <evo-${componentName}-phone
-            [screenInfo$]="screenInfo$"
+const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="evo.devicesScreen.screen.lighthouse$ | async as info">
+    <ng-container *ngIf="info.screen.type === ScreenEnum.Phone">
+        <evo-page-phone
+            [screenInfo]="info"
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
-        ></evo-${componentName}-phone>
+            (click)="newPage()"
+        ></evo-page-phone>
     </ng-container>
 
-    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Tablet">
-        <evo-${componentName}-tablet
-            [screenInfo$]="screenInfo$"
+    <ng-container *ngIf="info.screen.type === ScreenEnum.Tablet">
+        <evo-page-tablet
+            [screenInfo]="info"
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
-        ></evo-${componentName}-tablet>
+            (click)="newPage()"
+        ></evo-page-tablet>
     </ng-container>
 
-    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Desktop">
-        <evo-${componentName}-desktop
-            [screenInfo$]="screenInfo$"
+    <ng-container *ngIf="info.screen.type === ScreenEnum.Desktop">
+        <evo-page-desktop
+            [screenInfo]="info"
             [viewDataPage]="viewDataPage"
             [filters]="filters"
             [options]="options"
-        ></evo-${componentName}-desktop>
+            (click)="newPage()"
+        ></evo-page-desktop>
     </ng-container>
 </ng-container>`;
 

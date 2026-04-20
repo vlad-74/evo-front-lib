@@ -1,4 +1,3 @@
-// evo-lib.module.ts
 import { APP_BOOTSTRAP_LISTENER, ComponentFactoryResolver, NgModule } from '@angular/core';
 import { EvoThemeClassDirective } from './directives/evo-theme-class.directive';
 import { NgExchangeSubscribeComponent } from './evo/exchange/ng-exchange-subscribe.component';
@@ -7,14 +6,23 @@ import { CreatePageService } from './evo/create-page/create-page.service';
 import { setPageService } from './evo/evo-global';
 import { StartComponentWorker } from './evo/workers/start-component.worker';
 
-export function bootstrapListenerFactory(detector: StartComponentWorker): () => void {
-    return () => {
-        // Даем Angular время добавить компоненты в ApplicationRef
-        setTimeout(() => {
-            detector.detectBootstrapComponents();
-        });
-    };
+/* tslint:disable:only-arrow-functions space-before-function-paren typedef */
+
+// 👇 Вынесенная функция (НЕ внутри factory)
+export function bootstrapListener(detector: StartComponentWorker): void {
+    setTimeout(runDetect, 0);
+
+    function runDetect() {
+        detector.detectBootstrapComponents();
+    }
 }
+
+// 👇 factory теперь просто возвращает ссылку
+export function bootstrapListenerFactory(detector: StartComponentWorker): () => void {
+    return bootstrapListener.bind(null, detector);
+}
+
+/* tslint:enable:only-arrow-functions space-before-function-paren typedef */
 
 @NgModule({
     declarations: [
@@ -44,6 +52,6 @@ export class EvoLibModule {
         private pageService: CreatePageService
     ) {
         this.resolverProvider.setComponentFactoryResolver(cfr);
-        setPageService(pageService);
+        setPageService(this.pageService);
     }
 }

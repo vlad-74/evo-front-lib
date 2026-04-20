@@ -2,7 +2,6 @@
 
 // language=TEXT
 const getCommonDevicesTemplate = (componentName, className) => `import { Component, Input, Inject, OnDestroy } from '@angular/core';
-import {Observable} from 'rxjs';
 import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScreenEnum } from 'evo-lib';
 
 @Component({
@@ -21,7 +20,7 @@ import { NgExchangeSubscribeComponent, IScreenInfo, ScreenEnum, OrientationScree
     \`]
 })
 export class ${className} extends NgExchangeSubscribeComponent implements OnDestroy  {
-    @Input() screenInfo$!: Observable<IScreenInfo>;
+    @Input() screenInfo!: IScreenInfo;
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;

@@ -1,9 +1,8 @@
 // commands\templates\page-detail/main.js
 
 // language=TEXT
-const getMainTemplate = (componentName, styleType, className) => `import { Component, Input, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+const getMainTemplate = (componentName, styleType, className) => `import { Component, Input, OnDestroy } from '@angular/core';
+
 
 import {ScreenEnum, IScreenInfo} from 'evo-lib';
 
@@ -13,62 +12,50 @@ import {ScreenEnum, IScreenInfo} from 'evo-lib';
     styleUrls: ['./${componentName}.component.${styleType}']
 })
 
-export class ${className}Component implements OnInit, OnDestroy{
+export class ${className}Component implements OnDestroy {
     private static readonly extendsClassName = '${className}Component';
 
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo?.devicesScreen?.screen?.lighthouse$?.asObservable() as Observable<IScreenInfo>;
-
-    private destroy$ = new Subject<void>();
-
     public ScreenEnum = ScreenEnum;
+    public evo = evo;
 
-    public constructor(
-        private cdr: ChangeDetectorRef,
-    ) {}
-
-    public ngOnInit(): void {
-        evo.devicesScreen.screen.lighthouse$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((value) => {
-                setTimeout(() => {
-                    // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
-                    this.cdr.detectChanges();
-                }, 0);
-            });
-    }
-
-        public ngOnDestroy(): void {
-
-        this.destroy$.next();
-        this.destroy$.complete();
+    public ngOnDestroy(): void {
     }
 }
 `;
 
-const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="screenInfo$ | async as screenInfo">
-    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Phone">
-        <evo-${componentName}-phone
-            [screenInfo$]="screenInfo$"
+const getMainHtmlTemplate = (componentName) => `<ng-container *ngIf="evo.devicesScreen.screen.lighthouse$ | async as info">
+    <ng-container *ngIf="info.screen.type === ScreenEnum.Phone">
+        <evo-page-phone
+            [screenInfo]="info"
             [viewDataPage]="viewDataPage"
-        ></evo-${componentName}-phone>
+            [filters]="filters"
+            [options]="options"
+            (click)="newPage()"
+        ></evo-page-phone>
     </ng-container>
 
-    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Tablet">
-        <evo-${componentName}-tablet
-            [screenInfo$]="screenInfo$"
+    <ng-container *ngIf="info.screen.type === ScreenEnum.Tablet">
+        <evo-page-tablet
+            [screenInfo]="info"
             [viewDataPage]="viewDataPage"
-        ></evo-${componentName}-tablet>
+            [filters]="filters"
+            [options]="options"
+            (click)="newPage()"
+        ></evo-page-tablet>
     </ng-container>
 
-    <ng-container *ngIf="screenInfo.screen.type === ScreenEnum.Desktop">
-        <evo-${componentName}-desktop
-            [screenInfo$]="screenInfo$"
+    <ng-container *ngIf="info.screen.type === ScreenEnum.Desktop">
+        <evo-page-desktop
+            [screenInfo]="info"
             [viewDataPage]="viewDataPage"
-        ></evo-${componentName}-desktop>
+            [filters]="filters"
+            [options]="options"
+            (click)="newPage()"
+        ></evo-page-desktop>
     </ng-container>
 </ng-container>`;
 

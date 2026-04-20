@@ -1,8 +1,6 @@
-import {Component, Input, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Component, Input, OnDestroy} from '@angular/core';
 
-import {ScreenEnum, NgFacadeSubscribeComponent, IScreenInfo} from 'evo-lib';
+import {ScreenEnum, NgFacadeSubscribeComponent} from 'evo-lib';
 
 import { Page1RequestService } from './services/page-1-request.service';
 import { Page2ServerService } from './services/page-2-server.service';
@@ -17,27 +15,23 @@ import {ContainerRefService} from '../service/container-ref.service';
     templateUrl: './page.component.html',
     styleUrls: ['./page.component.scss']
 })
-export class PageComponent extends NgFacadeSubscribeComponent implements OnInit, OnDestroy{
+export class PageComponent extends NgFacadeSubscribeComponent implements OnDestroy{
     static readonly extendsClassName = 'PageComponent';
 
     @Input() viewDataPage: any = {};
     @Input() filters: any;
     @Input() options: any;
 
-    public screenInfo$ = evo?.devicesScreen?.screen?.lighthouse$?.asObservable() as Observable<IScreenInfo>;
-
-    private destroy$ = new Subject<void>();
-
     public ScreenEnum = ScreenEnum;
+    public evo = evo;
 
     public constructor(
-        requestService: Page1RequestService,
-        serverService: Page2ServerService,
-        parsedService: Page3ParsedService,
-        factoryService: Page4FactoryService,
-        dispatcherService: Page5DispatcherService,
-        private cdr: ChangeDetectorRef,
-        private containerRefService: ContainerRefService,
+        public requestService: Page1RequestService,
+        public serverService: Page2ServerService,
+        public parsedService: Page3ParsedService,
+        public factoryService: Page4FactoryService,
+        public dispatcherService: Page5DispatcherService,
+        public containerRefService: ContainerRefService,
     ) {
         super();
         this.initialize(PageComponent.extendsClassName, {
@@ -48,22 +42,8 @@ export class PageComponent extends NgFacadeSubscribeComponent implements OnInit,
         });
     }
 
-    public ngOnInit(): void {
-        evo.devicesScreen.screen.lighthouse$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((value) => {
-                setTimeout(() => {
-                    // без this.cdr.detectChanges() проблемно работает ресайз экрана. В начале 2 раза, а затем прекращает
-                    this.cdr.detectChanges();
-                }, 0);
-            });
-    }
-
     public ngOnDestroy(): void {
         super.ngOnDestroy();
-
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 
     public newPage(): void {

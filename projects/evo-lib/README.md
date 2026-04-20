@@ -38,6 +38,16 @@ public ngAfterViewInit(): void {
         evo.destroy(); // !!! Обязательно при выходе "из использования evo"
     }
 ```
+
+---
+## <span style="color:yellow">Использование BehaviorSubject в HTML</span>
+
+```angular2html
+<div *ngIf="evo.screen.lighthouse$ | async as info">
+    Тип экрана: {{ info.screen?.options?.type }}
+</div>
+```
+
 ---
 
 ## <span style="color:yellow">1. Install in WebStorm EVO snippets (implemented on Windows)</span>
