@@ -1,3 +1,4 @@
+
 <div class="device"
     [ngClass]="{
         'phone': screenInfo.screen.type === ScreenEnum.Phone,
@@ -5,8 +6,11 @@
         'desktop': screenInfo.screen.type === ScreenEnum.Desktop
     }"
 >
-    <p [ngClass]="{
+    <div [ngClass]="{
         'vertical': screenInfo.screen.orientation === OrientationScreenEnum.Vertical,
         'horizontal': screenInfo.screen.orientation === OrientationScreenEnum.Horizontal
-    }">page-desktop device works! - {{screenInfo.screen.options.proportions.width}} - {{screenInfo.screen.options.proportions.innerWidth}} </p>
+    }">
+        <p>932 - 1366 -  1500</p>
+        page-desktop device works! - {{screenInfo.screen.options.proportions.width}} - {{screenInfo.screen.options.proportions.innerWidth}}
+    </div>
 </div>
