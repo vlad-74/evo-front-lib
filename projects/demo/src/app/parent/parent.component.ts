@@ -33,7 +33,7 @@ export class ParentComponent implements OnInit, AfterViewInit {
                             name: exchangeNameEnum.RunAction,
                             data: {
                                 name: 'exchChangeText',
-                                arguments: ['Текст из родительского компонента переданный через систему exchange!!!'],
+                                arguments: ['Текст из родительского компонента переданный через +++МЕТОД+++'],
                             }
                         }
                     }
@@ -54,7 +54,7 @@ export class ParentComponent implements OnInit, AfterViewInit {
                             name: exchangeNameEnum.ChangeProperty,
                             data: {
                                 name: 'txt',
-                                value: '!!!',
+                                value: 'Переданный через ---СВОЙСТВО--- текст из родительского компонента ',
                             }
                         }
                     },
