@@ -34,6 +34,8 @@ export class ${className} extends NgExchangeSubscribeComponent implements OnDest
     @Input() filters: any;
     @Input() options: any;
 
+    public evo = evo;
+
     ScreenEnum = ScreenEnum;
     OrientationScreenEnum = OrientationScreenEnum;
 

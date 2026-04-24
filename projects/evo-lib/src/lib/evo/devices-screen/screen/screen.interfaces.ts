@@ -1,5 +1,6 @@
 import {BrowserEnum, OperatingSystemEnum, OrientationScreenEnum, ScreenEnum} from './screen.enum';
 import {TNullable} from '../../evo.interface';
+import {IDevices} from '../devices/devices';
 
 
 /** Тип экрана. */
@@ -10,7 +11,7 @@ export type TOrientation = OrientationScreenEnum.Horizontal | OrientationScreenE
 
 /** Интерфейс для информации об экране. */
 export interface IScreenInfo {
-    devices: {}; // полученный от пользователя конфиг об устройствах
+    devices: IDevices; // полученный от пользователя конфиг об устройствах
     screen: {
         type: TNullable<TScreen>; // Тип экрана
         orientation: TNullable<TOrientation>; // Ориентация экрана

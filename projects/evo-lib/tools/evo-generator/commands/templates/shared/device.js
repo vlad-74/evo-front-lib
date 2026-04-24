@@ -29,8 +29,13 @@ const getDeviceHtmlTemplate = (deviceName) => `<div class="device"
         'vertical': screenInfo.screen.orientation === OrientationScreenEnum.Vertical,
         'horizontal': screenInfo.screen.orientation === OrientationScreenEnum.Horizontal
     }">
-        <p>932 - 1366 -  1500</p>
-        ${deviceName} device works! - {{screenInfo.screen.options.proportions.width}} - {{screenInfo.screen.options.proportions.innerWidth}}
+                <h1>EVO AI :)</h1>
+        <p>${deviceName} device works! Страница - {{ (evo.dynamicWidth.maxPageWidth.lighthouse$ | async)?.maxPageWidth }}</p>
+        <p>Смартфон - {{screenInfo.devices.phoneMaxSize}}</p>
+        <p>Планшет - {{screenInfo.devices.tabletMaxSize}}</p>
+        <p>Монитор - {{screenInfo.devices.desktopMaxSize}}</p>
+        <p>ScreenWidth - {{screenInfo.screen.options.proportions.width}}</p>
+        <p>ScreenInnerWidth - {{screenInfo.screen.options.proportions.innerWidth}}</p>
     </div>
 </div>`;
 
