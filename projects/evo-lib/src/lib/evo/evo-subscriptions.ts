@@ -11,7 +11,7 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
     const { devicesScreen, log, data, dynamicWidth } = evo;
 
     const { devices, screen, screenService } = devicesScreen;
-    const { facade, dataWorker } = data;
+    const { facade, facadeWorker } = data;
 
     const { dynamicWorker } = dynamicWidth;
 
@@ -71,8 +71,8 @@ export function setupSubscriptions(evo: TEvo, libraryDestroy$: Subject<void>): v
             config
         );
 
-        // Получаем данные при помощи evo.data.services
-        dataWorker.run(config);
+        // в facadeWorker получаем данные при помощи evo.data.services
+        facadeWorker.execute(config);
     });
 }
 

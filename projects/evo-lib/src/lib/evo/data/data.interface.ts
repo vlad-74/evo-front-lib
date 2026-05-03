@@ -33,15 +33,15 @@ export type DataOperation = typeof dataOperations[number];
  * returnType - Необязательный тип данных результата (по умолчанию определяется по операции).
  *
  * @example
- * const result: IDataResult = {
- *   to: "LicenseListComponent",
+ * const result: IDataFacadeResult = {
+ *   for: "LicenseListComponent",
  *   type: 'pageList',
  *   result: [{ id: 1, name: "License A" }],
  *   returnType: GetDataTypeEnum.Licenses
  * };
  */
-export interface IDataResult {
-    to: string;
+export interface IDataFacadeResult {
+    for: string;
     type: DataOperation;
     result: any[];
     returnType?: GetDataTypeEnum;

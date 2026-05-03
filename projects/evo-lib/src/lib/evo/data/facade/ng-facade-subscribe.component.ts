@@ -2,7 +2,7 @@ import {Component, OnDestroy} from '@angular/core';
 
 import { Subject,  } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import {DataOperation, GetDataTypeEnum, IDataResult} from '../data.interface';
+import {DataOperation, GetDataTypeEnum, IDataFacadeResult} from '../data.interface';
 
 
 @Component({
@@ -17,7 +17,7 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
     protected constructor(
     ) {}
 
-    protected initialize(
+    protected initializeFacade(
         extendsClassName: string,
         services: {
             request: any;
@@ -27,11 +27,13 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
         }
     ): void {
         this.extendsClassName = extendsClassName;
-        this._createDataFacade(services);
+        this._setServicesForFacade(services);
         this._initEvoAng();
     }
 
     public ngOnDestroy(): void {
+        evo.data.services = null;
+
         this.destroyedStorageData$.next();
         this.destroyedStorageData$.complete();
     }
@@ -52,7 +54,7 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
         evo.data.storageData.lighthouse$
             .pipe(takeUntil(this.destroyedStorageData$))
             .subscribe((value: any) => {
-                this._checkSubscribe(value);
+                this._checkSubscribeAggregatorData(value);
             });
     }
 
@@ -69,7 +71,7 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
      * @param value - Объект данных, полученный из потока.
      *
      */
-    private _checkSubscribe(value: any): void {
+    private _checkSubscribeAggregatorData(value: any): void {
         if (!value) { return; }
 
         if (!this.extendsClassName || !value?.type ) {
@@ -85,7 +87,7 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
         }
     }
 
-    private _getReturnType(data: IDataResult): GetDataTypeEnum {
+    private _getReturnType(data: IDataFacadeResult): GetDataTypeEnum {
         return data.returnType === GetDataTypeEnum.Add ? GetDataTypeEnum.Add : GetDataTypeEnum.New;
     }
 
@@ -96,7 +98,7 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
      *
      * @param data - Объект с данными, сгруппированные по `data.type`.
      */
-    private _aggregatorData(data: IDataResult): void {
+    private _aggregatorData(data: IDataFacadeResult): void {
         if (data?.type) {
             const returnType = this._getReturnType(data);
 
@@ -136,7 +138,7 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
      * - парсингом полученных с сервера данных,
      * - преобразованием данных для html.
      */
-    private _createDataFacade(services: { request: any; server: any; parsed: any; factory: any }): void {
+    private _setServicesForFacade(services: { request: any; server: any; parsed: any; factory: any }): void {
         if (!evo.data.services) { return; }
 
         evo.data.services.request = services.request;

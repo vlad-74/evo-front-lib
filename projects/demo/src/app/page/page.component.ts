@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 import {ScreenEnum, NgFacadeSubscribeComponent} from 'evo-lib';
 
@@ -9,13 +9,14 @@ import { Page4FactoryService } from './services/page-4-factory.service';
 import { Page5DispatcherService } from './services/page-5-dispatcher.service';
 import {ParentComponent} from '../parent/parent.component';
 import {ContainerRefService} from '../service/container-ref.service';
+import {GetDataTypeEnum} from '../../../../evo-lib/src/lib/evo/data/data.interface';
 
 @Component({
     selector: 'evo-page',
     templateUrl: './page.component.html',
     styleUrls: ['./page.component.scss']
 })
-export class PageComponent extends NgFacadeSubscribeComponent implements OnDestroy{
+export class PageComponent extends NgFacadeSubscribeComponent implements OnInit, OnDestroy{
     static readonly extendsClassName = 'PageComponent';
 
     @Input() viewDataPage: any = {};
@@ -34,13 +35,25 @@ export class PageComponent extends NgFacadeSubscribeComponent implements OnDestr
         public containerRefService: ContainerRefService,
     ) {
         super();
-        this.initialize(PageComponent.extendsClassName, {
+        this.initializeFacade(PageComponent.extendsClassName, {
             request: requestService,
             server: serverService,
             parsed: parsedService,
             factory: factoryService
         });
     }
+
+    public ngOnInit(): void {
+        evo.data.facade.send$({
+            for: PageComponent.extendsClassName,
+            returnType: GetDataTypeEnum.New,
+            request: null,
+            server: null,
+            parsed: null,
+            factory: null,
+        });
+    }
+
 
     public ngOnDestroy(): void {
         super.ngOnDestroy();
