@@ -7,8 +7,8 @@ import { Page2ServerService } from './services/page-2-server.service';
 import { Page3ParsedService } from './services/page-3-parsed.service';
 import { Page4FactoryService } from './services/page-4-factory.service';
 import { Page5DispatcherService } from './services/page-5-dispatcher.service';
-import {ParentComponent} from '../parent/parent.component';
-import {ContainerRefService} from '../service/container-ref.service';
+import { ParentComponent } from '../parent/parent.component';
+import { ContainerRefService } from '../service/container-ref.service';
 
 @Component({
     selector: 'evo-page',
