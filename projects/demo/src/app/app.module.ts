@@ -14,18 +14,22 @@ import { PageDesktopComponent } from './page/devices/page-desktop/page-desktop.c
 
 
 @NgModule({
-    declarations: [AppComponent,
+    declarations: [
+        AppComponent,
         ChildComponent,
         ParentComponent,
         PageComponent,
         PageCommonDevicesComponent,
         PagePhoneComponent,
         PageTabletComponent,
-        PageDesktopComponent],
+        PageDesktopComponent
+    ],
     imports: [
-    BrowserModule, EvoLibModule, HttpClientModule,
+        BrowserModule, EvoLibModule, HttpClientModule,
     ],
     providers: [],
-    bootstrap: [AppComponent]
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule { }

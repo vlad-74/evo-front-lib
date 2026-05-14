@@ -72,9 +72,10 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
      *
      */
     private _checkSubscribeAggregatorData(value: any): void {
+
         if (!value) { return; }
 
-        if (!this.extendsClassName || !value?.type ) {
+        if (!this.extendsClassName || !value?.returnType || !value?.dataOperation) {
             throw new Error(`Ошибка в NgFacadeSubscribeComponent`);
         }
 
@@ -99,23 +100,23 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
      * @param data - Объект с данными, сгруппированные по `data.type`.
      */
     private _aggregatorData(data: IDataFacadeResult): void {
-        if (data?.type) {
+        if (data?.dataOperation) {
             const returnType = this._getReturnType(data);
 
             if (returnType === GetDataTypeEnum.New) {
-                this.dataPage[data.type] = data?.result ?? null;
+                this.dataPage[data.dataOperation] = data?.result ?? null;
             } else {
                 if (returnType === GetDataTypeEnum.Add && !Array.isArray(data?.result)) {
                     throw new Error(`Ожидался массив для добавления, получено: ${typeof data?.result} - ${data?.result}`);
                 }
 
-                const current = Array.isArray(this.dataPage[data.type]) ? this.dataPage[data.type] : [];
+                const current = Array.isArray(this.dataPage[data.dataOperation]) ? this.dataPage[data.dataOperation] : [];
                 const incoming = Array.isArray(data?.result) ? data.result : [];
 
-                this.dataPage[data.type] = [...current, ...incoming];
+                this.dataPage[data.dataOperation] = [...current, ...incoming];
             }
 
-            this.onChangeViewData(data.type);
+            this.onChangeViewData(data.dataOperation);
         }
 
     }
@@ -139,13 +140,13 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
      * - преобразованием данных для html.
      */
     private _setServicesForFacade(services: { request: any; server: any; parsed: any; factory: any }): void {
-        if (!evo.data.services) { return; }
-
-        evo.data.services.request = services.request;
-        evo.data.services.server = services.server;
-        evo.data.services.parsed = services.parsed;
-        evo.data.services.factory = services.factory;
+        if (!evo.data.services) {
+            evo.data.services = {
+                request:  services.request,
+                server:  services.server,
+                parsed: services.parsed,
+                factory:  services.factory,
+            };
+        }
     }
-
-
 }

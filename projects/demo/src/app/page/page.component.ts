@@ -9,7 +9,6 @@ import { Page4FactoryService } from './services/page-4-factory.service';
 import { Page5DispatcherService } from './services/page-5-dispatcher.service';
 import {ParentComponent} from '../parent/parent.component';
 import {ContainerRefService} from '../service/container-ref.service';
-import {GetDataTypeEnum} from '../../../../evo-lib/src/lib/evo/data/data.interface';
 
 @Component({
     selector: 'evo-page',
@@ -44,14 +43,7 @@ export class PageComponent extends NgFacadeSubscribeComponent implements OnInit,
     }
 
     public ngOnInit(): void {
-        evo.data.facade.send$({
-            for: PageComponent.extendsClassName,
-            returnType: GetDataTypeEnum.New,
-            request: null,
-            server: null,
-            parsed: null,
-            factory: null,
-        });
+        this.dispatcherService.start(PageComponent.extendsClassName);
     }
 
 

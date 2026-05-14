@@ -1,6 +1,6 @@
 // commands/templates/page-data/main.js
 
-const getMainTemplate = (componentName, styleType, className, componentPascal) => `import {Component, Input, OnDestroy} from '@angular/core';
+const getMainTemplate = (componentName, styleType, className, componentPascal) => `import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 import {ScreenEnum, NgFacadeSubscribeComponent} from 'evo-lib';
 
@@ -18,7 +18,7 @@ import {ContainerRefService} from '../service/container-ref.service';
     templateUrl: './${componentName}.component.html',
     styleUrls: ['./${componentName}.component.${styleType}']
 })
-export class ${className}Component extends NgFacadeSubscribeComponent implements OnDestroy{
+export class ${className}Component extends NgFacadeSubscribeComponent implements OnInit, OnDestroy {
     static readonly extendsClassName = '${className}Component';
 
     @Input() viewDataPage: any = {};
@@ -37,12 +37,16 @@ export class ${className}Component extends NgFacadeSubscribeComponent implements
         public containerRefService: ContainerRefService,
     ) {
         super();
-        this.initialize(${className}Component.extendsClassName, {
+        this.initializeFacade(${className}Component.extendsClassName, {
             request: requestService,
             server: serverService,
             parsed: parsedService,
             factory: factoryService
         });
+    }
+
+    public ngOnInit(): void {
+        this.dispatcherService.start(${className}Component.extendsClassName);
     }
 
     public ngOnDestroy(): void {

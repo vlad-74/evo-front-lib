@@ -42,7 +42,7 @@ export type DataOperation = typeof dataOperations[number];
  */
 export interface IDataFacadeResult {
     for: string;
-    type: DataOperation;
+    dataOperation: DataOperation;
     result: any[];
     returnType?: GetDataTypeEnum;
 }

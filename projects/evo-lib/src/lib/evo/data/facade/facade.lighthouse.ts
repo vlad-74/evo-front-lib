@@ -1,6 +1,6 @@
 /** Маяк для оповещения о экране в котором находится страница */
 import {BaseLighthouse} from '../../_lighthouse/base-lighthouse';
-import {GetDataTypeEnum} from '../data.interface';
+import {DataOperation, GetDataTypeEnum} from '../data.interface';
 import {TNullable} from '../../evo.interface';
 
 export interface IParamsFacade {
@@ -9,6 +9,7 @@ export interface IParamsFacade {
 
 export interface IFacade {
     for: string;
+    dataOperation: DataOperation;
     returnType: GetDataTypeEnum;
     request: TNullable<IParamsFacade>;
     server: TNullable<IParamsFacade>;
