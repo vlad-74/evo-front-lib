@@ -15,12 +15,13 @@ import {IDom} from './dom/dom';
 export type TNullable<T> = T | null;
 
 export type TEvo = {
+    /** Режим разработки */
     isLocalhost: boolean;
 
     /**  Полная очистка всех подписок и ресурсов */
     destroy: () => void;
 
-    /**  Строка с подсказкой — например, список доступных команд или справка по API */
+    /** Информационная система "про EVO" */
     help: string;
 
     /**  Инструменты отладки (например, включение/выключение логов) */
@@ -44,7 +45,7 @@ export type TEvo = {
     /** Сервис для безопасной обработки Promise с централизованной системой ошибок */
     awaitTryCatch: IAwaitTryCatchService;
 
-    /** Сервис для создания страниц */
+    /** Сервис для создания и удаления страниц */
     createPage: CreatePageService,
 
     /** Работа с данными */

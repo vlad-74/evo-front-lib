@@ -51,6 +51,7 @@ const evoStart = {
         window.removeEventListener('resize', resizeHandler);
     },
 
+    /** Режим разработки */
     isLocalhost,
 
     /** Инструменты отладки (например, включение/выключение логов) */
@@ -64,6 +65,8 @@ const evoStart = {
 // Этап 2: полная инициализация с остальными полями
 export const evoBase: TEvo = {
     ...evoStart,
+
+    /** Информационная система "про EVO" */
     help: 'раздел в разработке',
 
     /** Управление экранами устройств */
@@ -83,7 +86,10 @@ export const evoBase: TEvo = {
 
     /** Сервис для создания страниц */
     createPage: {
+        /** Создаёт компонент в указанном контейнере */
         send: (config: ICreatePage) => pageService.send(config),
+
+        /** Удаляет все компоненты из контейнера */
         clearContainer: (vcr: ViewContainerRef) => pageService.clearContainer(vcr),
     } as CreatePageService,
 
