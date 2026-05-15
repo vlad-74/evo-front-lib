@@ -15,10 +15,7 @@ import {ICreatePage, CreatePageService} from './create-page/create-page.service'
 import {ViewContainerRef} from '@angular/core';
 import {Data} from './data/data';
 import {DynamicWidth} from './dynamic-width/dynamic-width';
-import {DomClassWorker} from './dom/dom-class.worker';
-import {DomElementWorker} from './dom/dom-element.worker';
-import {DomStyleWorker} from './dom/dom-style.worker';
-import {DomVariablesWorker} from './dom/dom-variables.worker';
+import {Dom} from './dom/dom';
 
 // Сохраняем экземпляр, созданный через DI
 
@@ -56,10 +53,10 @@ const evoStart = {
 
     isLocalhost,
 
-    /**  Инструменты отладки (например, включение/выключение логов) */
+    /** Инструменты отладки (например, включение/выключение логов) */
     debug: evoLoggingAccessType,
 
-    /**  Система логирования */
+    /** Система логирования */
     log: logService,
 };
 
@@ -69,17 +66,17 @@ export const evoBase: TEvo = {
     ...evoStart,
     help: 'раздел в разработке',
 
-    /**  Управление экранами устройств */
+    /** Управление экранами устройств */
     devicesScreen:  new DevicesScreen(),
 
-    /**  Тема интерфейса (цвета, стили и т.д.) */
+    /** Тема интерфейса (цвета, стили и т.д.) */
     theme: new ThemeLighthouse(),
 
     /** Система взаимодействия между компонентами */
     exchange: new ExchangeLighthouse(),
 
     /** Проверка компонентов при extends */
-    checkEvo: new CheckEvoWorker(),
+    _checkEvo: new CheckEvoWorker(),
 
     /** Сервис для безопасной обработки Promise с централизованной системой ошибок */
     awaitTryCatch: new AwaitTryCatchService(),
@@ -96,12 +93,8 @@ export const evoBase: TEvo = {
     /** Максимальная ширина страницы */
     dynamicWidth: new DynamicWidth(),
 
-    dom: {
-        var: new DomVariablesWorker(document),
-        element: new DomElementWorker(document),
-        class: new DomClassWorker(document),
-        style: new DomStyleWorker(document),
-    }
+    /** Сервисы для работы с DOM */
+    dom: new Dom(),
 
 };
 

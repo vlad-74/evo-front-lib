@@ -41,9 +41,9 @@ export abstract  class NgFacadeSubscribeComponent implements OnDestroy {
 
     private _initEvoAng(): void {
         if (evo.isLocalhost) {
-            evo.checkEvo.checkLogClassName(this);
+            evo._checkEvo.checkLogClassName(this);
 
-            evo.checkEvo.checkLogNgOnDestroy(this);
+            evo._checkEvo.checkLogNgOnDestroy(this);
         }
 
         this._subscribeStorageData();

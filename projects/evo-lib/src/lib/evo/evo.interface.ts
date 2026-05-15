@@ -9,10 +9,7 @@ import {IExchangeSource} from './exchange/exchange.interface';
 import {CreatePageService} from './create-page/create-page.service';
 import {IData} from './data/data';
 import {IDynamicWidth} from './dynamic-width/dynamic-width';
-import {IDomClassWorker} from './dom/dom-class.worker';
-import {IDomStyleWorker} from './dom/dom-style.worker';
-import {IDomVariablesWorker} from './dom/dom-variables.worker';
-import {IDomElementWorker} from './dom/element.interface';
+import {IDom} from './dom/dom';
 
 
 export type TNullable<T> = T | null;
@@ -42,7 +39,7 @@ export type TEvo = {
     exchange: ILighthouse<IExchangeSource>;
 
     /** Проверка компонентов при extends */
-    checkEvo: any;
+    _checkEvo: any;
 
     /** Сервис для безопасной обработки Promise с централизованной системой ошибок */
     awaitTryCatch: IAwaitTryCatchService;
@@ -56,10 +53,6 @@ export type TEvo = {
     /** Максимальная ширина страницы */
     dynamicWidth: IDynamicWidth;
 
-    dom: {
-        class: IDomClassWorker;
-        element: IDomElementWorker;
-        style: IDomStyleWorker;
-        var: IDomVariablesWorker;
-    };
+    /** Сервисы для работы с DOM */
+    dom: IDom;
 };
